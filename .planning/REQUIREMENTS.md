@@ -116,13 +116,51 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TBD | TBD | Pending |
+| CAL-01 | Phase 3 | Pending |
+| CAL-02 | Phase 1 | Pending |
+| CAL-03 | Phase 3 | Pending |
+| CAL-04 | Phase 3 | Pending |
+| HOL-01 | Phase 1 | Pending |
+| HOL-02 | Phase 1 | Pending |
+| HOL-03 | Phase 3 | Pending |
+| HOL-04 | Phase 1 | Pending |
+| HOL-05 | Phase 1 | Pending |
+| HOL-06 | Phase 1 | Pending |
+| VAC-01 | Phase 2 | Pending |
+| VAC-02 | Phase 2 | Pending |
+| VAC-03 | Phase 2 | Pending |
+| VAC-04 | Phase 2 | Pending |
+| VAC-05 | Phase 2 | Pending |
+| VAC-06 | Phase 2 | Pending |
+| VAC-07 | Phase 2 | Pending |
+| VAC-08 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 4 | Pending |
+| AUTH-04 | Phase 4 | Pending |
+| AUTH-05 | Phase 4 | Pending |
+| AUTH-06 | Phase 4 | Pending |
+| AUTH-07 | Phase 4 | Pending |
+| AUTH-08 | Phase 4 | Pending |
+| UX-01 | Phase 3 | Pending |
+| UX-02 | Phase 5 | Pending |
+| UX-03 | Phase 5 | Pending |
+| UX-04 | Phase 5 | Pending |
+| UX-05 | Phase 3 | Pending |
+| UX-06 | Phase 5 | Pending |
+| TECH-01 | Phase 1 | Pending |
+| TECH-02 | Phase 6 | Pending |
+| TECH-03 | Phase 6 | Pending |
+| TECH-04 | Phase 6 | Pending |
+| TECH-05 | Phase 1 | Pending |
+| TECH-06 | Phase 1 | Pending |
+| TECH-07 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0
-- Unmapped: 33 ⚠️
+- Mapped to phases: 33
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-18*
-*Last updated: 2026-01-18 after initial definition*
+*Last updated: 2026-01-18 after roadmap creation*
