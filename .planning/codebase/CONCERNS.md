@@ -157,6 +157,20 @@
 - Risk: Cannot verify user flows; integration issues undetected
 - Priority: Medium - can be added after unit tests established
 
+## AI & Process Risks
+
+**Over-Refactoring Risk:**
+- AI-assisted changes may introduce unnecessary refactors or architectural changes.
+- Mitigation: strict scope constraints, minimal diffs, plan-first execution.
+
+**Context Drift Risk:**
+- Long-running AI sessions can drift from original intent.
+- Mitigation: rely on PROJECT.md, CONVENTIONS.md, and phased GSD workflow.
+
+**Unreviewed Change Risk:**
+- Large AI-generated diffs increase regression probability.
+- Mitigation: small phases, explicit plans, human review before merge.
+
 ---
 
 *Concerns audit: 2026-01-17*

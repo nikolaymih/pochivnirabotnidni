@@ -144,4 +144,71 @@
 
 ---
 
+# Research-Locked Constraints (Mandatory)
+
+## Library & Architecture Locks
+- **Do NOT use full calendar libraries** (e.g. FullCalendar, React Big Calendar).
+- Calendar UI must be **custom-built** as described in research.
+- **date-fns is mandatory** for all date parsing, formatting, and calculations.
+- Do NOT use moment.js, dayjs, or native Date math for differences.
+- React Server Components are default; Client Components only for interactivity.
+
+## Phase Discipline
+- Implementation must follow the defined phases in PROJECT.md / research summary.
+- Do NOT implement features from later phases early.
+- If a task belongs to a future phase, stop and ask before proceeding.
+
+## Risk-Aware Execution
+- Any date-related change MUST consider:
+  - Safari compatibility
+  - DST boundaries
+  - Timezone handling (EET/EEST)
+- Date logic changes require tests covering edge cases.
+- Performance-sensitive features (year view) must not be implemented without explicit planning and benchmarks.
+
+## Decision Freezing
+- Stack and architectural decisions documented in research are **locked**.
+- Reconsidering them requires explicit user approval.
+
+## Language & Localization
+- **All user-facing text MUST be in Bulgarian language with Cyrillic alphabet**.
+- This includes: day names, month names, labels, tooltips, buttons, error messages, page titles, metadata.
+- Code comments and variable names may remain in English.
+- Apply to all phases - existing English text must be updated.
+
+---
+
+# Change & Execution Constraints (Mandatory)
+
+### Scope Control
+- Prefer the **smallest possible diff** that achieves the goal.
+- **Do not refactor existing code** unless explicitly instructed.
+- Touch **only files required** for the current phase or task.
+- Preserve existing patterns, naming, and folder structure.
+- If unsure whether a change is needed, **ask before editing**.
+
+### Dependency Rules
+- **Do not add new dependencies** without explicit approval.
+- Avoid premature abstractions and over-engineering.
+- Reuse existing utilities and patterns before introducing new ones.
+
+### Planning Requirements (GSD-aligned)
+- **Always plan before coding**.
+- Plans must list the **exact files** to be modified.
+- Large or risky plans must be reviewed before execution.
+- If requirements are unclear, ask clarifying questions first.
+
+### Testing & Verification
+- Tests must pass before work is considered done.
+- If no tests exist, add **minimal meaningful tests** (no coverage theater).
+- Use `/gsd:verify-work` after execution.
+- If verification fails, fix and re-verify.
+
+### Behavioral Expectations
+- Do not invent features, APIs, or behavior not specified.
+- Avoid unnecessary rewrites or formatting-only changes.
+- Assume all changes will be human-reviewed; keep diffs auditable.
+
+---
+
 *Convention analysis: 2026-01-17*

@@ -64,6 +64,11 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **TECH-06**: Server Components used by default; Client Components only for interactivity
 - [ ] **TECH-07**: Date storage uses ISO date strings, not timestamps
 
+### Internationalization
+
+- [ ] **INTL-01**: All user-facing text displays in Bulgarian language
+- [ ] **INTL-02**: All text uses Cyrillic alphabet throughout the application (day names, month names, labels, tooltips, buttons, messages)
+
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
@@ -155,10 +160,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TECH-05 | Phase 1 | Pending |
 | TECH-06 | Phase 1 | Pending |
 | TECH-07 | Phase 1 | Pending |
+| INTL-01 | Phase 5 | Pending |
+| INTL-02 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 33 total
-- Mapped to phases: 33
+- v1 requirements: 35 total
+- Mapped to phases: 35
 - Unmapped: 0 ✓
 
 ---
