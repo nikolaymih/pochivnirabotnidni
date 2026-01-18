@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 1 of 6 (Foundation & Static Holiday View)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-18 — Completed 01-01-PLAN.md (Holiday Data Layer)
+Last activity: 2026-01-18 — Completed 01-02-PLAN.md (Calendar UI)
 
-Progress: [███░░░░░░░] 33% (Phase 1: 1/3 plans)
+Progress: [██████░░░░] 67% (Phase 1: 2/3 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 1 min 51 sec
-- Total execution time: 0.03 hours
+- Total plans completed: 2
+- Average duration: 2 min 30 sec
+- Total execution time: 0.08 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1 - Foundation & Static Holiday View | 1 | 1m 51s | 1m 51s |
+| 1 - Foundation & Static Holiday View | 2 | 5m 0s | 2m 30s |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (1m 51s)
-- Trend: First plan completed
+- Last 5 plans: 01-01 (1m 51s), 01-02 (3m 9s)
+- Trend: Consistent fast execution
 
 *Updated after each plan completion*
 
@@ -47,6 +47,12 @@ Recent decisions affecting current work:
 - Store dates as ISO strings (YYYY-MM-DD) without time component per TECH-07
 - 24-hour cache for OpenHolidays API to reduce external dependency
 - Static JSON fallback ensures calendar never breaks from API downtime
+
+**From 01-02 (Calendar UI):**
+- Use getCurrentDate() with startOfDay() for Safari-safe today calculation
+- Convert getDay() Sunday-first to Monday-first (ISO 8601 Bulgarian standard)
+- Server Components by default - no interactivity needed yet
+- CSS Grid with gridColumnStart for correct first day positioning
 
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
@@ -69,7 +75,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-18T17:33:54Z (plan execution)
-Stopped at: Completed 01-01-PLAN.md - Holiday data layer with multi-layer fallback
+Last session: 2026-01-18T17:39:22Z (plan execution)
+Stopped at: Completed 01-02-PLAN.md - Calendar UI with Monday-first weeks and Server Components
 Resume file: None
-Next: Execute 01-02-PLAN.md (Calendar UI)
+Next: Execute 01-03-PLAN.md (Year View)
