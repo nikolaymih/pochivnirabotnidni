@@ -1,0 +1,72 @@
+[
+  {
+    "name": "New Year's Day",
+    "date": "2026-01-01",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Liberation Day",
+    "date": "2026-03-03",
+    "type": "National Holiday"
+  },
+  {
+    "name": "Good Friday",
+    "date": "2026-04-17",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Holy Saturday",
+    "date": "2026-04-18",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Easter Sunday",
+    "date": "2026-04-19",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Easter Monday",
+    "date": "2026-04-20",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Labour Day",
+    "date": "2026-05-01",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "St. George's Day",
+    "date": "2026-05-06",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Education and Culture Day",
+    "date": "2026-05-24",
+    "type": "National Holiday"
+  },
+  {
+    "name": "Unification Day",
+    "date": "2026-09-06",
+    "type": "National Holiday"
+  },
+  {
+    "name": "Independence Day",
+    "date": "2026-09-22",
+    "type": "National Holiday"
+  },
+  {
+    "name": "Christmas Eve",
+    "date": "2026-12-24",
+    "type": "Observance"
+  },
+  {
+    "name": "Christmas Day",
+    "date": "2026-12-25",
+    "type": "Public Holiday"
+  },
+  {
+    "name": "Second Day of Christmas",
+    "date": "2026-12-26",
+    "type": "Public Holiday"
+  }
+]
