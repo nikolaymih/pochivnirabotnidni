@@ -1,4 +1,5 @@
 import type { Holiday } from '@/lib/holidays/types';
+import DayTooltip from './DayTooltip';
 
 interface CalendarDayProps {
   day: number;
@@ -26,7 +27,7 @@ export default function CalendarDay({
       `}
     >
       <span className="font-medium">{day}</span>
-      {/* Tooltip will be added in next plan as Client Component */}
+      {holiday && <DayTooltip holiday={holiday} />}
     </div>
   );
 }
