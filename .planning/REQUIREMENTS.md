@@ -122,15 +122,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CAL-01 | Phase 3 | Pending |
-| CAL-02 | Phase 1 | Pending |
+| CAL-02 | Phase 1 | Complete |
 | CAL-03 | Phase 3 | Pending |
 | CAL-04 | Phase 3 | Pending |
-| HOL-01 | Phase 1 | Pending |
-| HOL-02 | Phase 1 | Pending |
+| HOL-01 | Phase 1 | Complete |
+| HOL-02 | Phase 1 | Complete |
 | HOL-03 | Phase 3 | Pending |
-| HOL-04 | Phase 1 | Pending |
-| HOL-05 | Phase 1 | Pending |
-| HOL-06 | Phase 1 | Pending |
+| HOL-04 | Phase 1 | Complete |
+| HOL-05 | Phase 1 | Complete |
+| HOL-06 | Phase 1 | Complete |
 | VAC-01 | Phase 2 | Pending |
 | VAC-02 | Phase 2 | Pending |
 | VAC-03 | Phase 2 | Pending |
@@ -153,13 +153,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-04 | Phase 5 | Pending |
 | UX-05 | Phase 3 | Pending |
 | UX-06 | Phase 5 | Pending |
-| TECH-01 | Phase 1 | Pending |
+| TECH-01 | Phase 1 | Complete |
 | TECH-02 | Phase 6 | Pending |
 | TECH-03 | Phase 6 | Pending |
 | TECH-04 | Phase 6 | Pending |
-| TECH-05 | Phase 1 | Pending |
-| TECH-06 | Phase 1 | Pending |
-| TECH-07 | Phase 1 | Pending |
+| TECH-05 | Phase 1 | Complete |
+| TECH-06 | Phase 1 | Complete |
+| TECH-07 | Phase 1 | Complete |
 | INTL-01 | Phase 5 | Pending |
 | INTL-02 | Phase 5 | Pending |
 
