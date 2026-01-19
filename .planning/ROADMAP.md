@@ -12,7 +12,7 @@ This roadmap delivers a Bulgarian holiday calendar with personal vacation tracki
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Static Holiday View** - Establish date handling, API integration, and basic calendar
+- [x] **Phase 1: Foundation & Static Holiday View** - Establish date handling, API integration, and basic calendar
 - [ ] **Phase 2: Anonymous Vacation Tracking** - Core vacation tracking with localStorage (no auth required)
 - [ ] **Phase 3: Full-Year Calendar & Performance** - 12-month view with bridge day suggestions
 - [ ] **Phase 4: Authentication & Cross-Device Sync** - Google auth with Supabase backend
@@ -38,7 +38,7 @@ Plans:
 - [x] 01-01-PLAN.md — Holiday data layer with OpenHolidays API integration and Safari-safe date handling
 - [x] 01-02-PLAN.md — Calendar UI components with month view grid and legend
 - [x] 01-03-PLAN.md — Interactive tooltips and main page integration
-- [ ] 01-04-PLAN.md — Bulgarian/Cyrillic localization (gap closure for INTL-01, INTL-02)
+- [x] 01-04-PLAN.md — Bulgarian/Cyrillic localization (gap closure for INTL-01, INTL-02)
 
 ### Phase 2: Anonymous Vacation Tracking
 **Goal**: Users can track personal vacation days and see remaining balance without authentication
@@ -52,10 +52,11 @@ Plans:
   5. User can remove previously marked vacation days
   6. Vacation data persists in browser localStorage across sessions
   7. User cannot mark the same date as vacation multiple times
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 02-01-PLAN.md — localStorage hook, vacation types, and drag selection state management
+- [ ] 02-02-PLAN.md — Vacation summary panel with inline editing and visual integration
 
 ### Phase 3: Full-Year Calendar & Performance
 **Goal**: Users can view all 12 months simultaneously with bridge day suggestions and smooth performance
@@ -127,8 +128,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Static Holiday View | 3/4 | In Progress | - |
-| 2. Anonymous Vacation Tracking | 0/TBD | Not started | - |
+| 1. Foundation & Static Holiday View | 4/4 | ✅ Complete | 2026-01-19 |
+| 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
 | 3. Full-Year Calendar & Performance | 0/TBD | Not started | - |
 | 4. Authentication & Cross-Device Sync | 0/TBD | Not started | - |
 | 5. UX Polish & Mobile Optimization | 0/TBD | Not started | - |
