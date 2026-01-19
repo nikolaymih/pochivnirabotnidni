@@ -2,6 +2,7 @@ import { getYear } from 'date-fns';
 import { getHolidays } from '@/lib/holidays/fetch';
 import Calendar from '@/components/Calendar';
 import Legend from '@/components/Legend';
+import VacationSummary from '@/components/VacationSummary';
 
 export default async function HomePage() {
   const currentDate = new Date();
@@ -24,6 +25,7 @@ export default async function HomePage() {
         </div>
         <div className="lg:col-span-1">
           <Legend />
+          <VacationSummary />
         </div>
       </div>
     </main>

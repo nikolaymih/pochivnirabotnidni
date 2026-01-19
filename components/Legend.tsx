@@ -15,6 +15,10 @@ export default function Legend() {
           <div className="w-6 h-6 border-2 border-blue-500 rounded"></div>
           <span className="text-sm">Днес</span>
         </div>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-blue-100 border border-gray-300 rounded"></div>
+          <span className="text-sm">Лична почивка</span>
+        </div>
       </div>
     </div>
   );

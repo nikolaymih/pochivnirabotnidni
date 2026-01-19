@@ -30,6 +30,7 @@ export default function CalendarDay({
       className={`
         relative p-3 text-center border rounded min-h-[3rem]
         cursor-pointer select-none
+        ${isVacation && !holiday ? 'bg-blue-100' : ''}
         ${holiday ? 'bg-red-500 text-white' : ''}
         ${isWeekend && !holiday ? 'bg-gray-100' : ''}
         ${isToday ? 'ring-2 ring-blue-500' : ''}
