@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Foundation & Static Holiday View
 **Goal**: Users can view Bulgarian holidays in a mobile-responsive calendar with reliable date handling
 **Depends on**: Nothing (first phase)
-**Requirements**: HOL-01, HOL-02, HOL-04, HOL-05, HOL-06, CAL-02, TECH-01, TECH-05, TECH-06, TECH-07
+**Requirements**: HOL-01, HOL-02, HOL-04, HOL-05, HOL-06, CAL-02, TECH-01, TECH-05, TECH-06, TECH-07, INTL-01, INTL-02
 **Success Criteria** (what must be TRUE):
   1. User can view 2026 Bulgarian holidays in a calendar (month view)
   2. Official holidays display in red color with correct dates
@@ -32,10 +32,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Legend displays explaining holiday color meanings
   5. Calendar works correctly in Safari and Chrome browsers
   6. Calendar displays current date with visual indicator
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD during planning
+- [x] 01-01-PLAN.md — Holiday data layer with OpenHolidays API integration and Safari-safe date handling
+- [x] 01-02-PLAN.md — Calendar UI components with month view grid and legend
+- [x] 01-03-PLAN.md — Interactive tooltips and main page integration
+- [ ] 01-04-PLAN.md — Bulgarian/Cyrillic localization (gap closure for INTL-01, INTL-02)
 
 ### Phase 2: Anonymous Vacation Tracking
 **Goal**: Users can track personal vacation days and see remaining balance without authentication
@@ -124,7 +127,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Static Holiday View | 3/3 | ✓ Complete | 2026-01-18 |
+| 1. Foundation & Static Holiday View | 3/4 | In Progress | - |
 | 2. Anonymous Vacation Tracking | 0/TBD | Not started | - |
 | 3. Full-Year Calendar & Performance | 0/TBD | Not started | - |
 | 4. Authentication & Cross-Device Sync | 0/TBD | Not started | - |

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pochivni Rabotni Dni - Bulgarian Holidays Calendar 2026",
-  description: "View Bulgarian public holidays and plan your vacation days with an interactive calendar for 2026",
+  title: "Почивни Работни Дни - Календар с Български Празници 2026",
+  description: "Преглед на българските официални празници и планиране на вашите дни за отпуск с интерактивен календар за 2026",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="bg">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

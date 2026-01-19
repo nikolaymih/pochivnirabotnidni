@@ -1,4 +1,5 @@
 import { format, isSameDay } from 'date-fns';
+import { bg } from 'date-fns/locale';
 import { getCalendarGrid } from '@/lib/calendar/grid';
 import { parseDate, getCurrentDate } from '@/lib/calendar/dates';
 import type { Holiday } from '@/lib/holidays/types';
@@ -18,13 +19,16 @@ export default function Calendar({ year, month, holidays }: CalendarProps) {
   return (
     <div className="border rounded-lg p-4">
       <h2 className="text-xl font-semibold mb-4">
-        {format(firstDay, 'MMMM yyyy')}
+        {(() => {
+          const monthYear = format(firstDay, 'MMMM yyyy', { locale: bg });
+          return monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+        })()}
       </h2>
 
       {/* Grid: 7 columns for Mon-Sun */}
       <div className="grid grid-cols-7 gap-1">
         {/* Day headers - Monday first per context decision */}
-        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
+        {['Пон', 'Вто', 'Сря', 'Чет', 'Пет', 'Съб', 'Нед'].map(day => (
           <div key={day} className="text-center font-medium text-sm py-2">
             {day}
           </div>

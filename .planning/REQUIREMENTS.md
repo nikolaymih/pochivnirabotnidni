@@ -160,8 +160,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TECH-05 | Phase 1 | Complete |
 | TECH-06 | Phase 1 | Complete |
 | TECH-07 | Phase 1 | Complete |
-| INTL-01 | Phase 5 | Pending |
-| INTL-02 | Phase 5 | Pending |
+| INTL-01 | Phase 1 | Pending |
+| INTL-02 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 35 total
