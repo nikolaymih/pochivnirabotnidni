@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Phase: 2 of 6 (Anonymous Vacation Tracking)
-Plan: 1 of 4 complete (02-01: localStorage Foundation & Vacation State)
+Phase: 3 of 6 (Full-Year Calendar & Performance)
+Plan: 1 of 4 complete (03-02: MonthGrid Component)
 Status: In progress
-Last activity: 2026-01-19 — Completed 02-01-PLAN.md (localStorage hook and vacation state)
+Last activity: 2026-01-22 — Completed 03-02-PLAN.md (MonthGrid Server Component)
 
-Progress: [██░░░░░░░░] 20% (5 of 25 plans complete across all phases)
+Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 1 min 30 sec
-- Total execution time: 0.13 hours
+- Total plans completed: 6
+- Average duration: 1 min 45 sec
+- Total execution time: 0.18 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [██░░░░░░░░] 20% (5 of 25 plans complete across al
 |-------|-------|-------|----------|
 | 1 - Foundation & Static Holiday View | 4 | 5m 7s | 1m 17s |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
+| 3 - Full-Year Calendar & Performance | 1 | 2m 42s | 2m 42s |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (3m 9s), 01-03 (7s), 01-04 (manual), 02-01 (2m 5s)
-- Trend: Phase 2 started, localStorage foundation established
+- Last 5 plans: 01-03 (7s), 01-04 (manual), 02-01 (2m 5s), 03-02 (2m 42s)
+- Trend: Phase 3 started, MonthGrid component foundation established
 
 *Updated after each plan completion*
 
@@ -75,6 +76,13 @@ Recent decisions affecting current work:
 - ISO date strings (yyyy-MM-dd) for vacation dates matching Phase 1 TECH-07 decision
 - Default 20 vacation days (Bulgarian standard)
 
+**From 03-02 (MonthGrid Component):**
+- MonthGrid is Server Component - receives vacationDates as prop instead of accessing context
+- Compact mode by default (text-xs, gap-1, p-2) for 12-month grid scalability
+- Single-letter day headers (П, В, С, Ч, П, С, Н) for compact view
+- Set-based date lookups for O(1) performance at scale
+- Server Component vacation data wiring pattern: props down from client wrapper
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -96,7 +104,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-19 (automated execution)
-Stopped at: Completed 02-01-PLAN.md - localStorage Foundation & Vacation State (Phase 2 in progress: 1/4 plans)
+Last session: 2026-01-22 (automated execution)
+Stopped at: Completed 03-02-PLAN.md - MonthGrid Component (Phase 3 in progress: 1/4 plans)
 Resume file: None
-Next: Continue Phase 2 with Plan 02-02 (Vacation Summary Panel with balance display and inline editing)
+Next: Continue Phase 3 with Plan 03-01 (Bridge Day Detection) or 03-03 (Full-Year Layout)
