@@ -69,10 +69,13 @@ Plans:
   4. Calendar renders within 3 seconds on mobile devices
   5. User sees clear visual distinction between holidays, bridge days, and personal vacation
   6. Full-year view performs smoothly with 365 days displayed
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 03-01-PLAN.md — Bridge day detection logic with tests
+- [ ] 03-02-PLAN.md — MonthGrid Server Component with compact layout
+- [ ] 03-03-PLAN.md — FullYearCalendar with responsive 12-month grid
+- [ ] 03-04-PLAN.md — Performance measurement and optimization
 
 ### Phase 4: Authentication & Cross-Device Sync
 **Goal**: Users can authenticate with Google and sync vacation data across devices
@@ -130,7 +133,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation & Static Holiday View | 4/4 | ✅ Complete | 2026-01-19 |
 | 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
-| 3. Full-Year Calendar & Performance | 0/TBD | Not started | - |
+| 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/TBD | Not started | - |
 | 5. UX Polish & Mobile Optimization | 0/TBD | Not started | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
