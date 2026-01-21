@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 3 of 6 (Full-Year Calendar & Performance)
-Plan: 1 of 4 complete (03-01: Bridge Day Detection)
+Plan: 3 of 4 complete (03-03: Full-Year Layout Integration)
 Status: In progress
-Last activity: 2026-01-21 — Completed 03-01-PLAN.md (Bridge Day Detection Algorithm)
+Last activity: 2026-01-21 — Completed 03-03-PLAN.md (Full-Year Layout Integration)
 
-Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across all phases)
+Progress: [███░░░░░░░] 32% (8 of 25 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 1 min 50 sec
-- Total execution time: 0.18 hours
+- Total plans completed: 8
+- Average duration: 1 min 59 sec
+- Total execution time: 0.26 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across al
 |-------|-------|-------|----------|
 | 1 - Foundation & Static Holiday View | 4 | 5m 7s | 1m 17s |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
-| 3 - Full-Year Calendar & Performance | 1 | 3m 49s | 3m 49s |
+| 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (7s), 01-04 (manual), 02-01 (2m 5s), 03-01 (3m 49s)
-- Trend: Phase 3 started, bridge day detection and Jest infrastructure established
+- Last 5 plans: 01-04 (manual), 02-01 (2m 5s), 03-01 (3m 49s), 03-02 (manual), 03-03 (2m 39s)
+- Trend: Phase 3 progressing, full-year calendar with bridge day integration complete
 
 *Updated after each plan completion*
 
@@ -91,11 +91,21 @@ Recent decisions affecting current work:
 - Set-based date lookups for O(1) performance at scale
 - Server Component vacation data wiring pattern: props down from client wrapper
 
+**From 03-03 (Full-Year Layout Integration):**
+- FullYearCalendar as async Server Component fetches holidays server-side for performance
+- Client wrapper (FullYearCalendarWrapper) bridges VacationContext state to Server Component props
+- Single-column vertical scroll layout (not responsive grid) for better mobile experience
+- Vacation dates take priority over bridge suggestions (blue overrides yellow)
+- Bridge days calculated once for all 12 months (performance optimization)
+- Desktop: sticky sidebar on right, scrollable calendar on left
+- Mobile: summary at top (not sticky), scrollable calendar below
+- Server/Client boundary pattern: VacationContext → Client wrapper → Server Component props
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
 - OpenHolidays API vs scraping (reliable structured data) - Implemented in 01-01
-- Full year view in v1 (core differentiator) - Pending
+- Full year view in v1 (core differentiator) - ✓ IMPLEMENTED in 03-03 (12-month view with bridge days)
 - 50% test coverage threshold (meaningful tests only) - Pending
 
 ### Pending Todos
@@ -113,6 +123,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21 (automated execution)
-Stopped at: Completed 03-01-PLAN.md - Bridge Day Detection Algorithm (Phase 3 in progress: 1/4 plans)
+Stopped at: Completed 03-03-PLAN.md - Full-Year Layout Integration (Phase 3 in progress: 3/4 plans)
 Resume file: None
-Next: Continue Phase 3 with Plan 03-02 (Full-Year MonthGrid UI) or 03-03 (Full-Year Layout Integration)
+Next: Continue Phase 3 with Plan 03-04 (Vacation Interaction Across Full Year) or proceed to Phase 4
