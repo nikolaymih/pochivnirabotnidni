@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 3 of 6 (Full-Year Calendar & Performance)
-Plan: 1 of 4 complete (03-02: MonthGrid Component)
+Plan: 1 of 4 complete (03-01: Bridge Day Detection)
 Status: In progress
-Last activity: 2026-01-22 — Completed 03-02-PLAN.md (MonthGrid Server Component)
+Last activity: 2026-01-21 — Completed 03-01-PLAN.md (Bridge Day Detection Algorithm)
 
 Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across all phases)
 
@@ -20,7 +20,7 @@ Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across al
 
 **Velocity:**
 - Total plans completed: 6
-- Average duration: 1 min 45 sec
+- Average duration: 1 min 50 sec
 - Total execution time: 0.18 hours
 
 **By Phase:**
@@ -29,11 +29,11 @@ Progress: [██░░░░░░░░] 24% (6 of 25 plans complete across al
 |-------|-------|-------|----------|
 | 1 - Foundation & Static Holiday View | 4 | 5m 7s | 1m 17s |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
-| 3 - Full-Year Calendar & Performance | 1 | 2m 42s | 2m 42s |
+| 3 - Full-Year Calendar & Performance | 1 | 3m 49s | 3m 49s |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (7s), 01-04 (manual), 02-01 (2m 5s), 03-02 (2m 42s)
-- Trend: Phase 3 started, MonthGrid component foundation established
+- Last 5 plans: 01-03 (7s), 01-04 (manual), 02-01 (2m 5s), 03-01 (3m 49s)
+- Trend: Phase 3 started, bridge day detection and Jest infrastructure established
 
 *Updated after each plan completion*
 
@@ -76,6 +76,14 @@ Recent decisions affecting current work:
 - ISO date strings (yyyy-MM-dd) for vacation dates matching Phase 1 TECH-07 decision
 - Default 20 vacation days (Bulgarian standard)
 
+**From 03-01 (Bridge Day Detection):**
+- Bridge days only for Tuesday→Monday and Thursday→Friday (4-day weekends)
+- Added Monday→Friday and Friday→Monday for 3-day weekend bridges
+- Holiday cluster detection suggests connecting workdays between holidays within 3 days
+- Jest testing framework with ts-jest preset for TypeScript calendar logic
+- Set-based duplicate prevention for bridge day suggestions
+- Prevent suggesting bridges on dates that are already holidays
+
 **From 03-02 (MonthGrid Component):**
 - MonthGrid is Server Component - receives vacationDates as prop instead of accessing context
 - Compact mode by default (text-xs, gap-1, p-2) for 12-month grid scalability
@@ -104,7 +112,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-22 (automated execution)
-Stopped at: Completed 03-02-PLAN.md - MonthGrid Component (Phase 3 in progress: 1/4 plans)
+Last session: 2026-01-21 (automated execution)
+Stopped at: Completed 03-01-PLAN.md - Bridge Day Detection Algorithm (Phase 3 in progress: 1/4 plans)
 Resume file: None
-Next: Continue Phase 3 with Plan 03-01 (Bridge Day Detection) or 03-03 (Full-Year Layout)
+Next: Continue Phase 3 with Plan 03-02 (Full-Year MonthGrid UI) or 03-03 (Full-Year Layout Integration)
