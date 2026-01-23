@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 
 /**
  * SSR-safe localStorage hook with error handling
@@ -14,26 +14,29 @@ export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
-  // Lazy initialization - only runs once on mount
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    // SSR guard: localStorage only exists in browser
-    if (typeof window === 'undefined') {
-      return initialValue;
-    }
+  // Start with initial value for SSR, will be updated after hydration
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
+  const isInitialized = useRef(false);
+
+  // Read from localStorage after mount (client-side only)
+  useEffect(() => {
+    if (isInitialized.current) return;
+    isInitialized.current = true;
 
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      if (item) {
+        setStoredValue(JSON.parse(item));
+      }
     } catch (error) {
       console.warn(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
     }
-  });
+  }, [key]);
 
-  // Update localStorage whenever state changes
+  // Update localStorage whenever state changes (skip initial mount)
   useEffect(() => {
-    // SSR guard: skip during server-side rendering
-    if (typeof window === 'undefined') return;
+    // Skip the first render (initial value) to avoid overwriting localStorage
+    if (!isInitialized.current) return;
 
     try {
       window.localStorage.setItem(key, JSON.stringify(storedValue));

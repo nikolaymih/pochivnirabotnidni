@@ -6,9 +6,7 @@ import { bg } from 'date-fns/locale';
 import { getCalendarGrid } from '@/lib/calendar/grid';
 import { parseDate, getCurrentDate } from '@/lib/calendar/dates';
 import type { Holiday } from '@/lib/holidays/types';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { VACATION_STORAGE_KEY, DEFAULT_VACATION_DATA } from '@/lib/vacation/storage';
-import type { VacationData } from '@/lib/vacation/types';
+import { useVacation } from '@/contexts/VacationContext';
 import CalendarDay from './CalendarDay';
 
 interface CalendarProps {
@@ -22,11 +20,8 @@ export default function Calendar({ year, month, holidays }: CalendarProps) {
   const firstDay = new Date(year, month, 1);
   const today = getCurrentDate(); // Safari-safe current date
 
-  // Vacation state with localStorage persistence
-  const [vacationData, setVacationData] = useLocalStorage<VacationData>(
-    VACATION_STORAGE_KEY,
-    DEFAULT_VACATION_DATA
-  );
+  // Vacation state from shared context
+  const { vacationData, setVacationData } = useVacation();
 
   // Drag selection state
   const [isDragging, setIsDragging] = useState(false);
@@ -51,12 +46,18 @@ export default function Calendar({ year, month, holidays }: CalendarProps) {
   /**
    * Toggle vacation state for a single date
    * Uses Set for uniqueness (prevents duplicates per VAC-08)
+   * Respects totalDays limit - cannot add more than allowed
    */
   const toggleVacationDate = (dateStr: string) => {
     const vacationSet = new Set(vacationData.vacationDates);
     if (vacationSet.has(dateStr)) {
+      // Always allow removal
       vacationSet.delete(dateStr);
     } else {
+      // Only add if under the limit
+      if (vacationSet.size >= vacationData.totalDays) {
+        return; // At limit, don't add more
+      }
       vacationSet.add(dateStr);
     }
     setVacationData({
@@ -85,6 +86,7 @@ export default function Calendar({ year, month, holidays }: CalendarProps) {
 
   /**
    * Handle pointer up - complete drag selection
+   * Respects totalDays limit - only adds dates up to the limit
    */
   const handlePointerUp = () => {
     if (!isDragging || !dragStart || !currentHover) {
@@ -98,7 +100,18 @@ export default function Calendar({ year, month, holidays }: CalendarProps) {
     const range = getDateRange(dragStart, currentHover);
     if (range.length > 1) {
       const vacationSet = new Set(vacationData.vacationDates);
-      range.forEach(date => vacationSet.add(date));
+      const availableSlots = vacationData.totalDays - vacationSet.size;
+
+      // Add dates up to the available limit
+      let added = 0;
+      for (const date of range) {
+        if (!vacationSet.has(date)) {
+          if (added >= availableSlots) break;
+          vacationSet.add(date);
+          added++;
+        }
+      }
+
       setVacationData({
         ...vacationData,
         vacationDates: Array.from(vacationSet)
