@@ -13,6 +13,7 @@ This roadmap delivers a Bulgarian holiday calendar with personal vacation tracki
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Static Holiday View** - Establish date handling, API integration, and basic calendar
+- [x] **Phase 1.1: Fix Holiday Date Timezone Bug (INSERTED)** - Critical timezone fix for date parsing
 - [ ] **Phase 2: Anonymous Vacation Tracking** - Core vacation tracking with localStorage (no auth required)
 - [ ] **Phase 3: Full-Year Calendar & Performance** - 12-month view with bridge day suggestions
 - [ ] **Phase 4: Authentication & Cross-Device Sync** - Google auth with Supabase backend
@@ -39,6 +40,20 @@ Plans:
 - [x] 01-02-PLAN.md — Calendar UI components with month view grid and legend
 - [x] 01-03-PLAN.md — Interactive tooltips and main page integration
 - [x] 01-04-PLAN.md — Bulgarian/Cyrillic localization (gap closure for INTL-01, INTL-02)
+
+### Phase 1.1: Fix Holiday Date Timezone Bug (INSERTED)
+**Goal**: Fix critical timezone conversion bug causing holidays to appear on wrong dates
+**Depends on**: Phase 1
+**Requirements**: HOL-02 (correct holiday dates), TECH-07 (ISO date strings without time)
+**Success Criteria** (what must be TRUE):
+  1. January 1st holidays display on January 1st (not December 31st of previous year)
+  2. No timezone conversion applied to date-only values from API
+  3. Enhanced logging helps debug date processing issues
+  4. December 31st no longer incorrectly shows as New Year holiday
+**Plans**: 1 plan
+
+Plans:
+- [x] 01.1-PLAN.md — Remove timezone conversion from holiday date parsing and add debugging logs
 
 ### Phase 2: Anonymous Vacation Tracking
 **Goal**: Users can track personal vacation days and see remaining balance without authentication
@@ -127,11 +142,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 1.1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Static Holiday View | 4/4 | ✅ Complete | 2026-01-19 |
+| 1.1. Fix Holiday Date Timezone Bug (INSERTED) | 1/1 | ✅ Complete | 2026-01-25 |
 | 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/TBD | Not started | - |

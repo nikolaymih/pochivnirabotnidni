@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Phase: 3 of 6 (Full-Year Calendar & Performance)
-Plan: 3 of 4 complete (03-03: Full-Year Layout Integration)
-Status: In progress
-Last activity: 2026-01-21 — Completed 03-03-PLAN.md (Full-Year Layout Integration)
+Phase: 1.1 of 6 (Fix Holiday Date Timezone Bug)
+Plan: 1 of 1 complete (01.1: Timezone Bug Fix)
+Status: ✅ Complete
+Last activity: 2026-01-25 — Completed Phase 1.1 (urgent timezone bug fix inserted after Phase 1)
 
-Progress: [███░░░░░░░] 32% (8 of 25 plans complete across all phases)
+Progress: [███░░░░░░░] 35% (9 of 26 plans complete across all phases)
 
 ## Performance Metrics
 
@@ -28,16 +28,25 @@ Progress: [███░░░░░░░] 32% (8 of 25 plans complete across al
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Foundation & Static Holiday View | 4 | 5m 7s | 1m 17s |
+| 1.1 - Fix Holiday Date Timezone Bug | 1 | 15m (manual) | 15m |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (manual), 02-01 (2m 5s), 03-01 (3m 49s), 03-02 (manual), 03-03 (2m 39s)
-- Trend: Phase 3 progressing, full-year calendar with bridge day integration complete
+- Last 5 plans: 02-01 (2m 5s), 03-01 (3m 49s), 03-02 (manual), 03-03 (2m 39s), 01.1 (15m manual)
+- Trend: Critical timezone bug fixed in inserted phase 1.1, ready to resume Phase 2 or 3
 
 *Updated after each plan completion*
 
 ## Accumulated Context
+
+### Roadmap Evolution
+
+- **2026-01-25:** Phase 1.1 inserted after Phase 1 (URGENT) - Fix Holiday Date Timezone Bug
+  - User reported December 31st showing as "Нова година" when it shouldn't be
+  - Root cause: timezone conversion bug in date parsing (toISOString shifted dates)
+  - Fix: Use API dates directly, don't convert to UTC for date-only values
+  - Impact: Critical - ensures holidays display on correct dates
 
 ### Decisions
 
@@ -101,6 +110,13 @@ Recent decisions affecting current work:
 - Mobile: summary at top (not sticky), scrollable calendar below
 - Server/Client boundary pattern: VacationContext → Client wrapper → Server Component props
 
+**From 01.1 (Timezone Bug Fix - INSERTED):**
+- NEVER use toISOString() for date-only values - timezone conversion is inappropriate for calendar dates
+- Use API date strings directly when already in correct YYYY-MM-DD format
+- Enhanced logging in fetch.ts: raw API response, processed holidays, Dec 31st check
+- Removed parseISO import - unnecessary when using dates directly from API
+- Pattern established: Don't over-process correctly formatted data from external APIs
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -122,7 +138,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-21 (automated execution)
-Stopped at: Completed 03-03-PLAN.md - Full-Year Layout Integration (Phase 3 in progress: 3/4 plans)
+Last session: 2026-01-25 (manual bug fix)
+Stopped at: Completed Phase 1.1 (urgent timezone bug fix)
 Resume file: None
-Next: Continue Phase 3 with Plan 03-04 (Vacation Interaction Across Full Year) or proceed to Phase 4
+Next: Resume Phase 2 (Anonymous Vacation Tracking) or Phase 3 (Full-Year Calendar & Performance - 3/4 plans complete)
