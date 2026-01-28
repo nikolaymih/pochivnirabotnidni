@@ -102,11 +102,14 @@ Plans:
   3. User session persists across browser refresh
   4. User's localStorage data migrates to Supabase automatically on first login
   5. Authenticated users' unused vacation days roll over to next year
-  6. Anonymous users see clear message that vacation rollover requires authentication
-**Plans**: TBD
+  6. Anonymous users see nothing about rollover (invisible, not grayed out)
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 04-01-PLAN.md — Supabase infrastructure: client utilities, middleware, OAuth callback, DB schema
+- [ ] 04-02-PLAN.md — Auth UI: Google sign-in button, user avatar, sign-out dropdown
+- [ ] 04-03-PLAN.md — Data sync: auth-aware VacationContext, debounced Supabase sync, localStorage migration
+- [ ] 04-04-PLAN.md — Vacation rollover for authenticated users, invisible to anonymous users
 
 ### Phase 5: UX Polish & Mobile Optimization
 **Goal**: Users have polished mobile experience with offline support and intuitive touch interactions
@@ -142,7 +145,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -150,6 +153,6 @@ Phases execute in numeric order: 1 → 1.1 → 2 → 3 → 4 → 5 → 6
 | 1.1. Fix Holiday Date Timezone Bug (INSERTED) | 1/1 | ✅ Complete | 2026-01-25 |
 | 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
-| 4. Authentication & Cross-Device Sync | 0/TBD | Not started | - |
+| 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 0/TBD | Not started | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
