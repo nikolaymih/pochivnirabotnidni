@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Users can see all Bulgarian holidays for the year AND track their paid vacation days in one place, with history.
-**Current focus:** Phase 2 - Anonymous Vacation Tracking
+**Current focus:** Phase 4 - Authentication & Cross-Device Sync
 
 ## Current Position
 
-Phase: 1.1 of 6 (Fix Holiday Date Timezone Bug)
-Plan: 1 of 1 complete (01.1: Timezone Bug Fix)
-Status: ✅ Complete
-Last activity: 2026-01-25 — Completed Phase 1.1 (urgent timezone bug fix inserted after Phase 1)
+Phase: 4 of 6 (Authentication & Cross-Device Sync)
+Plan: 2 of 4 complete (04-01: Supabase Setup, 04-02: Auth UI)
+Status: In progress
+Last activity: 2026-02-02 — Completed 04-02-PLAN.md (Auth UI with Google OAuth)
 
-Progress: [███░░░░░░░] 35% (9 of 26 plans complete across all phases)
+Progress: [████░░░░░░] 42% (11 of 26 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 1 min 59 sec
-- Total execution time: 0.26 hours
+- Total plans completed: 11
+- Average duration: 2 min 3 sec
+- Total execution time: 0.43 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [███░░░░░░░] 35% (9 of 26 plans complete across al
 | 1.1 - Fix Holiday Date Timezone Bug | 1 | 15m (manual) | 15m |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
+| 4 - Authentication & Cross-Device Sync | 2 | 4m 29s | 2m 15s |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2m 5s), 03-01 (3m 49s), 03-02 (manual), 03-03 (2m 39s), 01.1 (15m manual)
-- Trend: Critical timezone bug fixed in inserted phase 1.1, ready to resume Phase 2 or 3
+- Last 5 plans: 03-01 (3m 49s), 03-02 (manual), 03-03 (2m 39s), 04-01 (2m 15s), 04-02 (2m 14s)
+- Trend: Phase 4 authentication work proceeding efficiently, consistent 2-minute execution times
 
 *Updated after each plan completion*
 
@@ -117,6 +118,16 @@ Recent decisions affecting current work:
 - Removed parseISO import - unnecessary when using dates directly from API
 - Pattern established: Don't over-process correctly formatted data from external APIs
 
+**From 04-02 (Auth UI):**
+- AuthProvider wraps entire app in layout.tsx (app-wide scope)
+- VacationProvider stays in page.tsx (component-level scope) to prevent re-initialization on auth changes
+- Context nesting: AuthProvider (layout) > VacationProvider (page) > components
+- Avatar display: photo URL if exists, else initials with colored background
+- Hash-based color generation uses 7 accessible colors (red, amber, emerald, blue, violet, pink, cyan)
+- Initials follow Google pattern: first + last name letters, fallback to email
+- Loading skeleton shows 32px gray circle during auth initialization
+- Click outside dropdown to close (useEffect with document listener)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -138,7 +149,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-25 (manual bug fix)
-Stopped at: Completed Phase 1.1 (urgent timezone bug fix)
+Last session: 2026-02-02
+Stopped at: Completed 04-02-PLAN.md (Auth UI)
 Resume file: None
-Next: Resume Phase 2 (Anonymous Vacation Tracking) or Phase 3 (Full-Year Calendar & Performance - 3/4 plans complete)
+Next: Continue Phase 4 - Plan 04-03 (Data Sync) or 04-04 (Migration & Rollover)
