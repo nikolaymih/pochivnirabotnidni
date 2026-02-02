@@ -1,9 +1,15 @@
 'use client';
 
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useAuth } from '@/contexts/AuthContext';
 import { VacationData } from '@/lib/vacation/types';
 import { VACATION_STORAGE_KEY, DEFAULT_VACATION_DATA } from '@/lib/vacation/storage';
+import { fetchVacationData, upsertVacationData } from '@/lib/vacation/sync';
+import { migrateLocalStorageToSupabase, MigrationResult } from '@/lib/vacation/migration';
+import { useDebounce } from 'use-debounce';
+import { getYear } from 'date-fns';
+import MigrationReview from '@/components/MigrationReview';
 
 interface VacationContextType {
   vacationData: VacationData;
@@ -13,13 +19,121 @@ interface VacationContextType {
 const VacationContext = createContext<VacationContextType | null>(null);
 
 export function VacationProvider({ children }: { children: ReactNode }) {
-  const [vacationData, setVacationData] = useLocalStorage<VacationData>(
+  // === localStorage data (always present, for anonymous AND as fallback) ===
+  const [localStorageData, setLocalStorageData] = useLocalStorage<VacationData>(
     VACATION_STORAGE_KEY,
     DEFAULT_VACATION_DATA
   );
 
+  // === Auth state ===
+  const { user, isLoading: authLoading } = useAuth();
+  const currentYear = getYear(new Date());
+
+  // === Cloud state (only populated when authenticated) ===
+  const [cloudData, setCloudData] = useState<VacationData | null>(null);
+  const [isLoadingCloud, setIsLoadingCloud] = useState<boolean>(true);
+
+  // === Migration state ===
+  const [migrationResult, setMigrationResult] = useState<MigrationResult | null>(null);
+  const [migrationComplete, setMigrationComplete] = useState<boolean>(false);
+
+  // === Derived state ===
+  const isAuthenticated = !!user;
+  const activeData = isAuthenticated && cloudData ? cloudData : localStorageData;
+
+  // Load cloud data when user signs in, clear when signs out
+  useEffect(() => {
+    if (!user) {
+      setCloudData(null);
+      setIsLoadingCloud(false);
+      setMigrationComplete(false);
+      return;
+    }
+    setIsLoadingCloud(true);
+    fetchVacationData(user.id, currentYear)
+      .then(data => {
+        setCloudData(data || DEFAULT_VACATION_DATA);
+      })
+      .catch(err => {
+        console.error('Failed to fetch cloud data:', err);
+        setCloudData(null); // Fall back to localStorage
+      })
+      .finally(() => {
+        setIsLoadingCloud(false);
+      });
+  }, [user, currentYear]);
+
+  // Run migration after cloud data loads (only once per sign-in session)
+  useEffect(() => {
+    if (!user || isLoadingCloud || migrationComplete) return;
+    migrateLocalStorageToSupabase(user.id, currentYear)
+      .then(result => {
+        if (result.status === 'migrated') {
+          // Data was auto-migrated, refresh cloud data
+          fetchVacationData(user.id, currentYear)
+            .then(d => setCloudData(d || DEFAULT_VACATION_DATA))
+            .catch(err => console.error('Failed to refresh after migration:', err));
+        } else if (result.status === 'conflict') {
+          // Show conflict review modal
+          setMigrationResult(result);
+        } else if (result.status === 'error') {
+          // Migration failed silently, continue with cloud data as-is
+          console.error('Migration error:', result.message);
+        }
+        // 'no-local-data' and 'no-conflict' need no action
+        setMigrationComplete(true);
+      })
+      .catch(err => {
+        // Catch-all: migration failed, mark complete and continue
+        console.error('Migration unexpected error:', err);
+        setMigrationComplete(true);
+      });
+  }, [user, isLoadingCloud, migrationComplete, currentYear]);
+
+  // Debounced sync: writes to Supabase 1.5s after last change
+  const [debouncedData] = useDebounce(activeData, 1500);
+  useEffect(() => {
+    if (!user || !migrationComplete) return;
+    upsertVacationData(user.id, currentYear, debouncedData)
+      .catch(err => console.error('Sync failed, using localStorage:', err));
+  }, [debouncedData, user, migrationComplete, currentYear]);
+
+  // Update the correct data source based on auth state
+  const setVacationData = useCallback((data: VacationData) => {
+    if (isAuthenticated) {
+      setCloudData(data);
+    }
+    // Always update localStorage too (fallback and for anonymous users)
+    setLocalStorageData(data);
+  }, [isAuthenticated, setLocalStorageData]);
+
+  // Handle user accepting a migration resolution
+  const handleMigrationAccept = useCallback((data: VacationData) => {
+    setCloudData(data);
+    setLocalStorageData(data);
+    if (user) {
+      upsertVacationData(user.id, currentYear, data)
+        .catch(err => console.error('Failed to save migration result:', err));
+    }
+    setMigrationResult(null);
+  }, [user, currentYear, setLocalStorageData]);
+
+  const handleMigrationCancel = useCallback(() => {
+    // Keep cloud data as-is, dismiss the modal
+    setMigrationResult(null);
+  }, []);
+
   return (
-    <VacationContext.Provider value={{ vacationData, setVacationData }}>
+    <VacationContext.Provider value={{ vacationData: activeData, setVacationData }}>
+      {migrationResult?.status === 'conflict' && (
+        <MigrationReview
+          localData={migrationResult.localData}
+          cloudData={migrationResult.cloudData}
+          mergedDates={migrationResult.mergedDates}
+          onAccept={handleMigrationAccept}
+          onCancel={handleMigrationCancel}
+        />
+      )}
       {children}
     </VacationContext.Provider>
   );
