@@ -7,6 +7,7 @@ import { VacationData } from '@/lib/vacation/types';
 import { VACATION_STORAGE_KEY, DEFAULT_VACATION_DATA } from '@/lib/vacation/storage';
 import { fetchVacationData, upsertVacationData } from '@/lib/vacation/sync';
 import { migrateLocalStorageToSupabase, MigrationResult } from '@/lib/vacation/migration';
+import { calculateRollover, RolloverResult } from '@/lib/vacation/rollover';
 import { useDebounce } from 'use-debounce';
 import { getYear } from 'date-fns';
 import MigrationReview from '@/components/MigrationReview';
@@ -14,6 +15,8 @@ import MigrationReview from '@/components/MigrationReview';
 interface VacationContextType {
   vacationData: VacationData;
   setVacationData: (data: VacationData) => void;
+  rollover: RolloverResult | null;
+  isAuthenticated: boolean;
 }
 
 const VacationContext = createContext<VacationContextType | null>(null);
@@ -37,6 +40,9 @@ export function VacationProvider({ children }: { children: ReactNode }) {
   const [migrationResult, setMigrationResult] = useState<MigrationResult | null>(null);
   const [migrationComplete, setMigrationComplete] = useState<boolean>(false);
 
+  // === Rollover state ===
+  const [rollover, setRollover] = useState<RolloverResult | null>(null);
+
   // === Derived state ===
   const isAuthenticated = !!user;
   const activeData = isAuthenticated && cloudData ? cloudData : localStorageData;
@@ -47,6 +53,7 @@ export function VacationProvider({ children }: { children: ReactNode }) {
       setCloudData(null);
       setIsLoadingCloud(false);
       setMigrationComplete(false);
+      setRollover(null); // Clear rollover on sign out
       return;
     }
     setIsLoadingCloud(true);
@@ -90,6 +97,14 @@ export function VacationProvider({ children }: { children: ReactNode }) {
       });
   }, [user, isLoadingCloud, migrationComplete, currentYear]);
 
+  // Calculate rollover after cloud data loads
+  useEffect(() => {
+    if (!user || isLoadingCloud) return;
+    calculateRollover(user.id, currentYear)
+      .then(result => setRollover(result))
+      .catch(err => console.error('Rollover check failed:', err));
+  }, [user, isLoadingCloud, currentYear]);
+
   // Debounced sync: writes to Supabase 1.5s after last change
   const [debouncedData] = useDebounce(activeData, 1500);
   useEffect(() => {
@@ -124,7 +139,7 @@ export function VacationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <VacationContext.Provider value={{ vacationData: activeData, setVacationData }}>
+    <VacationContext.Provider value={{ vacationData: activeData, setVacationData, rollover, isAuthenticated }}>
       {migrationResult?.status === 'conflict' && (
         <MigrationReview
           localData={migrationResult.localData}
