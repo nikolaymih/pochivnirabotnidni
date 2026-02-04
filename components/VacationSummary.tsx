@@ -7,16 +7,18 @@ export default function VacationSummary() {
   const [isClient, setIsClient] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(0);
-  const { vacationData, setVacationData } = useVacation();
+  const { vacationData, setVacationData, rollover, isAuthenticated } = useVacation();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   const usedDays = vacationData.vacationDates.length;
-  const remainingDays = vacationData.totalDays - usedDays;
-  const percentageUsed = vacationData.totalDays > 0
-    ? Math.round((usedDays / vacationData.totalDays) * 100)
+  const rolloverDays = rollover?.rolloverDays || 0;
+  const effectiveTotal = vacationData.totalDays + rolloverDays;
+  const remainingDays = effectiveTotal - usedDays;
+  const percentageUsed = effectiveTotal > 0
+    ? Math.round((usedDays / effectiveTotal) * 100)
     : 0;
 
   const handleEdit = () => {
@@ -94,7 +96,13 @@ export default function VacationSummary() {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-gray-800">{vacationData.totalDays}</span>
+            {isAuthenticated && rollover && rolloverDays > 0 ? (
+              <span className="font-semibold text-gray-800">
+                {vacationData.totalDays} + {rolloverDays} = {effectiveTotal}
+              </span>
+            ) : (
+              <span className="font-semibold text-gray-800">{vacationData.totalDays}</span>
+            )}
             <button
               onClick={handleEdit}
               className="text-blue-600 hover:text-blue-800 text-sm"
@@ -105,6 +113,14 @@ export default function VacationSummary() {
           </div>
         )}
       </div>
+
+      {/* Rollover Days (Only for authenticated users with rollover) */}
+      {isAuthenticated && rollover && rolloverDays > 0 && (
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-purple-600">🔄 Прехвърлени от {new Date().getFullYear() - 1}:</span>
+          <span className="font-semibold text-purple-600">{rolloverDays}</span>
+        </div>
+      )}
 
       {/* Used Days */}
       <div className="flex items-center justify-between">
