@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 4 of 6 (Authentication & Cross-Device Sync)
-Plan: 3 of 4 complete (04-01: Supabase Setup, 04-02: Auth UI, 04-03: Data Sync)
-Status: In progress
-Last activity: 2026-02-02 — Completed 04-03-PLAN.md (Auth-aware data sync with Supabase)
+Plan: 4 of 4 complete (04-01: Supabase Setup, 04-02: Auth UI, 04-03: Data Sync, 04-04: Vacation Rollover)
+Status: Phase complete
+Last activity: 2026-02-04 — Completed 04-04-PLAN.md (Vacation rollover for authenticated users)
 
-Progress: [█████░░░░░] 46% (12 of 26 plans complete across all phases)
+Progress: [█████░░░░░] 50% (13 of 26 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 2 min 4 sec
-- Total execution time: 0.47 hours
+- Total plans completed: 13
+- Average duration: 2 min 5 sec
+- Total execution time: 0.51 hours
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [█████░░░░░] 46% (12 of 26 plans complete across a
 | 1.1 - Fix Holiday Date Timezone Bug | 1 | 15m (manual) | 15m |
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
-| 4 - Authentication & Cross-Device Sync | 3 | 6m 39s | 2m 13s |
+| 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (manual), 03-03 (2m 39s), 04-01 (2m 15s), 04-02 (2m 14s), 04-03 (2m 10s)
-- Trend: Phase 4 maintaining exceptional velocity, consistently under 2m 15s per plan
+- Last 5 plans: 03-03 (2m 39s), 04-01 (2m 15s), 04-02 (2m 14s), 04-03 (2m 10s), 04-04 (2m 24s)
+- Trend: Phase 4 COMPLETE - maintained exceptional velocity throughout (avg 2m 16s per plan)
 
 *Updated after each plan completion*
 
@@ -140,6 +140,18 @@ Recent decisions affecting current work:
 - Silent failure mode: sync errors logged to console.error, never shown to user (per CONTEXT.md)
 - VacationContextType interface unchanged (backward compatible with existing components)
 
+**From 04-04 (Vacation Rollover):**
+- Rollover calculation fetches previous year data from Supabase, calculates unused days
+- Rollover returns null if no previous year data or zero unused days
+- VacationContext extended with `rollover` and `isAuthenticated` fields (backward compatible additive interface)
+- Rollover calculation runs once after cloud data loads (not on every render)
+- VacationSummary shows rollover breakdown for authenticated users: "20 + 5 = 25"
+- New rollover row: "Прехвърлени от {year}: X дни" with purple text
+- Remaining days and percentage calculations use effectiveTotal (totalDays + rolloverDays)
+- Anonymous users see ZERO rollover UI - not grayed out, completely invisible per CONTEXT.md
+- All rollover UI gated by triple check: `isAuthenticated && rollover && rolloverDays > 0`
+- Additive interface extension pattern: existing consumers ignore new optional fields via destructuring
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -161,7 +173,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-02
-Stopped at: Completed 04-03-PLAN.md (Data Sync)
+Last session: 2026-02-04
+Stopped at: Completed 04-04-PLAN.md (Vacation Rollover)
 Resume file: None
-Next: Continue Phase 4 - Plan 04-04 (Migration & Rollover)
+Next: Phase 4 COMPLETE - Ready for Phase 5 (Vacation Insights & History)
