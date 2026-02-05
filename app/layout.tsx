@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import NetworkStatus from "@/components/NetworkStatus";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Почивни Работни Дни - Календар с Български Празници 2026",
   description: "Преглед на българските официални празници и планиране на вашите дни за отпуск с интерактивен календар за 2026",
+  manifest: "/manifest.json",
+  themeColor: "#2563eb",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Почивни Дни",
+  },
 };
 
 export default function RootLayout({
@@ -40,6 +48,7 @@ export default function RootLayout({
           }}
         />
         <NetworkStatus />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
