@@ -1,4 +1,5 @@
 import type { Holiday } from './types';
+import { fetchWithRetry } from '@/lib/offline/retry';
 
 export async function getHolidays(year: number): Promise<Holiday[]> {
   // Layer 1: Try OpenHolidays API
@@ -6,7 +7,7 @@ export async function getHolidays(year: number): Promise<Holiday[]> {
     const apiUrl = `https://openholidaysapi.org/PublicHolidays?countryIsoCode=BG&validFrom=${year}-01-01&validTo=${year}-12-31`;
     console.log(`[Holidays] Fetching from API for ${year}:`, apiUrl);
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
       apiUrl,
       { next: { revalidate: 86400 } } // 24hr cache per research
     );
