@@ -121,10 +121,12 @@ Plans:
   3. Application works offline with cached holiday and vacation data
   4. User sees appropriate error messages when API is unavailable
   5. Mobile experience feels native and responsive
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 05-01-PLAN.md — Touch-optimized drag selection with 44px targets and highlight flash
+- [ ] 05-02-PLAN.md — Network detection, toast notifications, and retry-with-backoff
+- [ ] 05-03-PLAN.md — PWA service worker with Serwist and offline holiday caching
 
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
@@ -154,5 +156,5 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
-| 5. UX Polish & Mobile Optimization | 0/TBD | Not started | - |
+| 5. UX Polish & Mobile Optimization | 0/3 | Planned | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
