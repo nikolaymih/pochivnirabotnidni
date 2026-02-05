@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 5 of 6 (UX Polish & Mobile Optimization)
-Plan: 2 of 4 complete (05-01: Mobile Touch Gestures, 05-02: Network Offline Support)
+Plan: 3 of 4 complete (05-01: Touch Gestures, 05-02: Offline Support, 05-03: PWA Service Worker)
 Status: In progress
-Last activity: 2026-02-05 — Completed 05-02-PLAN.md (Network offline support with retry and toast notifications)
+Last activity: 2026-02-05 — Completed 05-03-PLAN.md (PWA service worker with offline caching and manifest)
 
-Progress: [█████░░░░░] 54% (14 of 26 plans complete across all phases)
+Progress: [█████░░░░░] 58% (15 of 26 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 2 min 4 sec
-- Total execution time: 0.54 hours
+- Total execution time: 0.62 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [█████░░░░░] 54% (14 of 26 plans complete across a
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
-| 5 - UX Polish & Mobile Optimization | 2 | 3m 24s | 1m 42s |
+| 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (2m 14s), 04-03 (2m 10s), 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s)
-- Trend: Phase 5 maintaining exceptional velocity (avg 1m 42s per plan so far)
+- Last 5 plans: 04-03 (2m 10s), 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s), 05-03 (4m 39s)
+- Trend: Phase 5 Plan 03 took longer due to Serwist/Turbopack compatibility issue requiring vanilla SW migration
 
 *Updated after each plan completion*
 
@@ -175,6 +175,17 @@ Recent decisions affecting current work:
 - Supabase sync intentionally NOT using fetchWithRetry (has own error handling, debounced pattern would conflict)
 - Retry chain for holiday fetch: fetchWithRetry (3 attempts) → static JSON fallback
 
+**From 05-03 (PWA Service Worker & Offline Caching):**
+- Vanilla JS service worker (NOT Serwist build plugin) due to Next.js 16 Turbopack incompatibility
+- CacheFirst strategy for openholidaysapi.org with 30-day max age (holidays rarely change)
+- StaleWhileRevalidate for static assets (js/css/images/fonts) with 7-day max age
+- Network-first for everything else (Supabase, API calls, navigation) - no caching of mutations
+- Three-cache architecture: app-shell-cache (precached assets), holidays-api-cache, static-assets
+- Service worker disabled in development (NODE_ENV !== 'production' check in registration component)
+- PWA manifest with Bulgarian metadata, theme color #2563eb, standalone display mode
+- ServiceWorkerRegistration component registers SW client-side in production only
+- iOS PWA support via appleWebApp metadata (capable, statusBarStyle, title)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -197,6 +208,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 05-02-PLAN.md (Network Offline Support)
+Stopped at: Completed 05-03-PLAN.md (PWA Service Worker & Offline Caching)
 Resume file: None
-Next: Phase 5 in progress - 05-03 and 05-04 remaining
+Next: Phase 5 in progress - 05-04 remaining (final plan in phase)
