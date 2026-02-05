@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Phase: 4 of 6 (Authentication & Cross-Device Sync)
-Plan: 4 of 4 complete (04-01: Supabase Setup, 04-02: Auth UI, 04-03: Data Sync, 04-04: Vacation Rollover)
-Status: Phase complete
-Last activity: 2026-02-04 — Completed 04-04-PLAN.md (Vacation rollover for authenticated users)
+Phase: 5 of 6 (UX Polish & Mobile Optimization)
+Plan: 2 of 4 complete (05-01: Mobile Touch Gestures, 05-02: Network Offline Support)
+Status: In progress
+Last activity: 2026-02-05 — Completed 05-02-PLAN.md (Network offline support with retry and toast notifications)
 
-Progress: [█████░░░░░] 50% (13 of 26 plans complete across all phases)
+Progress: [█████░░░░░] 54% (14 of 26 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 2 min 5 sec
-- Total execution time: 0.51 hours
+- Total plans completed: 14
+- Average duration: 2 min 4 sec
+- Total execution time: 0.54 hours
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [█████░░░░░] 50% (13 of 26 plans complete across a
 | 2 - Anonymous Vacation Tracking | 1 | 2m 5s | 2m 5s |
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
+| 5 - UX Polish & Mobile Optimization | 2 | 3m 24s | 1m 42s |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (2m 39s), 04-01 (2m 15s), 04-02 (2m 14s), 04-03 (2m 10s), 04-04 (2m 24s)
-- Trend: Phase 4 COMPLETE - maintained exceptional velocity throughout (avg 2m 16s per plan)
+- Last 5 plans: 04-02 (2m 14s), 04-03 (2m 10s), 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s)
+- Trend: Phase 5 maintaining exceptional velocity (avg 1m 42s per plan so far)
 
 *Updated after each plan completion*
 
@@ -152,6 +153,17 @@ Recent decisions affecting current work:
 - All rollover UI gated by triple check: `isAuthenticated && rollover && rolloverDays > 0`
 - Additive interface extension pattern: existing consumers ignore new optional fields via destructuring
 
+**From 05-02 (Network Offline Support):**
+- fetchWithRetry retries 3 times with exponential backoff (1s, 2s, 4s) for retryable HTTP errors (503, 504, 429)
+- Manual retry implementation (NOT fetch-retry npm package) avoids CommonJS/ESM compatibility issues with Next.js
+- Network detection uses navigator.onLine for offline (reliable) + verification fetch for online (prevents false positives)
+- useNetworkState hook verifies connectivity with HEAD request to /api/health endpoint (5s timeout)
+- Toast notifications positioned bottom-center with 80px marginBottom to avoid Safari mobile bottom UI
+- NetworkStatus is side-effect-only component (renders null, only runs toast effects)
+- Toast only on state transitions (offline→online, online→offline), not on initial page load (useRef tracking)
+- Supabase sync intentionally NOT using fetchWithRetry (has own error handling, debounced pattern would conflict)
+- Retry chain for holiday fetch: fetchWithRetry (3 attempts) → static JSON fallback
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -173,7 +185,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-04
-Stopped at: Completed 04-04-PLAN.md (Vacation Rollover)
+Last session: 2026-02-05
+Stopped at: Completed 05-02-PLAN.md (Network Offline Support)
 Resume file: None
-Next: Phase 4 COMPLETE - Ready for Phase 5 (Vacation Insights & History)
+Next: Phase 5 in progress - 05-03 and 05-04 remaining
