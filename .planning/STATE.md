@@ -147,11 +147,22 @@ Recent decisions affecting current work:
 - VacationContext extended with `rollover` and `isAuthenticated` fields (backward compatible additive interface)
 - Rollover calculation runs once after cloud data loads (not on every render)
 - VacationSummary shows rollover breakdown for authenticated users: "20 + 5 = 25"
-- New rollover row: "Прехвърлени от {year}: X дни" with purple text
+- New rollover row: "Прехвърлени від {year}: X дни" with purple text
 - Remaining days and percentage calculations use effectiveTotal (totalDays + rolloverDays)
 - Anonymous users see ZERO rollover UI - not grayed out, completely invisible per CONTEXT.md
 - All rollover UI gated by triple check: `isAuthenticated && rollover && rolloverDays > 0`
 - Additive interface extension pattern: existing consumers ignore new optional fields via destructuring
+
+**From 05-01 (Touch Drag Selection & Accessible Touch Targets):**
+- MonthGrid converted from Server Component to Client Component for pointer event state support
+- Drag selection state machine: isDragging (boolean), dragMode (add/remove based on first cell), dragStartDate (string | null)
+- touch-action:none applied ONLY to individual clickable day cells, NOT grid container (prevents page scroll blocking)
+- 44px minimum touch targets (WCAG 2.5.5) with flex centering maintains compact visual appearance
+- Brief highlight flash on tap (150ms) with highlightTimerRef and useEffect cleanup prevents memory leaks
+- Document-level pointerup listener catches drag-end outside calendar bounds
+- Drag mode determined by first cell's current state: selected = remove mode, unselected = add mode
+- Holidays remain non-clickable and non-draggable (existing isClickable logic preserved)
+- Pointer event handlers flow: FullYearCalendarWrapper (state) → FullYearCalendar (props) → MonthGrid (UI)
 
 **From 05-02 (Network Offline Support):**
 - fetchWithRetry retries 3 times with exponential backoff (1s, 2s, 4s) for retryable HTTP errors (503, 504, 429)
