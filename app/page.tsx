@@ -30,7 +30,7 @@ export default async function HomePage() {
               <h1 className="text-3xl font-bold">Почивни Работни Дни {currentYear}</h1>
               <AuthHeader />
             </div>
-            <p className="text-gray-600 mb-6">
+            <p className="text-coffee mb-6">
               Календар с български празници и работни дни за планиране на вашата година
             </p>
             <Legend />
@@ -49,7 +49,7 @@ export default async function HomePage() {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h1 className="text-3xl font-bold mb-2">Почивни Работни Дни {currentYear}</h1>
-                <p className="text-gray-600">
+                <p className="text-coffee">
                   Календар с български празници и работни дни за планиране на вашата година
                 </p>
               </div>

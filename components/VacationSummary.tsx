@@ -43,16 +43,16 @@ export default function VacationSummary() {
   };
 
   if (!isClient) {
-    return <div className="mt-6 p-4 bg-white rounded-lg border border-gray-200">Зареждане...</div>;
+    return <div className="mt-6 p-4 bg-white rounded-lg border border-latte">Зареждане...</div>;
   }
 
   return (
-    <div className="mt-6 p-4 bg-white rounded-lg border border-gray-200 space-y-3">
-      <h2 className="text-lg font-semibold text-gray-800 mb-3">Лична Почивка</h2>
+    <div className="mt-6 p-4 bg-white rounded-lg border border-latte space-y-3">
+      <h2 className="text-lg font-semibold text-espresso mb-3">Лична Почивка</h2>
 
       {/* Total Days (Editable) */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600">📅 Общо дни за отпуск:</span>
+        <span className="text-sm text-coffee">📅 Общо дни за отпуск:</span>
         {isEditing ? (
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
@@ -62,8 +62,8 @@ export default function VacationSummary() {
                 onChange={(e) => setEditValue(parseInt(e.target.value) || 0)}
                 className={`w-20 px-2 py-1 border rounded focus:outline-none focus:ring-2 ${
                   editValue < usedDays
-                    ? 'border-red-400 focus:ring-red-500'
-                    : 'border-blue-400 focus:ring-blue-500'
+                    ? 'border-error focus:ring-error'
+                    : 'border-caramel focus:ring-caramel'
                 }`}
                 min={Math.max(1, usedDays)}
                 autoFocus
@@ -73,8 +73,8 @@ export default function VacationSummary() {
                 disabled={editValue < usedDays || editValue < 1}
                 className={`px-2 py-1 text-white text-xs rounded ${
                   editValue < usedDays || editValue < 1
-                    ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-green-500 hover:bg-green-600'
+                    ? 'bg-oat-milk cursor-not-allowed'
+                    : 'bg-caramel hover:bg-cinnamon'
                 }`}
                 aria-label="Запази"
               >
@@ -82,14 +82,14 @@ export default function VacationSummary() {
               </button>
               <button
                 onClick={handleCancel}
-                className="px-2 py-1 bg-gray-400 text-white text-xs rounded hover:bg-gray-500"
+                className="px-2 py-1 bg-cappuccino text-white text-xs rounded hover:bg-coffee"
                 aria-label="Отказ"
               >
                 ✕
               </button>
             </div>
             {editValue < usedDays && (
-              <span className="text-xs text-red-500">
+              <span className="text-xs text-error">
                 Мин. {usedDays} (използвани дни)
               </span>
             )}
@@ -97,15 +97,15 @@ export default function VacationSummary() {
         ) : (
           <div className="flex items-center gap-2">
             {isAuthenticated && rollover && rolloverDays > 0 ? (
-              <span className="font-semibold text-gray-800">
+              <span className="font-semibold text-espresso">
                 {vacationData.totalDays} + {rolloverDays} = {effectiveTotal}
               </span>
             ) : (
-              <span className="font-semibold text-gray-800">{vacationData.totalDays}</span>
+              <span className="font-semibold text-espresso">{vacationData.totalDays}</span>
             )}
             <button
               onClick={handleEdit}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-mocha hover:text-dark-roast text-sm"
               aria-label="Редактирай годишна почивка"
             >
               ✏️
@@ -117,28 +117,28 @@ export default function VacationSummary() {
       {/* Rollover Days (Only for authenticated users with rollover) */}
       {isAuthenticated && rollover && rolloverDays > 0 && (
         <div className="flex items-center justify-between">
-          <span className="text-sm text-purple-600">🔄 Прехвърлени от {new Date().getFullYear() - 1}:</span>
-          <span className="font-semibold text-purple-600">{rolloverDays}</span>
+          <span className="text-sm text-mocha">🔄 Прехвърлени от {new Date().getFullYear() - 1}:</span>
+          <span className="font-semibold text-mocha">{rolloverDays}</span>
         </div>
       )}
 
       {/* Used Days */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600">✔️ Използвани дни:</span>
-        <span className="font-semibold text-gray-800">{usedDays}</span>
+        <span className="text-sm text-coffee">✔️ Използвани дни:</span>
+        <span className="font-semibold text-espresso">{usedDays}</span>
       </div>
 
       {/* Remaining Days */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600">⏳ Остават дни:</span>
-        <span className={`font-semibold ${remainingDays < 0 ? 'text-red-600' : 'text-green-600'}`}>
+        <span className="text-sm text-coffee">⏳ Остават дни:</span>
+        <span className={`font-semibold ${remainingDays < 0 ? 'text-error' : 'text-success'}`}>
           {remainingDays}
         </span>
       </div>
 
       {/* Percentage Used */}
-      <div className="pt-2 border-t border-gray-200">
-        <span className="text-sm text-gray-500">{percentageUsed}% използвани</span>
+      <div className="pt-2 border-t border-latte">
+        <span className="text-sm text-cappuccino">{percentageUsed}% използвани</span>
       </div>
     </div>
   );
