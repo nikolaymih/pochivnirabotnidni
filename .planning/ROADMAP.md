@@ -139,10 +139,13 @@ Plans:
   3. ChunkHound integrated for frontend component indexing
   4. UX critique protocol documented and ready for use
   5. No new features, no behavioral changes, no UX improvements beyond tooling
-**Plans**: 0 plans
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 5.1 to break down)
+- [ ] 05.1-01-PLAN.md — Coffee theme tokens in globals.css + Nunito font with cyrillic
+- [ ] 05.1-02-PLAN.md — Coffee theme component migration (all color class replacements)
+- [ ] 05.1-03-PLAN.md — agent-browser + ChunkHound installation and MCP configuration
+- [ ] 05.1-04-PLAN.md — UX critique protocol documentation and token mapping reference
 
 **Hard Constraints:**
 - No new features
@@ -201,5 +204,5 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 6
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
-| 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 0/TBD | Ready to plan | - |
+| 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 0/4 | Ready to execute | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
