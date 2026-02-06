@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAF8F5;
+  --foreground: #2C1810;
 }
 
-@theme inline {
+@theme {
+  /* Base Colors */
+  --color-espresso: #2C1810;
+  --color-dark-roast: #3D251E;
+  --color-mocha: #5D3A2E;
+  --color-coffee: #6F4E37;
+  --color-cappuccino: #8B6B5D;
+  --color-latte: #C4A484;
+  --color-oat-milk: #D4C4A8;
+  --color-cream: #F5F0E8;
+  --color-foam: #FAF8F5;
+
+  /* Accent Colors */
+  --color-caramel: #C68E17;
+  --color-cinnamon: #B5651D;
+  --color-honey: #EB9605;
+
+  /* Semantic Colors */
+  --color-success: #5D8A4E;
+  --color-warning: #C68E17;
+  --color-error: #B54D4D;
+  --color-info: #5D7A8A;
+
+  /* Calendar Aliases */
+  --color-holiday: #B5651D;
+  --color-holiday-bg: #F5E6D8;
+  --color-bridge: #EB9605;
+  --color-bridge-bg: #FDF3DC;
+  --color-vacation: #C68E17;
+  --color-vacation-bg: #F9EED4;
+  --color-weekend-bg: #F5F0E8;
+  --color-weekend-text: #8B6B5D;
+  --color-today-ring: #C68E17;
+  --color-highlight: #D4C4A8;
+
+  /* Typography */
+  --font-sans: 'Nunito', var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: 'Caveat', cursive;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Background/Foreground */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
 }
