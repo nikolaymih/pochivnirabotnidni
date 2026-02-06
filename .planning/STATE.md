@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Users can see all Bulgarian holidays for the year AND track their paid vacation days in one place, with history.
-**Current focus:** Phase 4 - Authentication & Cross-Device Sync
+**Current focus:** Phase 5.1 - UX Infrastructure & Feedback Loop
 
 ## Current Position
 
 Phase: 5.1 of 7 (UX Infrastructure & Feedback Loop - INSERTED)
-Plan: 0 of TBD complete
-Status: Ready to plan
-Last activity: 2026-02-06 — Phase 5.1 inserted after completing Phase 5 UAT and bug fixes
+Plan: 1 of 4 complete
+Status: In progress
+Last activity: 2026-02-06 — Completed 05.1-01-PLAN.md (Coffee Theme Tokens & Nunito Font)
 
-Progress: [█████░░░░░] 58% (15 of 26 plans complete across all phases)
+Progress: [██████░░░░] 53% (16 of 30 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: 2 min 4 sec
-- Total execution time: 0.62 hours
+- Total plans completed: 16
+- Average duration: 2 min 1 sec
+- Total execution time: 0.64 hours
 
 **By Phase:**
 
@@ -33,10 +33,11 @@ Progress: [█████░░░░░] 58% (15 of 26 plans complete across a
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
+| 5.1 - UX Infrastructure & Feedback Loop | 1 | 1m 21s | 1m 21s |
 
 **Recent Trend:**
-- Last 5 plans: 04-03 (2m 10s), 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s), 05-03 (4m 39s)
-- Trend: Phase 5 Plan 03 took longer due to Serwist/Turbopack compatibility issue requiring vanilla SW migration
+- Last 5 plans: 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s), 05-03 (4m 39s), 05.1-01 (1m 21s)
+- Trend: 05.1-01 was fast - CSS/font token definitions with no logic complexity
 
 *Updated after each plan completion*
 
@@ -195,6 +196,14 @@ Recent decisions affecting current work:
 - ServiceWorkerRegistration component registers SW client-side in production only
 - iOS PWA support via appleWebApp metadata (capable, statusBarStyle, title)
 
+**From 05.1-01 (Coffee Theme Tokens & Nunito Font):**
+- Use @theme (not @theme inline) for Tailwind utility class generation (bg-espresso, text-caramel, etc.)
+- Nunito font with latin + cyrillic subsets and display:swap for Bulgarian Cyrillic support
+- Dark mode removed entirely - Coffee theme is light-only
+- Calendar color aliases: holiday (#B5651D), bridge (#EB9605), vacation (#C68E17) with matching -bg variants
+- Border radius tokens: sm (8px), md (12px), lg (16px), xl (24px) for consistent rounding
+- PWA theme color updated from blue (#2563eb) to caramel (#C68E17) to match Coffee theme
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -216,7 +225,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-05
-Stopped at: Completed 05-03-PLAN.md (PWA Service Worker & Offline Caching)
+Last session: 2026-02-06
+Stopped at: Completed 05.1-01-PLAN.md (Coffee Theme Tokens & Nunito Font)
 Resume file: None
-Next: Phase 5 in progress - 05-04 remaining (final plan in phase)
+Next: Phase 5.1 in progress - 05.1-02, 05.1-03, 05.1-04 remaining
