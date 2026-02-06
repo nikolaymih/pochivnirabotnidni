@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 5.1 of 7 (UX Infrastructure & Feedback Loop - INSERTED)
-Plan: 3 of 4 complete
-Status: In progress (05.1-02 remaining)
-Last activity: 2026-02-06 — Completed 05.1-04-PLAN.md (UX Critique Protocol & Token Mapping)
+Plan: 4 of 4 complete
+Status: Phase complete
+Last activity: 2026-02-06 — Completed 05.1-02-PLAN.md (Coffee Color Migration)
 
-Progress: [██████░░░░] 60% (18 of 30 plans complete across all phases)
+Progress: [██████░░░░] 63% (19 of 30 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
-- Average duration: 2 min 1 sec
-- Total execution time: 0.70 hours
+- Total plans completed: 19
+- Average duration: 2 min 8 sec
+- Total execution time: 0.77 hours
 
 **By Phase:**
 
@@ -33,11 +33,11 @@ Progress: [██████░░░░] 60% (18 of 30 plans complete across a
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
-| 5.1 - UX Infrastructure & Feedback Loop | 3 | 5m 33s | 1m 51s |
+| 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (1m 42s), 05-03 (4m 39s), 05.1-01 (1m 21s), 05.1-03 (2m 0s), 05.1-04 (2m 12s)
-- Trend: 05.1-04 documentation-only plan, fast execution
+- Last 5 plans: 05-03 (4m 39s), 05.1-01 (1m 21s), 05.1-03 (2m 0s), 05.1-04 (2m 12s), 05.1-02 (4m 23s)
+- Trend: 05.1-02 larger plan (10 files, visual-only migration), still under 5 min
 
 *Updated after each plan completion*
 
@@ -218,6 +218,15 @@ Recent decisions affecting current work:
 - Coffee token mapping at .planning/coffee-token-mapping.md covers all 10 migrated components
 - Critiques directory created at .planning/critiques/ for Phase 6 critique documents
 
+**From 05.1-02 (Coffee Color Migration):**
+- All Tailwind default color classes replaced with Coffee theme tokens across every component
+- Legacy CalendarDay.tsx also migrated for consistency even though unused in current app flow
+- PWA manifest updated: background=#FAF8F5 (Foam), theme=#C68E17 (Caramel)
+- Color token mapping: holidays=cinnamon/holiday-bg, bridges=honey/bridge-bg, vacation=caramel/vacation-bg, weekends=cream/weekend-bg
+- UI text hierarchy: espresso (headings/values), coffee (labels), cappuccino (secondary)
+- Interactive elements: caramel primary, cinnamon hover, oat-milk disabled
+- Error/success semantic: text-error, text-success instead of text-red-600/text-green-600
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -240,6 +249,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Completed 05.1-04-PLAN.md (UX Critique Protocol & Token Mapping)
+Stopped at: Completed 05.1-02-PLAN.md (Coffee Color Migration) - Phase 5.1 COMPLETE
 Resume file: None
-Next: Phase 5.1 in progress - 05.1-02 remaining (Coffee theme component migration)
+Next: Phase 6 - ready to begin
