@@ -22,7 +22,7 @@ export default function DayTooltip({ holiday }: DayTooltipProps) {
           e.stopPropagation();
           setIsVisible(!isVisible);
         }}
-        className="text-xs bg-white text-gray-800 rounded-full w-5 h-5 flex items-center justify-center font-bold hover:bg-gray-100 transition-colors"
+        className="text-xs bg-foam text-espresso rounded-full w-5 h-5 flex items-center justify-center font-bold hover:bg-cream transition-colors"
         aria-label="Подробности за празника"
         type="button"
       >
@@ -30,7 +30,7 @@ export default function DayTooltip({ holiday }: DayTooltipProps) {
       </button>
 
       {isVisible && (
-        <div className="absolute right-0 top-7 z-10 w-48 p-3 bg-gray-900 text-white text-sm rounded shadow-lg">
+        <div className="absolute right-0 top-7 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
           <div className="font-bold mb-1">{holiday.name}</div>
           <div className="text-xs opacity-80 mb-1">
             {format(parseDate(holiday.date), 'MMM d, yyyy', { locale: bg })}

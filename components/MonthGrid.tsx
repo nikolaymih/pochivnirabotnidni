@@ -70,7 +70,7 @@ export default function MonthGrid({
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg p-3 bg-white shadow-sm">
+    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm">
       {/* Month name header */}
       <h3 className="text-lg font-semibold mb-2 text-center">
         {capitalizedMonth}
@@ -80,7 +80,7 @@ export default function MonthGrid({
       <div className="grid grid-cols-7 gap-1 text-xs">
         {/* Day headers - single letter abbreviations for compact view */}
         {['П', 'В', 'С', 'Ч', 'П', 'С', 'Н'].map((dayAbbr, idx) => (
-          <div key={idx} className="text-center font-medium text-gray-600 pb-1">
+          <div key={idx} className="text-center font-medium text-coffee pb-1">
             {dayAbbr}
           </div>
         ))}
@@ -112,13 +112,13 @@ export default function MonthGrid({
             'min-w-[44px] min-h-[44px]', // 44px minimum touch target (WCAG 2.5.5)
             'flex items-center justify-center', // Center content within larger touch target
             'transition-colors duration-150', // Smooth highlight flash
-            isToday && 'ring-2 ring-blue-500',
-            isHighlighted && 'bg-gray-200', // Highlight flash on tap
-            !isHighlighted && isHoliday && 'bg-red-100 text-red-900 font-semibold',
-            !isHighlighted && !isHoliday && isBridge && 'bg-yellow-100 text-yellow-900',
-            !isHighlighted && !isHoliday && !isBridge && isVacation && 'bg-blue-100 text-blue-900',
-            !isHighlighted && !isHoliday && !isBridge && !isVacation && isWeekend && 'bg-gray-50 text-gray-500',
-            !isHighlighted && !isHoliday && !isBridge && !isVacation && !isWeekend && 'hover:bg-gray-100',
+            isToday && 'ring-2 ring-today-ring',
+            isHighlighted && 'bg-highlight',
+            !isHighlighted && isHoliday && 'bg-holiday-bg text-holiday font-semibold',
+            !isHighlighted && !isHoliday && isBridge && 'bg-bridge-bg text-bridge',
+            !isHighlighted && !isHoliday && !isBridge && isVacation && 'bg-vacation-bg text-vacation',
+            !isHighlighted && !isHoliday && !isBridge && !isVacation && isWeekend && 'bg-weekend-bg text-weekend-text',
+            !isHighlighted && !isHoliday && !isBridge && !isVacation && !isWeekend && 'hover:bg-cream',
             isClickable && 'cursor-pointer',
             isClickable && 'touch-none' // Prevent scroll/zoom on draggable cells
           ].filter(Boolean).join(' ');
