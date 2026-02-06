@@ -21,7 +21,11 @@ interface FullYearCalendarWrapperProps {
 }
 
 export default function FullYearCalendarWrapper({ year, holidays }: FullYearCalendarWrapperProps) {
-  const { vacationData, setVacationData } = useVacation();
+  const { vacationData, setVacationData, rollover } = useVacation();
+
+  // Calculate effective total (base + rollover) for max validation
+  const rolloverDays = rollover?.rolloverDays || 0;
+  const effectiveTotal = vacationData.totalDays + rolloverDays;
 
   // Drag selection state
   const [isDragging, setIsDragging] = useState(false);
@@ -48,6 +52,9 @@ export default function FullYearCalendarWrapper({ year, holidays }: FullYearCale
   const toggleVacationDate = (dateStr: string) => {
     const currentDates = vacationData.vacationDates;
     const isSelected = currentDates.includes(dateStr);
+
+    // Don't add if already at max vacation days
+    if (!isSelected && currentDates.length >= effectiveTotal) return;
 
     setVacationData({
       ...vacationData,
@@ -80,7 +87,7 @@ export default function FullYearCalendarWrapper({ year, holidays }: FullYearCale
     const vacationSet = new Set(currentDates);
 
     // Apply drag mode: add if mode=add and not present, remove if mode=remove and present
-    if (dragMode === 'add' && !vacationSet.has(dateStr)) {
+    if (dragMode === 'add' && !vacationSet.has(dateStr) && currentDates.length < effectiveTotal) {
       setVacationData({
         ...vacationData,
         vacationDates: [...currentDates, dateStr]

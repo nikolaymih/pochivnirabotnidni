@@ -123,12 +123,6 @@ export default function MonthGrid({
             isClickable && 'touch-none' // Prevent scroll/zoom on draggable cells
           ].filter(Boolean).join(' ');
 
-          const handleClick = () => {
-            if (isClickable && onToggleDate) {
-              onToggleDate(dateStr);
-            }
-          };
-
           const handlePointerDownCell = () => {
             if (!isClickable) return;
 
@@ -164,7 +158,6 @@ export default function MonthGrid({
               key={day}
               className={dayClasses}
               style={index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : undefined}
-              onClick={handleClick}
               onPointerDown={handlePointerDownCell}
               onPointerEnter={handlePointerEnterCell}
               onPointerUp={handlePointerUpCell}

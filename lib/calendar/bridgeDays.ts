@@ -3,147 +3,92 @@ import type { Holiday } from '@/lib/holidays/types';
 
 export interface BridgeDay {
   date: string; // ISO format yyyy-MM-dd
-  reason: 'holiday-after' | 'holiday-before' | 'cluster-connector';
+  reason: 'holiday-after' | 'holiday-before' | 'cluster-connector' | 'full-week';
   relatedHoliday: string; // Holiday name or cluster description
   daysOff: number; // Total consecutive days (3, 4, 5, or more)
 }
 
 /**
- * Detect bridge days based on Bulgarian holiday patterns.
+ * Detect bridge days using full-week algorithm.
  *
- * Bridge day rules:
- * - Tuesday holiday → Monday before is 4-day weekend bridge (Sat-Sun-Mon-Tue)
- * - Thursday holiday → Friday after is 4-day weekend bridge (Thu-Fri-Sat-Sun)
- * - Monday holiday → Friday before is 3-day weekend bridge (Fri-Sat-Sun-Mon)
- * - Friday holiday → Monday after is 3-day weekend bridge (Fri-Sat-Sun-Mon)
- * - Wednesday holidays alone don't create bridges but may be part of clusters
- * - Holiday clusters (within 3 days) suggest connecting workdays
+ * Full-week bridge day rules:
+ * - For each weekday holiday (Mon-Fri), suggest ALL other workdays in that work week
+ * - Skip weekend holidays (Sat/Sun) - no suggestions for those
+ * - Multiple holidays in same week are handled without duplicates
+ * - Each suggestion uses reason: 'full-week' and daysOff: 5
  *
  * @param holidays - Array of Holiday objects
  * @param year - Target year for bridge detection
  * @returns Array of BridgeDay objects with suggested vacation days
  */
 export function detectBridgeDays(holidays: Holiday[], year: number): BridgeDay[] {
-  const bridges: BridgeDay[] = [];
-  const bridgeDatesSet = new Set<string>(); // Prevent duplicates
+  const suggestions: BridgeDay[] = [];
+  const suggestionsSet = new Set<string>(); // Prevent duplicates
 
-  // Filter holidays to target year only
-  const yearHolidays = holidays.filter(holiday => {
+  // Consider holidays from adjacent years to handle year-spanning weeks
+  // A work week can span from late December (year-1) to early January (year)
+  // or from late December (year) to early January (year+1)
+  const relevantHolidays = holidays.filter(holiday => {
     const holidayDate = parseISO(holiday.date);
-    return holidayDate.getFullYear() === year;
+    const holidayYear = holidayDate.getFullYear();
+    return holidayYear >= year - 1 && holidayYear <= year + 1;
   });
 
-  // Create a Set of holiday dates for quick lookup
-  const holidayDatesSet = new Set(yearHolidays.map(h => h.date));
-
-  // Helper to check if a date is already a holiday
-  const isHoliday = (dateStr: string): boolean => holidayDatesSet.has(dateStr);
-
-  // Helper to add a bridge day
-  const addBridge = (
-    date: Date,
-    reason: BridgeDay['reason'],
-    relatedHoliday: string,
-    daysOff: number
-  ) => {
-    const dateStr = format(date, 'yyyy-MM-dd');
-
-    // Don't suggest bridge if date is already a holiday
-    if (isHoliday(dateStr)) {
-      return;
-    }
-
-    // Prevent duplicates
-    if (bridgeDatesSet.has(dateStr)) {
-      return;
-    }
-
-    bridges.push({
-      date: dateStr,
-      reason,
-      relatedHoliday,
-      daysOff,
-    });
-    bridgeDatesSet.add(dateStr);
-  };
+  // Create a Set of holiday dates for O(1) lookup
+  const holidayDatesSet = new Set(relevantHolidays.map(h => h.date));
 
   // Process each holiday
-  for (const holiday of yearHolidays) {
+  for (const holiday of relevantHolidays) {
     const holidayDate = parseISO(holiday.date);
     const dayOfWeek = getISODay(holidayDate); // 1=Monday, 7=Sunday
 
-    switch (dayOfWeek) {
-      case 1: // Monday
-        // Friday before creates 4-day weekend (Fri-Sat-Sun-Mon)
-        const fridayBefore = subDays(holidayDate, 3);
-        addBridge(fridayBefore, 'holiday-after', holiday.name, 4);
-        break;
-
-      case 2: // Tuesday
-        // Monday before creates 4-day weekend (Sat-Sun-Mon-Tue)
-        const mondayBefore = subDays(holidayDate, 1);
-        addBridge(mondayBefore, 'holiday-after', holiday.name, 4);
-        break;
-
-      case 4: // Thursday
-        // Friday after creates 4-day weekend (Thu-Fri-Sat-Sun)
-        const fridayAfter = addDays(holidayDate, 1);
-        addBridge(fridayAfter, 'holiday-before', holiday.name, 4);
-        break;
-
-      case 5: // Friday
-        // Monday after creates 4-day weekend (Fri-Sat-Sun-Mon)
-        const mondayAfter = addDays(holidayDate, 3);
-        addBridge(mondayAfter, 'holiday-before', holiday.name, 4);
-        break;
-
-      // case 3: Wednesday - no simple bridge
-      // case 6: Saturday - already weekend
-      // case 7: Sunday - already weekend
-      default:
-        // No bridge for Wednesday or weekend holidays
-        break;
+    // Skip weekend holidays (Saturday=6, Sunday=7)
+    if (dayOfWeek === 6 || dayOfWeek === 7) {
+      continue;
     }
-  }
 
-  // Detect holiday clusters (holidays within 3 days of each other)
-  for (let i = 0; i < yearHolidays.length - 1; i++) {
-    const holiday1 = parseISO(yearHolidays[i].date);
+    // Find Monday of this work week
+    // dayOfWeek: 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri
+    // Offset to Monday: 0 for Mon, 1 for Tue, 2 for Wed, 3 for Thu, 4 for Fri
+    const daysFromMonday = dayOfWeek - 1;
+    const monday = subDays(holidayDate, daysFromMonday);
 
-    for (let j = i + 1; j < yearHolidays.length; j++) {
-      const holiday2 = parseISO(yearHolidays[j].date);
-      const daysDiff = Math.abs(
-        Math.floor((holiday2.getTime() - holiday1.getTime()) / (1000 * 60 * 60 * 24))
-      );
+    // Generate all 5 workdays (Mon-Fri) in this week
+    for (let i = 0; i < 5; i++) {
+      const workday = addDays(monday, i);
+      const workdayStr = format(workday, 'yyyy-MM-dd');
 
-      // If holidays are 2-3 days apart, suggest connecting workdays
-      if (daysDiff >= 2 && daysDiff <= 3) {
-        const startDate = holiday1 < holiday2 ? holiday1 : holiday2;
-        const endDate = holiday1 < holiday2 ? holiday2 : holiday1;
-
-        // Suggest all workdays between the holidays
-        let currentDate = addDays(startDate, 1);
-        while (currentDate < endDate) {
-          const currentDayOfWeek = getISODay(currentDate);
-
-          // Only suggest if it's a workday (Monday-Friday)
-          if (currentDayOfWeek >= 1 && currentDayOfWeek <= 5) {
-            const totalDaysOff = daysDiff + 2; // holidays + connector days + weekends
-            addBridge(
-              currentDate,
-              'cluster-connector',
-              `${yearHolidays[i].name} and ${yearHolidays[j].name}`,
-              totalDaysOff
-            );
-          }
-
-          currentDate = addDays(currentDate, 1);
-        }
+      // Skip if it's the holiday itself
+      if (workdayStr === holiday.date) {
+        continue;
       }
+
+      // Skip if already a holiday (don't suggest official holidays)
+      if (holidayDatesSet.has(workdayStr)) {
+        continue;
+      }
+
+      // Skip if already in suggestions (prevent duplicates)
+      if (suggestionsSet.has(workdayStr)) {
+        continue;
+      }
+
+      // Add to suggestions
+      suggestions.push({
+        date: workdayStr,
+        reason: 'full-week',
+        relatedHoliday: holiday.name,
+        daysOff: 5,
+      });
+      suggestionsSet.add(workdayStr);
     }
   }
 
-  return bridges;
+  // Filter suggestions to only include dates in the target year
+  return suggestions.filter(suggestion => {
+    const suggestionDate = parseISO(suggestion.date);
+    return suggestionDate.getFullYear() === year;
+  });
 }
 
 /**

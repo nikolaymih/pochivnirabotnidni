@@ -1,82 +1,72 @@
 [
   {
     "name": "New Year's Day",
-    "date": "2026-01-01",
-    "type": "Public Holiday"
-  },
-  {
-    "name": "Euro Adoption Day",
-    "date": "2026-01-02",
+    "date": "2025-01-01",
     "type": "Public Holiday"
   },
   {
     "name": "Liberation Day",
-    "date": "2026-03-03",
+    "date": "2025-03-03",
     "type": "National Holiday"
   },
   {
     "name": "Good Friday",
-    "date": "2026-04-10",
+    "date": "2025-04-18",
     "type": "Public Holiday"
   },
   {
     "name": "Holy Saturday",
-    "date": "2026-04-11",
+    "date": "2025-04-19",
     "type": "Public Holiday"
   },
   {
     "name": "Easter Sunday",
-    "date": "2026-04-12",
+    "date": "2025-04-20",
     "type": "Public Holiday"
   },
   {
     "name": "Easter Monday",
-    "date": "2026-04-13",
+    "date": "2025-04-21",
     "type": "Public Holiday"
   },
   {
     "name": "Labour Day",
-    "date": "2026-05-01",
+    "date": "2025-05-01",
     "type": "Public Holiday"
   },
   {
     "name": "St. George's Day",
-    "date": "2026-05-06",
+    "date": "2025-05-06",
     "type": "Public Holiday"
   },
   {
     "name": "Education and Culture Day",
-    "date": "2026-05-24",
+    "date": "2025-05-24",
     "type": "National Holiday"
   },
   {
     "name": "Unification Day",
-    "date": "2026-09-06",
+    "date": "2025-09-06",
     "type": "National Holiday"
   },
   {
     "name": "Independence Day",
-    "date": "2026-09-22",
+    "date": "2025-09-22",
     "type": "National Holiday"
   },
   {
     "name": "Christmas Eve",
-    "date": "2026-12-24",
+    "date": "2025-12-24",
     "type": "Observance"
   },
   {
     "name": "Christmas Day",
-    "date": "2026-12-25",
+    "date": "2025-12-25",
     "type": "Public Holiday"
   },
   {
     "name": "Second Day of Christmas",
-    "date": "2026-12-26",
-    "type": "Public Holiday"
-  },
-  {
-    "name": "Christmas Day (Observed)",
-    "date": "2026-12-28",
+    "date": "2025-12-26",
     "type": "Public Holiday"
   }
 ]
