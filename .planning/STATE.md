@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 5.1 of 7 (UX Infrastructure & Feedback Loop - INSERTED)
-Plan: 1 of 4 complete
+Plan: 2 of 4 complete
 Status: In progress
-Last activity: 2026-02-06 — Completed 05.1-01-PLAN.md (Coffee Theme Tokens & Nunito Font)
+Last activity: 2026-02-06 — Completed 05.1-03-PLAN.md (Tool Installation & Hook Configuration)
 
-Progress: [██████░░░░] 53% (16 of 30 plans complete across all phases)
+Progress: [██████░░░░] 57% (17 of 30 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
-- Average duration: 2 min 1 sec
-- Total execution time: 0.64 hours
+- Total plans completed: 17
+- Average duration: 2 min 0 sec
+- Total execution time: 0.67 hours
 
 **By Phase:**
 
@@ -33,11 +33,11 @@ Progress: [██████░░░░] 53% (16 of 30 plans complete across a
 | 3 - Full-Year Calendar & Performance | 3 | 10m 17s | 3m 26s |
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
-| 5.1 - UX Infrastructure & Feedback Loop | 1 | 1m 21s | 1m 21s |
+| 5.1 - UX Infrastructure & Feedback Loop | 2 | 3m 21s | 1m 41s |
 
 **Recent Trend:**
-- Last 5 plans: 04-04 (2m 24s), 05-01 (1m 42s), 05-02 (1m 42s), 05-03 (4m 39s), 05.1-01 (1m 21s)
-- Trend: 05.1-01 was fast - CSS/font token definitions with no logic complexity
+- Last 5 plans: 05-01 (1m 42s), 05-02 (1m 42s), 05-03 (4m 39s), 05.1-01 (1m 21s), 05.1-03 (2m 0s)
+- Trend: 05.1-03 straightforward - tool install + config + hook creation
 
 *Updated after each plan completion*
 
@@ -204,6 +204,13 @@ Recent decisions affecting current work:
 - Border radius tokens: sm (8px), md (12px), lg (16px), xl (24px) for consistent rounding
 - PWA theme color updated from blue (#2563eb) to caramel (#C68E17) to match Coffee theme
 
+**From 05.1-03 (Tool Installation & Hook Configuration):**
+- agent-browser v0.9.1 installed globally (command: `agent-browser`, NOT `ab`)
+- ChunkHound not available on npm or pip - MCP config added optimistically in .claude/settings.json
+- Pre-commit hook at .git/hooks/pre-commit is advisory only (always exits 0, never blocks commits)
+- Color compliance check uses grep patterns, not ChunkHound dependency - works immediately
+- .git/hooks/ not tracked by git - must be recreated on fresh clone (see 05.1-03-SUMMARY.md)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -226,6 +233,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Completed 05.1-01-PLAN.md (Coffee Theme Tokens & Nunito Font)
+Stopped at: Completed 05.1-03-PLAN.md (Tool Installation & Hook Configuration)
 Resume file: None
-Next: Phase 5.1 in progress - 05.1-02, 05.1-03, 05.1-04 remaining
+Next: Phase 5.1 in progress - 05.1-02, 05.1-04 remaining
