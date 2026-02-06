@@ -14,5 +14,14 @@
   "statusLine": {
     "type": "command",
     "command": "node .claude/hooks/statusline.js"
+  },
+  "mcpServers": {
+    "chunkhound": {
+      "command": "chunkhound",
+      "args": ["mcp-serve"],
+      "env": {
+        "CHUNKHOUND_ROOT": "/home/nikolaymih11/webstormprojects/pochivnirabotnidni"
+      }
+    }
   }
 }
