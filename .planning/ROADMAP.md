@@ -17,7 +17,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Anonymous Vacation Tracking** - Core vacation tracking with localStorage (no auth required)
 - [ ] **Phase 3: Full-Year Calendar & Performance** - 12-month view with bridge day suggestions
 - [ ] **Phase 4: Authentication & Cross-Device Sync** - Google auth with Supabase backend
-- [ ] **Phase 5: UX Polish & Mobile Optimization** - Responsive design, offline support, touch gestures
+- [x] **Phase 5: UX Polish & Mobile Optimization** - Responsive design, offline support, touch gestures
+- [ ] **Phase 5.1: UX Infrastructure & Feedback Loop (INSERTED)** - Establish visual baseline, browser agent, and UX critique protocol
 - [ ] **Phase 6: Testing & Quality Gates** - Comprehensive testing, Safari validation, performance budgets
 
 ## Phase Details
@@ -124,9 +125,52 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Touch-optimized drag selection with 44px targets and highlight flash
-- [ ] 05-02-PLAN.md — Network detection, toast notifications, and retry-with-backoff
-- [ ] 05-03-PLAN.md — PWA service worker with Serwist and offline holiday caching
+- [x] 05-01-PLAN.md — Touch-optimized drag selection with 44px targets and highlight flash
+- [x] 05-02-PLAN.md — Network detection, toast notifications, and retry-with-backoff
+- [x] 05-03-PLAN.md — PWA service worker with Serwist and offline holiday caching
+
+### Phase 5.1: UX Infrastructure & Feedback Loop (INSERTED)
+**Goal**: Establish visual grounding, codebase awareness, and formal UX critique loop for Phase 6
+**Depends on**: Phase 5
+**Requirements**: None (infrastructure only)
+**Success Criteria** (what must be TRUE):
+  1. Coffee HTML Style Guide theme applied and documented (visual baseline only)
+  2. Browser agent integrated and can render/inspect key UI states
+  3. ChunkHound integrated for frontend component indexing
+  4. UX critique protocol documented and ready for use
+  5. No new features, no behavioral changes, no UX improvements beyond tooling
+**Plans**: 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 5.1 to break down)
+
+**Hard Constraints:**
+- No new features
+- No behavioral or interaction changes
+- No UX improvements beyond tooling integration requirements
+- Phase 6 must not begin until Phase 5.1 is complete and verified
+
+**Deliverables:**
+1. Coffee theme enforcement (https://ggprompts.github.io/htmlstyleguides/styles/coffee.html)
+   - Document inherited tokens
+   - Document overridden tokens
+   - No component behavior changes
+
+2. Browser agent integration
+   - Define renderable application views
+   - Use only for visual verification and UX critique
+
+3. ChunkHound integration
+   - Frontend codebase indexing
+   - Component discovery
+   - Refactor safety checks
+   - No refactoring unless required for integration
+
+4. UX critique loop protocol
+   - No code changes during critique
+   - Output: observations, questions, design system violations only
+   - No solutions or implementation proposals
+   - Mandatory before any Phase 6 UX/UI changes
 
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
@@ -147,7 +191,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -156,5 +200,6 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Anonymous Vacation Tracking | 0/2 | Ready to execute | - |
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
-| 5. UX Polish & Mobile Optimization | 0/3 | Planned | - |
+| 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
+| 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 0/TBD | Ready to plan | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |

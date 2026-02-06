@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Phase: 5 of 6 (UX Polish & Mobile Optimization)
-Plan: 3 of 4 complete (05-01: Touch Gestures, 05-02: Offline Support, 05-03: PWA Service Worker)
-Status: In progress
-Last activity: 2026-02-05 — Completed 05-03-PLAN.md (PWA service worker with offline caching and manifest)
+Phase: 5.1 of 7 (UX Infrastructure & Feedback Loop - INSERTED)
+Plan: 0 of TBD complete
+Status: Ready to plan
+Last activity: 2026-02-06 — Phase 5.1 inserted after completing Phase 5 UAT and bug fixes
 
 Progress: [█████░░░░░] 58% (15 of 26 plans complete across all phases)
 
@@ -43,6 +43,15 @@ Progress: [█████░░░░░] 58% (15 of 26 plans complete across a
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-02-06:** Phase 5.1 inserted after Phase 5 (INSERTED) - UX Infrastructure & Feedback Loop
+  - User wants to improve design quality before Phase 6
+  - Establish Coffee HTML Style Guide as visual baseline
+  - Integrate browser agent for UI rendering and inspection
+  - Integrate ChunkHound for frontend codebase indexing
+  - Define formal UX critique protocol (observations only, no solutions)
+  - Hard constraint: NO new features, NO behavioral changes, NO UX improvements beyond tooling
+  - Impact: Phase 6 cannot begin until UX infrastructure is verified and ready
 
 - **2026-01-25:** Phase 1.1 inserted after Phase 1 (URGENT) - Fix Holiday Date Timezone Bug
   - User reported December 31st showing as "Нова година" when it shouldn't be
