@@ -18,9 +18,10 @@ import type { Holiday } from '@/lib/holidays/types';
 interface FullYearCalendarWrapperProps {
   year: number;
   holidays: Holiday[];
+  schoolHolidayDates?: string[];
 }
 
-export default function FullYearCalendarWrapper({ year, holidays }: FullYearCalendarWrapperProps) {
+export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayDates }: FullYearCalendarWrapperProps) {
   const { vacationData, setVacationData, rollover } = useVacation();
 
   // Calculate effective total (base + rollover) for max validation
@@ -111,6 +112,7 @@ export default function FullYearCalendarWrapper({ year, holidays }: FullYearCale
       year={year}
       holidays={holidays}
       vacationDates={vacationData.vacationDates}
+      schoolHolidayDates={schoolHolidayDates}
       onToggleDate={toggleVacationDate}
       onPointerDown={handlePointerDown}
       onPointerEnter={handlePointerEnter}

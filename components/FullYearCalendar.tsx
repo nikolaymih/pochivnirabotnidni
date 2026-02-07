@@ -8,6 +8,7 @@ interface FullYearCalendarProps {
   year: number;
   holidays: Holiday[]; // Passed from server-side fetch in parent
   vacationDates?: string[]; // Passed from client wrapper component
+  schoolHolidayDates?: string[]; // Individual dates from school holiday ranges
   onToggleDate?: (dateStr: string) => void; // Click handler for toggling vacation dates
   onPointerDown?: (dateStr: string) => void; // Pointer down handler for drag selection
   onPointerEnter?: (dateStr: string) => void; // Pointer enter handler for drag selection
@@ -18,6 +19,7 @@ export default function FullYearCalendar({
   year,
   holidays,
   vacationDates = [],
+  schoolHolidayDates,
   onToggleDate,
   onPointerDown,
   onPointerEnter,
@@ -28,9 +30,6 @@ export default function FullYearCalendar({
 
   return (
     <div className="container mx-auto px-4 py-6">
-      {/* Year header */}
-      <h1 className="text-3xl font-bold mb-6">{year}</h1>
-
       {/* Single-column vertical scroll layout */}
       <div className="flex flex-col gap-4">
         {Array.from({ length: 12 }, (_, monthIndex) => {
@@ -46,12 +45,6 @@ export default function FullYearCalendar({
             return bridgeDate.getFullYear() === year && bridgeDate.getMonth() === monthIndex;
           });
 
-          // Debug December specifically
-          if (monthIndex === 11) {
-            console.log(`[December ${year}] Holidays being passed to MonthGrid:`, monthHolidays);
-            console.log(`[December ${year}] All holidays received:`, holidays.filter(h => h.date.includes(`${year}-12`)));
-          }
-
           // Filter out bridge days where user already has vacation marked
           // Vacation takes priority (blue) over bridge suggestions (yellow)
           const visibleBridges = monthBridges.filter(bridge =>
@@ -66,6 +59,7 @@ export default function FullYearCalendar({
               holidays={monthHolidays}
               bridgeDays={visibleBridges}
               vacationDates={vacationDates}
+              schoolHolidayDates={schoolHolidayDates}
               onToggleDate={onToggleDate}
               onPointerDown={onPointerDown}
               onPointerEnter={onPointerEnter}
