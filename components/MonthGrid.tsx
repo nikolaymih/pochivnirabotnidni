@@ -6,6 +6,7 @@ import { bg } from 'date-fns/locale';
 import { getCalendarGrid } from '@/lib/calendar/grid';
 import { getCurrentDate } from '@/lib/calendar/dates';
 import type { Holiday } from '@/lib/holidays/types';
+import DayTooltip from './DayTooltip';
 
 // Bridge day type - will be fully implemented in Plan 03-01
 interface BridgeDay {
@@ -63,14 +64,8 @@ export default function MonthGrid({
   const bridgeDates = new Set(bridgeDays.map(b => b.date));
   const vacationSet = new Set(vacationDates);
 
-  // Debug December specifically
-  if (month === 11) {
-    console.log(`[MonthGrid December ${year}] Received ${holidays.length} holidays:`, holidays);
-    console.log(`[MonthGrid December ${year}] Holiday dates set:`, Array.from(holidayDates));
-  }
-
   return (
-    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm">
+    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[320px] overflow-hidden">
       {/* Month name header */}
       <h3 className="text-lg font-semibold mb-2 text-center">
         {capitalizedMonth}
@@ -108,13 +103,14 @@ export default function MonthGrid({
 
           // Styling priority: Holiday > Bridge > Vacation > Weekend > Workday
           const dayClasses = [
+            'relative', // For absolute positioning of DayTooltip
             'p-2 text-center rounded text-xs',
             'min-w-[44px] min-h-[44px]', // 44px minimum touch target (WCAG 2.5.5)
             'flex items-center justify-center', // Center content within larger touch target
             'transition-colors duration-150', // Smooth highlight flash
             isToday && 'ring-2 ring-today-ring',
             isHighlighted && 'bg-highlight',
-            !isHighlighted && isHoliday && 'bg-holiday-bg text-holiday font-semibold',
+            !isHighlighted && isHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !isHoliday && isBridge && 'bg-bridge-bg text-bridge',
             !isHighlighted && !isHoliday && !isBridge && isVacation && 'bg-vacation-bg text-vacation',
             !isHighlighted && !isHoliday && !isBridge && !isVacation && isWeekend && 'bg-weekend-bg text-weekend-text',
@@ -163,6 +159,11 @@ export default function MonthGrid({
               onPointerUp={handlePointerUpCell}
             >
               {day}
+              {isHoliday && (
+                <DayTooltip
+                  holiday={holidays.find(h => h.date === dateStr)!}
+                />
+              )}
             </div>
           );
         })}
