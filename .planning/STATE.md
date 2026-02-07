@@ -246,6 +246,15 @@ Recent decisions affecting current work:
 - Dynamic year calculation using date-fns getYear() eliminates hardcoded "2026" in SEO metadata
 - Pattern established: function signatures for dynamic constants, const assertion for static objects
 
+**From 05.2-03 (Teal Color Tokens and Complete Legend):**
+- Teal color tokens added: --color-teal (#4A9B8E) and --color-school-bg (#E5F3F0) in globals.css Calendar Aliases
+- Teal selection rationale: muted, earthy tone fits Coffee theme warmth, distinct from caramel/cinnamon/honey
+- Holiday legend swatch changed from light bg-holiday-bg to solid bg-cinnamon with white "П" text
+- Legend swatch now matches actual calendar cell appearance (not just color reference)
+- Legend entries ordered by day type priority: Holiday > School > Bridge > Vacation > Weekend > Today
+- Complete Legend has all 6 day types: Официален празник, Неучебни дни, Предложение за почивка, Лична почивка, Уикенд, Днес
+- School holiday visual identity: light teal background (bg-school-bg) with teal border (border-teal)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -268,6 +277,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 05.2-02-PLAN.md (School Holidays Data Layer)
+Stopped at: Completed 05.2-03-PLAN.md (Teal Color Tokens and Complete Legend)
 Resume file: None
-Next: 05.2-04 through 05.2-06 - School holidays sidebar and layout restructuring
+Next: 05.2-04 through 05.2-06 - Holiday color fixes, school holidays sidebar, layout restructuring
