@@ -1,0 +1,69 @@
+[
+  {
+    "name": "Коледна ваканция",
+    "startDate": "2025-12-24",
+    "endDate": "2026-01-04",
+    "type": "School"
+  },
+  {
+    "name": "Междусрочна ваканция",
+    "startDate": "2026-01-31",
+    "endDate": "2026-02-02",
+    "type": "School"
+  },
+  {
+    "name": "Свободен от училище",
+    "startDate": "2026-03-02",
+    "endDate": "2026-03-02",
+    "type": "School"
+  },
+  {
+    "name": "Пролетна ваканция",
+    "startDate": "2026-04-04",
+    "endDate": "2026-04-13",
+    "type": "School",
+    "gradeLevel": "I-XI клас"
+  },
+  {
+    "name": "Пролетна ваканция",
+    "startDate": "2026-04-08",
+    "endDate": "2026-04-13",
+    "type": "School",
+    "gradeLevel": "XII клас"
+  },
+  {
+    "name": "Лятна ваканция",
+    "startDate": "2026-05-16",
+    "endDate": "2026-09-14",
+    "type": "School",
+    "gradeLevel": "XII клас"
+  },
+  {
+    "name": "Лятна ваканция",
+    "startDate": "2026-05-30",
+    "endDate": "2026-09-14",
+    "type": "School",
+    "gradeLevel": "I-III клас"
+  },
+  {
+    "name": "Лятна ваканция",
+    "startDate": "2026-06-13",
+    "endDate": "2026-09-14",
+    "type": "School",
+    "gradeLevel": "IV-VI клас"
+  },
+  {
+    "name": "Лятна ваканция",
+    "startDate": "2026-07-01",
+    "endDate": "2026-09-14",
+    "type": "School",
+    "gradeLevel": "VII-XI клас"
+  },
+  {
+    "name": "Лятна ваканция",
+    "startDate": "2026-07-01",
+    "endDate": "2026-09-14",
+    "type": "School",
+    "gradeLevel": "V-VI клас (спортни училища)"
+  }
+]
