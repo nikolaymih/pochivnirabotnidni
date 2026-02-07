@@ -20,6 +20,7 @@ interface MonthGridProps {
   holidays: Holiday[];
   bridgeDays?: BridgeDay[];
   vacationDates?: string[]; // From parent, ultimately from VacationContext via client wrapper
+  schoolHolidayDates?: string[]; // Individual dates from school holiday ranges
   onToggleDate?: (dateStr: string) => void; // Click handler for toggling vacation dates
   onPointerDown?: (dateStr: string) => void; // Pointer down handler for drag selection
   onPointerEnter?: (dateStr: string) => void; // Pointer enter handler for drag selection
@@ -33,6 +34,7 @@ export default function MonthGrid({
   holidays,
   bridgeDays = [],
   vacationDates = [],
+  schoolHolidayDates = [],
   onToggleDate,
   onPointerDown,
   onPointerEnter,
@@ -63,6 +65,7 @@ export default function MonthGrid({
   const holidayDates = new Set(holidays.map(h => h.date));
   const bridgeDates = new Set(bridgeDays.map(b => b.date));
   const vacationSet = new Set(vacationDates);
+  const schoolHolidaySet = new Set(schoolHolidayDates || []);
 
   return (
     <div className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[320px] overflow-hidden">
@@ -85,23 +88,46 @@ export default function MonthGrid({
           const date = new Date(year, month, day);
           const dateStr = format(date, 'yyyy-MM-dd');
 
-          // Check day type
-          const isHoliday = holidayDates.has(dateStr);
-          const isBridge = bridgeDates.has(dateStr);
-          const isVacation = vacationSet.has(dateStr);
-          const isToday = format(today, 'yyyy-MM-dd') === dateStr;
-
           // Calculate weekend (Monday-first indexing)
           const dayOfWeek = (firstDayOfWeek + index) % 7;
           const isWeekend = dayOfWeek === 5 || dayOfWeek === 6;
 
-          // Determine if day is clickable (workdays, weekends, bridge days - but not holidays)
-          const isClickable = !isHoliday;
+          // Check day type
+          const isHoliday = holidayDates.has(dateStr);
+          const isBridge = bridgeDates.has(dateStr);
+          const isVacation = vacationSet.has(dateStr);
+          const isSchoolHoliday = schoolHolidaySet.has(dateStr);
+          const isToday = format(today, 'yyyy-MM-dd') === dateStr;
+
+          // Weekend holiday transfer: check if this Monday is a substitute for a weekend holiday
+          let transferredHoliday: Holiday | null = null;
+          const isMonday = dayOfWeek === 0; // 0=Monday in our system
+
+          if (isMonday && !isHoliday) {
+            // Check Saturday (2 days back) and Sunday (1 day back)
+            const saturdayDate = format(new Date(year, month, day - 2), 'yyyy-MM-dd');
+            const sundayDate = format(new Date(year, month, day - 1), 'yyyy-MM-dd');
+
+            const satHoliday = holidays.find(h => h.date === saturdayDate);
+            const sunHoliday = holidays.find(h => h.date === sundayDate);
+            transferredHoliday = sunHoliday || satHoliday || null;
+          }
+
+          const isTransferredHoliday = transferredHoliday !== null;
+
+          // Weekend holidays should NOT show holiday color on the weekend day itself
+          const isWeekendHoliday = isWeekend && holidayDates.has(dateStr);
+          const showAsHoliday = isHoliday && !isWeekendHoliday;
+          const showAsTransferred = isTransferredHoliday;
+          const displayAsHoliday = showAsHoliday || showAsTransferred;
+
+          // Determine if day is clickable (exclude holidays and transferred holidays)
+          const isClickable = !displayAsHoliday;
 
           // Check if this day is currently highlighted
           const isHighlighted = highlightedDate === dateStr;
 
-          // Styling priority: Holiday > Bridge > Vacation > Weekend > Workday
+          // Styling priority: Holiday > Vacation > School Holiday > Bridge > Weekend > Workday
           const dayClasses = [
             'relative', // For absolute positioning of DayTooltip
             'p-2 text-center rounded text-xs',
@@ -110,11 +136,12 @@ export default function MonthGrid({
             'transition-colors duration-150', // Smooth highlight flash
             isToday && 'ring-2 ring-today-ring',
             isHighlighted && 'bg-highlight',
-            !isHighlighted && isHoliday && 'bg-cinnamon text-white font-semibold',
-            !isHighlighted && !isHoliday && isBridge && 'bg-bridge-bg text-bridge',
-            !isHighlighted && !isHoliday && !isBridge && isVacation && 'bg-vacation-bg text-vacation',
-            !isHighlighted && !isHoliday && !isBridge && !isVacation && isWeekend && 'bg-weekend-bg text-weekend-text',
-            !isHighlighted && !isHoliday && !isBridge && !isVacation && !isWeekend && 'hover:bg-cream',
+            !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
+            !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-vacation',
+            !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && 'bg-school-bg text-teal',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && 'bg-bridge-bg text-bridge',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
             isClickable && 'cursor-pointer',
             isClickable && 'touch-none' // Prevent scroll/zoom on draggable cells
           ].filter(Boolean).join(' ');
@@ -159,10 +186,14 @@ export default function MonthGrid({
               onPointerUp={handlePointerUpCell}
             >
               {day}
-              {isHoliday && (
+              {displayAsHoliday && (
                 <DayTooltip
-                  holiday={holidays.find(h => h.date === dateStr)!}
+                  holiday={transferredHoliday || holidays.find(h => h.date === dateStr)!}
+                  isSubstitute={isTransferredHoliday}
                 />
+              )}
+              {isVacation && isSchoolHoliday && !displayAsHoliday && (
+                <div className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-teal" />
               )}
             </div>
           );
