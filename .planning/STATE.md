@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Users can see all Bulgarian holidays for the year AND track their paid vacation days in one place, with history.
-**Current focus:** Phase 5.1 - UX Infrastructure & Feedback Loop
+**Current focus:** Phase 5.2 - SEO Improvements & Layout Restructuring
 
 ## Current Position
 
-Phase: 5.1 of 7 (UX Infrastructure & Feedback Loop - INSERTED)
-Plan: 4 of 4 complete
-Status: Phase complete
-Last activity: 2026-02-06 — Completed 05.1-02-PLAN.md (Coffee Color Migration)
+Phase: 5.2 of 7 (SEO Improvements & Layout Restructuring - INSERTED)
+Plan: 1 of 6 complete
+Status: In progress
+Last activity: 2026-02-07 — Completed 05.2-01-PLAN.md (Shared Constants & Dynamic SEO)
 
-Progress: [██████░░░░] 63% (19 of 30 plans complete across all phases)
+Progress: [██████░░░░] 67% (20 of 30 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
-- Average duration: 2 min 8 sec
-- Total execution time: 0.77 hours
+- Total plans completed: 20
+- Average duration: 2 min 5 sec
+- Total execution time: 0.79 hours
 
 **By Phase:**
 
@@ -34,16 +34,26 @@ Progress: [██████░░░░] 63% (19 of 30 plans complete across a
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
+| 5.2 - SEO Improvements & Layout Restructuring | 1 | 1m 11s | 1m 11s |
 
 **Recent Trend:**
-- Last 5 plans: 05-03 (4m 39s), 05.1-01 (1m 21s), 05.1-03 (2m 0s), 05.1-04 (2m 12s), 05.1-02 (4m 23s)
-- Trend: 05.1-02 larger plan (10 files, visual-only migration), still under 5 min
+- Last 5 plans: 05.1-01 (1m 21s), 05.1-03 (2m 0s), 05.1-04 (2m 12s), 05.1-02 (4m 23s), 05.2-01 (1m 11s)
+- Trend: Small plans under 2 minutes consistently
 
 *Updated after each plan completion*
 
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-02-07:** Phase 5.2 inserted after Phase 5.1 (INSERTED) - SEO Improvements & Layout Restructuring
+  - User identified SEO metadata improvements needed for page title and description
+  - Extract repeated text strings to reusable constants (page.tsx has duplicated content)
+  - Move VacationSummary from header to calendar top - header should only contain auth UI
+  - Add left sidebar with official holiday list and school vacation periods from API
+  - Reduce calendar dimensions: max-width 650px, max-height 320px per month
+  - Left sidebar responsive behavior: below right sidebar on mobile, above calendar
+  - Impact: Content and layout improvements before Phase 6 testing
 
 - **2026-02-06:** Phase 5.1 inserted after Phase 5 (INSERTED) - UX Infrastructure & Feedback Loop
   - User wants to improve design quality before Phase 6
@@ -206,7 +216,7 @@ Recent decisions affecting current work:
 
 **From 05.1-03 (Tool Installation & Hook Configuration):**
 - agent-browser v0.9.1 installed globally (command: `agent-browser`, NOT `ab`)
-- ChunkHound not available on npm or pip - MCP config added optimistically in .claude/settings.json
+- ChunkHound installed globally (user installed manually after npm/pip failed). MCP config active in .claude/settings.json
 - Pre-commit hook at .git/hooks/pre-commit is advisory only (always exits 0, never blocks commits)
 - Color compliance check uses grep patterns, not ChunkHound dependency - works immediately
 - .git/hooks/ not tracked by git - must be recreated on fresh clone (see 05.1-03-SUMMARY.md)
@@ -214,7 +224,7 @@ Recent decisions affecting current work:
 **From 05.1-04 (UX Critique Protocol & Token Mapping):**
 - UX critique protocol documented at .planning/ux-critique-protocol.md
 - Critique output strictly forbids solutions, implementations, or recommendations (observations only)
-- Tool availability verified: agent-browser INSTALLED, ChunkHound NOT INSTALLED
+- Tool availability: agent-browser INSTALLED, ChunkHound INSTALLED (user manually installed post-plan)
 - Coffee token mapping at .planning/coffee-token-mapping.md covers all 10 migrated components
 - Critiques directory created at .planning/critiques/ for Phase 6 critique documents
 
@@ -226,6 +236,15 @@ Recent decisions affecting current work:
 - UI text hierarchy: espresso (headings/values), coffee (labels), cappuccino (secondary)
 - Interactive elements: caramel primary, cinnamon hover, oat-milk disabled
 - Error/success semantic: text-error, text-success instead of text-red-600/text-green-600
+
+**From 05.2-01 (Shared Constants & Dynamic SEO):**
+- Centralized Bulgarian text constants in lib/constants.ts for single source of truth
+- Flat named exports (not nested objects) for tree-shaking optimization
+- PAGE_TITLE and META_DESCRIPTION are functions accepting year parameter for dynamic content
+- LEGEND_LABELS exported as const for type safety with TypeScript const assertion
+- generateMetadata() function in layout.tsx replaces static metadata export
+- Dynamic year calculation using date-fns getYear() eliminates hardcoded "2026" in SEO metadata
+- Pattern established: function signatures for dynamic constants, const assertion for static objects
 
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
@@ -248,7 +267,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-06
-Stopped at: Completed 05.1-02-PLAN.md (Coffee Color Migration) - Phase 5.1 COMPLETE
+Last session: 2026-02-07
+Stopped at: Completed 05.2-01-PLAN.md (Shared Constants & Dynamic SEO)
 Resume file: None
-Next: Phase 6 - ready to begin
+Next: 05.2-02 through 05.2-06 - SEO and layout improvements
