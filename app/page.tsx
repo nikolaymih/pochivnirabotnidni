@@ -36,17 +36,17 @@ export default async function HomePage({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen">
       <VacationProvider>
-        {/* Mobile: Stack vertically (summary at top, not sticky) */}
+        {/* Mobile Layout */}
         <div className="lg:hidden">
           <div className="p-4">
-            {/* Header with title and auth */}
+            {/* Header: title + auth */}
             <div className="flex justify-between items-start mb-4">
-              <h1 className="text-3xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
+              <h1 className="text-2xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
               <AuthHeader />
             </div>
-            <p className="text-coffee mb-6">
-              {PAGE_DESCRIPTION}
-            </p>
+            <p className="text-coffee text-sm mb-4">{PAGE_SUBTITLE}</p>
+
+            {/* Right sidebar content first on mobile */}
             <Legend />
             <VacationSummary />
 
@@ -67,33 +67,43 @@ export default async function HomePage({ searchParams }: PageProps) {
           </div>
         </div>
 
-        {/* Desktop: Scrollable calendar with sticky sidebar */}
-        <div className="hidden lg:flex gap-6">
-          {/* Left: Scrollable full year calendar */}
-          <div className="flex-1 overflow-y-auto p-4">
-            {/* Header with title and auth */}
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h1 className="text-3xl font-bold text-espresso mb-2">{PAGE_TITLE(currentYear)}</h1>
-                <p className="text-coffee">
-                  {PAGE_DESCRIPTION}
-                </p>
-              </div>
-              <AuthHeader />
+        {/* Desktop Layout: Three columns */}
+        <div className="hidden lg:block">
+          {/* Header: title + auth */}
+          <div className="flex justify-between items-center p-4 pb-2">
+            <div>
+              <h1 className="text-3xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
+              <p className="text-coffee text-sm mt-1">{PAGE_SUBTITLE}</p>
             </div>
-            <YearSelector year={currentYear} />
-            <FullYearCalendarWrapper
-              year={currentYear}
-              holidays={holidays}
-              schoolHolidayDates={schoolHolidayDates}
-            />
+            <AuthHeader />
           </div>
 
-          {/* Right: Sticky sidebar */}
-          <div className="w-80 sticky top-0 h-screen overflow-y-auto p-4">
-            <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
-            <Legend />
-            <VacationSummary />
+          {/* Three-column layout */}
+          <div className="flex gap-4 px-4">
+            {/* Left Sidebar - sticky, aligned with first month */}
+            <div className="w-72 flex-shrink-0">
+              <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
+              </div>
+            </div>
+
+            {/* Center: Year selector + Calendar */}
+            <div className="flex-1 min-w-0">
+              <YearSelector year={currentYear} />
+              <FullYearCalendarWrapper
+                year={currentYear}
+                holidays={holidays}
+                schoolHolidayDates={schoolHolidayDates}
+              />
+            </div>
+
+            {/* Right Sidebar - sticky, aligned with first month */}
+            <div className="w-72 flex-shrink-0">
+              <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
+                <Legend />
+                <VacationSummary />
+              </div>
+            </div>
           </div>
         </div>
       </VacationProvider>
