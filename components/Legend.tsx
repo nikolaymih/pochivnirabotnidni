@@ -3,21 +3,35 @@ export default function Legend() {
     <div className="border rounded-lg p-4">
       <h3 className="font-semibold mb-3">Легенда</h3>
       <div className="space-y-2">
+        {/* 1. Official Holiday - solid cinnamon with white text */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-cinnamon rounded"></div>
+          <div className="w-6 h-6 bg-cinnamon text-white text-xs font-semibold flex items-center justify-center rounded">П</div>
           <span className="text-sm">Официален празник</span>
         </div>
+        {/* 2. School Holidays */}
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-school-bg border border-teal rounded"></div>
+          <span className="text-sm">Неучебни дни / Ученически ваканции</span>
+        </div>
+        {/* 3. Bridge Day Suggestion */}
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-bridge-bg border border-latte rounded"></div>
+          <span className="text-sm">Предложение за почивка</span>
+        </div>
+        {/* 4. Personal Vacation */}
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-vacation-bg border border-latte rounded"></div>
+          <span className="text-sm">Лична почивка</span>
+        </div>
+        {/* 5. Weekend */}
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-cream border border-latte rounded"></div>
           <span className="text-sm">Уикенд</span>
         </div>
+        {/* 6. Today */}
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 border-2 border-caramel rounded"></div>
           <span className="text-sm">Днес</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-vacation-bg border border-latte rounded"></div>
-          <span className="text-sm">Лична почивка</span>
         </div>
       </div>
     </div>
