@@ -175,6 +175,31 @@ Plans:
    - No solutions or implementation proposals
    - Mandatory before any Phase 6 UX/UI changes
 
+### Phase 5.2: SEO Improvements & Layout Restructuring (INSERTED)
+**Goal**: Improve SEO metadata, extract reusable text constants, restructure layout with left sidebar for holiday info and school vacation data
+**Depends on**: Phase 5.1
+**Requirements**: None (content and layout improvements)
+**Success Criteria** (what must be TRUE):
+  1. Page title and meta description updated with SEO-optimized Bulgarian text
+  2. Repeated text in page.tsx extracted to reusable constants file
+  3. Tests reference same constants to prevent breakage on text changes
+  4. VacationSummary component moved from header to calendar top
+  5. Header contains only Google authentication UI
+  6. Left sidebar displays list of official holidays from API
+  7. Left sidebar displays school vacation periods (if available from API)
+  8. Left sidebar behaves responsively: below right sidebar on mobile
+  9. Calendar dimensions reduced to max-width 650px, max-height 320px per month
+  10. Calendar scales down appropriately on smaller screens
+**Plans**: 6 plans
+
+Plans:
+- [ ] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
+- [ ] 05.2-02-PLAN.md — School holidays data layer (types, fetch, fallback)
+- [ ] 05.2-03-PLAN.md — Teal color tokens and Legend update (6 entries)
+- [ ] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
+- [ ] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
+- [ ] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
+
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
 **Depends on**: Phase 5
@@ -194,7 +219,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -204,5 +229,6 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 6
 | 3. Full-Year Calendar & Performance | 0/4 | Planned | - |
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
-| 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 0/4 | Ready to execute | - |
+| 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
+| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 0/TBD | Not planned | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
