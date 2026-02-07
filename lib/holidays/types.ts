@@ -5,3 +5,11 @@ export interface Holiday {
 }
 
 export type HolidayType = 'Public Holiday' | 'National Holiday' | 'Observance';
+
+export interface SchoolHoliday {
+  name: string;           // Bulgarian name (e.g., "Коледна ваканция")
+  startDate: string;      // ISO date string YYYY-MM-DD
+  endDate: string;        // ISO date string YYYY-MM-DD
+  type: 'School';
+  gradeLevel?: string;    // Optional grade info (e.g., "I-XI клас")
+}
