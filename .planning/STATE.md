@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 5.2 of 7 (SEO Improvements & Layout Restructuring - INSERTED)
-Plan: 5 of 6 complete
+Plan: 4 of 6 complete
 Status: In progress
-Last activity: 2026-02-07 — Completed 05.2-05-PLAN.md (LeftSidebar Component)
+Last activity: 2026-02-07 — Completed 05.2-04-PLAN.md (Holiday Color Fixes, School Holidays, Weekend Transfer)
 
 Progress: [███████░░░] 77% (23 of 30 plans complete across all phases)
 
@@ -20,8 +20,8 @@ Progress: [███████░░░] 77% (23 of 30 plans complete across a
 
 **Velocity:**
 - Total plans completed: 23
-- Average duration: 2 min 0 sec
-- Total execution time: 0.85 hours
+- Average duration: 2 min 1 sec
+- Total execution time: 0.89 hours
 
 **By Phase:**
 
@@ -34,11 +34,11 @@ Progress: [███████░░░] 77% (23 of 30 plans complete across a
 | 4 - Authentication & Cross-Device Sync | 4 | 9m 3s | 2m 16s |
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
-| 5.2 - SEO Improvements & Layout Restructuring | 3 | 4m 2s | 1m 21s |
+| 5.2 - SEO Improvements & Layout Restructuring | 3 | 6m 38s | 2m 13s |
 
 **Recent Trend:**
-- Last 5 plans: 05.1-04 (2m 12s), 05.1-02 (4m 23s), 05.2-01 (1m 11s), 05.2-02 (2m 0s), 05.2-05 (51s)
-- Trend: Very fast execution for focused UI component plans
+- Last 5 plans: 05.1-02 (4m 23s), 05.2-01 (1m 11s), 05.2-02 (2m 0s), 05.2-03 (51s), 05.2-04 (2m 36s)
+- Trend: Fast execution for focused UI component plans (1-4 minutes)
 
 *Updated after each plan completion*
 
@@ -255,6 +255,18 @@ Recent decisions affecting current work:
 - Complete Legend has all 6 day types: Официален празник, Неучебни дни, Предложение за почивка, Лична почивка, Уикенд, Днес
 - School holiday visual identity: light teal background (bg-school-bg) with teal border (border-teal)
 
+**From 05.2-04 (Holiday Color Fixes, School Holidays, Weekend Transfer):**
+- Desktop-only tooltip pattern: hidden lg:block CSS class prevents mobile interaction, no onClick handler
+- Holiday cells use solid bg-cinnamon text-white (matching legend), not light bg-holiday-bg
+- Weekend holiday transfer: weekend holidays do NOT show on weekend day, transfer to Monday with "(почивен ден)" tooltip
+- Day type priority reordered: Holiday > Vacation > School Holiday > Bridge > Weekend (vacation now takes priority over school)
+- Vacation + school holiday overlap: vacation color wins with small teal dot indicator in corner
+- Calendar dimension constraints: max-w-[650px] max-h-[320px] per month for compact 12-month layout
+- Weekend transfer logic: Monday checks 2 days back (Sat) and 1 day back (Sun) for holidays to substitute
+- displayAsHoliday boolean combines regular holidays and transferred holidays for unified rendering logic
+- isClickable excludes both regular and transferred holidays (non-selectable for vacation marking)
+- schoolHolidayDates prop is optional (?) to prevent TypeScript errors before FullYearCalendar wired
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -275,6 +287,11 @@ None yet.
 - ✓ OpenHolidays API coupling — RESOLVED in 01-01 (24hr cache + static fallback)
 
 ## Session Continuity
+
+Last session: 2026-02-07
+Stopped at: Completed 05.2-04-PLAN.md (Holiday Color Fixes, School Holidays, Weekend Transfer)
+Resume file: None
+Next: 05.2-05 (VacationSummary Relocation) and 05.2-06 (School Holidays Sidebar & Integration)
 
 Last session: 2026-02-07
 Stopped at: Completed 05.2-05-PLAN.md (LeftSidebar Component)
