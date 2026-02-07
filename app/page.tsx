@@ -5,19 +5,33 @@ import VacationSummary from '@/components/VacationSummary';
 import Legend from '@/components/Legend';
 import AuthHeader from '@/components/AuthHeader';
 import { getHolidays } from '@/lib/holidays/fetch';
+import { getSchoolHolidays, getSchoolHolidayDates } from '@/lib/holidays/schoolHolidays';
+import { PAGE_TITLE, PAGE_SUBTITLE, PAGE_DESCRIPTION } from '@/lib/constants';
+import LeftSidebar from '@/components/LeftSidebar';
+import YearSelector from '@/components/YearSelector';
 
-export default async function HomePage() {
-  const currentYear = getYear(new Date());
+interface PageProps {
+  searchParams: Promise<{ year?: string }>;
+}
+
+export default async function HomePage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const currentYear = params.year ? parseInt(params.year, 10) : getYear(new Date());
 
   // Fetch holidays for current year and adjacent years to handle year-spanning weeks
-  const [prevYearHolidays, currentYearHolidays, nextYearHolidays] = await Promise.all([
+  const [prevYearHolidays, currentYearHolidays, nextYearHolidays, schoolHolidays] = await Promise.all([
     getHolidays(currentYear - 1),
     getHolidays(currentYear),
     getHolidays(currentYear + 1),
+    getSchoolHolidays(currentYear),
   ]);
 
   // Merge all holidays into a single array
   const holidays = [...prevYearHolidays, ...currentYearHolidays, ...nextYearHolidays];
+
+  // Generate individual school holiday dates for calendar display
+  const schoolHolidayDatesSet = getSchoolHolidayDates(schoolHolidays);
+  const schoolHolidayDates = Array.from(schoolHolidayDatesSet);
 
   return (
     <main className="min-h-screen">
@@ -27,17 +41,29 @@ export default async function HomePage() {
           <div className="p-4">
             {/* Header with title and auth */}
             <div className="flex justify-between items-start mb-4">
-              <h1 className="text-3xl font-bold">Почивни Работни Дни {currentYear}</h1>
+              <h1 className="text-3xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
               <AuthHeader />
             </div>
             <p className="text-coffee mb-6">
-              Календар с български празници и работни дни за планиране на вашата година
+              {PAGE_DESCRIPTION}
             </p>
             <Legend />
             <VacationSummary />
+
+            {/* Left sidebar content */}
+            <div className="mt-4">
+              <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
+            </div>
           </div>
+
+          {/* Year selector + Calendar */}
           <div className="p-4">
-            <FullYearCalendarWrapper year={currentYear} holidays={holidays} />
+            <YearSelector year={currentYear} />
+            <FullYearCalendarWrapper
+              year={currentYear}
+              holidays={holidays}
+              schoolHolidayDates={schoolHolidayDates}
+            />
           </div>
         </div>
 
@@ -48,18 +74,24 @@ export default async function HomePage() {
             {/* Header with title and auth */}
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Почивни Работни Дни {currentYear}</h1>
+                <h1 className="text-3xl font-bold text-espresso mb-2">{PAGE_TITLE(currentYear)}</h1>
                 <p className="text-coffee">
-                  Календар с български празници и работни дни за планиране на вашата година
+                  {PAGE_DESCRIPTION}
                 </p>
               </div>
               <AuthHeader />
             </div>
-            <FullYearCalendarWrapper year={currentYear} holidays={holidays} />
+            <YearSelector year={currentYear} />
+            <FullYearCalendarWrapper
+              year={currentYear}
+              holidays={holidays}
+              schoolHolidayDates={schoolHolidayDates}
+            />
           </div>
 
           {/* Right: Sticky sidebar */}
           <div className="w-80 sticky top-0 h-screen overflow-y-auto p-4">
+            <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
             <Legend />
             <VacationSummary />
           </div>
