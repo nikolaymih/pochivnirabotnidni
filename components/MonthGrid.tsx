@@ -115,11 +115,14 @@ export default function MonthGrid({
 
           const isTransferredHoliday = transferredHoliday !== null;
 
-          // Weekend holidays should NOT show holiday color on the weekend day itself
+          // Weekend holidays now show holiday color on the weekend day itself (T10 fix)
           const isWeekendHoliday = isWeekend && holidayDates.has(dateStr);
-          const showAsHoliday = isHoliday && !isWeekendHoliday;
+          const showAsHoliday = isHoliday;
           const showAsTransferred = isTransferredHoliday;
           const displayAsHoliday = showAsHoliday || showAsTransferred;
+
+          // Bridge + school holiday overlap for split-cell rendering (T9 fix)
+          const isBridgeSchoolOverlap = isBridge && isSchoolHoliday && !displayAsHoliday && !isVacation;
 
           // Determine if day is clickable (exclude holidays and transferred holidays)
           const isClickable = !displayAsHoliday;
@@ -138,8 +141,9 @@ export default function MonthGrid({
             isHighlighted && 'bg-highlight',
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-vacation',
-            !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && 'bg-school-bg text-teal',
-            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && 'bg-bridge-bg text-bridge',
+            !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-teal',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'bg-bridge-bg text-bridge',
+            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
             isClickable && 'cursor-pointer',
@@ -180,7 +184,12 @@ export default function MonthGrid({
             <div
               key={day}
               className={dayClasses}
-              style={index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : undefined}
+              style={{
+                ...(index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : {}),
+                ...(isBridgeSchoolOverlap ? {
+                  background: 'linear-gradient(135deg, var(--color-bridge-bg) 50%, var(--color-school-bg) 50%)'
+                } : {})
+              }}
               onPointerDown={handlePointerDownCell}
               onPointerEnter={handlePointerEnterCell}
               onPointerUp={handlePointerUpCell}

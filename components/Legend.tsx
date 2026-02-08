@@ -5,7 +5,7 @@ export default function Legend() {
       <div className="space-y-2">
         {/* 1. Official Holiday - solid cinnamon with white text */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-cinnamon text-white text-xs font-semibold flex items-center justify-center rounded">П</div>
+          <div className="w-6 h-6 bg-cinnamon rounded"></div>
           <span className="text-sm">Официален празник</span>
         </div>
         {/* 2. School Holidays */}

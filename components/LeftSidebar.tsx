@@ -21,35 +21,36 @@ export default function LeftSidebar({ holidays, schoolHolidays, year }: LeftSide
     .sort((a, b) => a.startDate.localeCompare(b.startDate));
 
   return (
-    <div className="border rounded-lg p-4 bg-white">
-      {/* Official Holidays Section */}
-      <h3 className="font-semibold text-espresso mb-3">Официални празници</h3>
-      <ul className="space-y-2 mb-6">
-        {yearHolidays.map((holiday) => {
-          const date = parseISO(holiday.date);
-          const formattedDate = format(date, 'd MMMM', { locale: bg });
-          // Capitalize month name
-          const parts = formattedDate.split(' ');
-          const capitalizedDate = parts.length >= 2
-            ? `${parts[0]} ${parts[1].charAt(0).toUpperCase()}${parts[1].slice(1)}`
-            : formattedDate;
+    <>
+      {/* Card 1: Official Holidays */}
+      <div className="p-4 bg-white rounded-lg border border-latte shadow-sm">
+        <h3 className="font-semibold text-espresso mb-3">Официални празници</h3>
+        <ul className="space-y-2">
+          {yearHolidays.map((holiday) => {
+            const date = parseISO(holiday.date);
+            const formattedDate = format(date, 'd MMMM', { locale: bg });
+            const parts = formattedDate.split(' ');
+            const capitalizedDate = parts.length >= 2
+              ? `${parts[0]} ${parts[1].charAt(0).toUpperCase()}${parts[1].slice(1)}`
+              : formattedDate;
 
-          return (
-            <li key={holiday.date} className="flex items-start gap-2 text-sm">
-              <div className="w-2 h-2 rounded-full bg-cinnamon mt-1.5 flex-shrink-0" />
-              <span className="text-coffee">
-                <span className="font-medium text-espresso">{capitalizedDate} {year}</span>
-                {' – '}
-                {holiday.name}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li key={holiday.date} className="flex items-start gap-2 text-sm">
+                <div className="w-2 h-2 rounded-full bg-cinnamon mt-1.5 flex-shrink-0" />
+                <span className="text-coffee">
+                  <span className="font-medium text-espresso">{capitalizedDate} {year}</span>
+                  {' – '}
+                  {holiday.name}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-      {/* School Vacations Section */}
+      {/* Card 2: School Vacations */}
       {yearSchoolHolidays.length > 0 && (
-        <>
+        <div className="mt-4 p-4 bg-white rounded-lg border border-latte shadow-sm">
           <h3 className="font-semibold text-espresso mb-3">Ученически ваканции</h3>
           <ul className="space-y-2">
             {yearSchoolHolidays.map((schoolHoliday, index) => {
@@ -59,7 +60,6 @@ export default function LeftSidebar({ holidays, schoolHolidays, year }: LeftSide
               const startFormatted = format(startDate, 'd MMMM', { locale: bg });
               const endFormatted = format(endDate, 'd MMMM', { locale: bg });
 
-              // Capitalize month names
               const capitalizeMonth = (str: string) => {
                 const parts = str.split(' ');
                 return parts.length >= 2
@@ -85,8 +85,8 @@ export default function LeftSidebar({ holidays, schoolHolidays, year }: LeftSide
               );
             })}
           </ul>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }

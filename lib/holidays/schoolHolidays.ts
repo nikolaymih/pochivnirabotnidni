@@ -1,6 +1,6 @@
 import type { SchoolHoliday } from './types';
 import { fetchWithRetry } from '@/lib/offline/retry';
-import { eachDayOfInterval, parseISO, format } from 'date-fns';
+import { eachDayOfInterval, parseISO, format, getISODay } from 'date-fns';
 
 export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> {
   // Layer 1: Try OpenHolidays API
@@ -66,14 +66,17 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
 
     const deduplicated = Array.from(merged.values());
 
-    console.log(`[SchoolHolidays] ✓ Processed ${deduplicated.length} school holidays from API for ${year}`);
+    // Exclude Лятна ваканция — too long, too static per UAT feedback
+    const filtered = deduplicated.filter(h => !h.name.includes('Лятна ваканция'));
+
+    console.log(`[SchoolHolidays] ✓ Processed ${filtered.length} school holidays from API for ${year}`);
     console.log('[SchoolHolidays] Processed school holidays:');
-    deduplicated.forEach(h => {
+    filtered.forEach(h => {
       const gradeInfo = h.gradeLevel ? ` (${h.gradeLevel})` : '';
       console.log(`  - ${h.startDate} to ${h.endDate}: ${h.name}${gradeInfo}`);
     });
 
-    return deduplicated;
+    return filtered;
   } catch (error) {
     console.warn(`[SchoolHolidays] ✗ API failed for ${year}: ${error}`);
     console.warn(`[SchoolHolidays] → Using fallback JSON for ${year}`);
@@ -107,9 +110,12 @@ export function getSchoolHolidayDates(schoolHolidays: SchoolHoliday[]): Set<stri
     // Generate all dates in the range
     const daysInRange = eachDayOfInterval({ start, end });
 
-    // Format each date as YYYY-MM-DD and add to set
+    // Format each weekday date as YYYY-MM-DD and add to set (skip weekends)
     for (const day of daysInRange) {
-      dates.add(format(day, 'yyyy-MM-dd'));
+      const isoDay = getISODay(day); // 1=Monday, 7=Sunday
+      if (isoDay <= 5) { // Only weekdays (Mon-Fri)
+        dates.add(format(day, 'yyyy-MM-dd'));
+      }
     }
   }
 
