@@ -37,7 +37,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         {/* Mobile Layout */}
         <div className="lg:hidden">
           {/* Header: auth button only */}
-          <div className="flex justify-end p-4 pb-4">
+          <div className="flex justify-end p-4 mb-5">
             <AuthHeader />
           </div>
 
@@ -54,8 +54,8 @@ export default async function HomePage({ searchParams }: PageProps) {
 
             {/* Title + Year selector + Calendar */}
             <div className="mt-4">
-              <h1 className="text-xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
-              <p className="text-coffee text-sm mt-1 mb-4">{PAGE_DESCRIPTION}</p>
+              <h1 className="text-xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
+              <p className="text-coffee text-sm mt-1 mb-5 max-w-[650px]">{PAGE_DESCRIPTION}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
@@ -69,7 +69,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         {/* Desktop Layout: Three columns */}
         <div className="hidden lg:block">
           {/* Header: auth button right-aligned */}
-          <div className="flex justify-end p-4 pb-4 max-w-[1400px] mx-auto">
+          <div className="flex justify-end p-4 mb-[50px] max-w-[1400px] mx-auto">
             <AuthHeader />
           </div>
 
@@ -84,8 +84,8 @@ export default async function HomePage({ searchParams }: PageProps) {
 
             {/* Center: Title + Year selector + Calendar */}
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
-              <p className="text-coffee text-sm mt-1 mb-4">{PAGE_DESCRIPTION}</p>
+              <h1 className="text-2xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
+              <p className="text-coffee text-sm mt-1 mb-6 max-w-[650px]">{PAGE_DESCRIPTION}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}

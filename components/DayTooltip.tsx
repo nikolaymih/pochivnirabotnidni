@@ -20,7 +20,7 @@ export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltip
     : holiday.name;
 
   const tooltipContent = (
-    <div className="absolute right-0 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
+    <div className="absolute left-1/2 -translate-x-1/2 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
       <div className="font-bold mb-1">{displayName}</div>
       <div className="text-xs opacity-80 mb-1">
         {format(parseDate(holiday.date), 'd MMMM yyyy', { locale: bg })}

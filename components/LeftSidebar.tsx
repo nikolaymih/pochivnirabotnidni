@@ -35,7 +35,7 @@ export default function LeftSidebar({ holidays, schoolHolidays, year }: LeftSide
               : formattedDate;
 
             return (
-              <li key={holiday.date} className="flex items-start gap-2 text-sm">
+              <li key={`${holiday.date}-${holiday.name}`} className="flex items-start gap-2 text-sm">
                 <div className="w-2 h-2 rounded-full bg-cinnamon mt-1.5 flex-shrink-0" />
                 <span className="text-coffee">
                   <span className="font-medium text-espresso">{capitalizedDate} {year}</span>
