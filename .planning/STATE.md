@@ -247,13 +247,26 @@ Recent decisions affecting current work:
 - Pattern established: function signatures for dynamic constants, const assertion for static objects
 
 **From 05.2-03 (Teal Color Tokens and Complete Legend):**
-- Teal color tokens added: --color-teal (#4A9B8E) and --color-school-bg (#E5F3F0) in globals.css Calendar Aliases
-- Teal selection rationale: muted, earthy tone fits Coffee theme warmth, distinct from caramel/cinnamon/honey
+- School holiday color tokens: --color-teal (#8B6CA7 warm purple) and --color-school-bg (#EDE0F5 light lavender) in globals.css Calendar Aliases
+- Color changed from teal (#4A9B8E) to purple (#8B6CA7) because teal/blue mixed with green vacation color (#2E8B57)
 - Holiday legend swatch changed from light bg-holiday-bg to solid bg-cinnamon with white "П" text
 - Legend swatch now matches actual calendar cell appearance (not just color reference)
-- Legend entries ordered by day type priority: Holiday > School > Bridge > Vacation > Weekend > Today
-- Complete Legend has all 6 day types: Официален празник, Неучебни дни, Предложение за почивка, Лична почивка, Уикенд, Днес
-- School holiday visual identity: light teal background (bg-school-bg) with teal border (border-teal)
+- Legend entries ordered: Официален празник > Отпуска > Предложение за почивка > Неучебни дни > Уикенд > Текущ ден
+- Complete Legend has all 6 day types: Официален празник, Неучебни дни, Предложение за почивка, Отпуска, Уикенд, Текущ ден
+- "Днес" renamed to "Текущ ден" in legend
+- "Лична почивка" renamed to "Отпуска" everywhere (Legend, VacationSummary, constants)
+- School holiday visual identity: light lavender background (bg-school-bg) with purple border (border-teal)
+
+**From 05.2 R4 Polish (Post-UAT cosmetic fixes):**
+- Three-column desktop layout: center column fixed at w-[650px] matching calendar, justify-center distributes extra space as equal margins
+- Column gap between sidebars and center: 70px (gap-[70px])
+- Desktop header margin-bottom: 35px (mb-[35px])
+- Extended description paragraph added below PAGE_DESCRIPTION (PAGE_DESCRIPTION_EXTENDED in constants.ts)
+- Year selector arrows: cursor-pointer on hover
+- Bridge day numbers: text-black (was text-bridge)
+- Vacation day numbers: text-white (was text-vacation/green)
+- Cinnamon color: #6F4E37 (was #B5651D), holiday color updated to match
+- Vacation color: #BDD7DE (was #2E8B57)
 
 **From 05.2-04 (Holiday Color Fixes, School Holidays, Weekend Transfer):**
 - Desktop-only tooltip pattern: hidden lg:block CSS class prevents mobile interaction, no onClick handler

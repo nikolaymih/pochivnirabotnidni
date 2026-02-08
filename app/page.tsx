@@ -8,7 +8,7 @@ import { getHolidays } from '@/lib/holidays/fetch';
 import { getSchoolHolidays, getSchoolHolidayDates } from '@/lib/holidays/schoolHolidays';
 import LeftSidebar from '@/components/LeftSidebar';
 import YearSelector from '@/components/YearSelector';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from '@/lib/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION, PAGE_DESCRIPTION_EXTENDED } from '@/lib/constants';
 import StickyBottomSidebar from '@/components/StickyBottomSidebar';
 
 interface PageProps {
@@ -55,7 +55,8 @@ export default async function HomePage({ searchParams }: PageProps) {
             {/* Title + Year selector + Calendar */}
             <div className="mt-4">
               <h1 className="text-xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
-              <p className="text-coffee text-sm mt-1 mb-5 max-w-[650px]">{PAGE_DESCRIPTION}</p>
+              <p className="text-coffee text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
+              <p className="text-coffee text-sm mt-2 mb-5 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
@@ -69,12 +70,12 @@ export default async function HomePage({ searchParams }: PageProps) {
         {/* Desktop Layout: Three columns */}
         <div className="hidden lg:block">
           {/* Header: auth button right-aligned */}
-          <div className="flex justify-end p-4 mb-[50px] max-w-[1400px] mx-auto">
+          <div className="flex justify-end p-4 mb-[35px] max-w-[1400px] mx-auto">
             <AuthHeader />
           </div>
 
           {/* Three-column layout - centered */}
-          <div className="flex gap-6 px-4 mx-auto max-w-[1400px]">
+          <div className="flex gap-[70px] px-4 mx-auto max-w-[1400px] justify-center">
             {/* Left Sidebar */}
             <div className="w-72 flex-shrink-0">
               <StickyBottomSidebar>
@@ -83,9 +84,10 @@ export default async function HomePage({ searchParams }: PageProps) {
             </div>
 
             {/* Center: Title + Year selector + Calendar */}
-            <div className="flex-1 min-w-0">
+            <div className="w-[650px] min-w-0">
               <h1 className="text-2xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
-              <p className="text-coffee text-sm mt-1 mb-6 max-w-[650px]">{PAGE_DESCRIPTION}</p>
+              <p className="text-coffee text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
+              <p className="text-coffee text-sm mt-2 mb-6 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}

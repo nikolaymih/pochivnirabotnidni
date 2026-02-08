@@ -9,29 +9,9 @@ Mandatory review process for ALL UI code changes. Ensures Coffee design system c
 | Tool | Status | Command | Notes |
 |------|--------|---------|-------|
 | agent-browser | INSTALLED | `agent-browser` | v0.9.1, installed globally via npm |
-| ChunkHound | NOT INSTALLED | `chunkhound` | Not available on npm or pip. See Manual Installation below |
+| ChunkHound | INSTALLED | `chunkhound` | Installed manually by user. MCP configured in `.claude/settings.json` |
 
-### Manual Installation Required
-
-**ChunkHound:**
-
-**Status:** NOT INSTALLED
-
-**Failed installation attempts (from Plan 03):**
-1. `npm install -g chunkhound` -- Error: 404 Not Found (package does not exist on npm registry)
-2. `pip install chunkhound` -- Error: command not found (pip not available)
-3. `pip3 install chunkhound` -- Error: command not found (pip3 not available)
-4. `python3 -m pip install chunkhound` -- Error: No module named pip
-
-**Alternative installation methods to try:**
-1. Install pip first: `sudo apt install python3-pip && pip3 install chunkhound`
-2. Check if available via pipx: `pipx install chunkhound`
-3. Build from source: Check https://chunkhound.github.io/ for repository and build instructions
-4. Install via cargo (if Rust tool): `cargo install chunkhound`
-
-**MCP configuration already in place** in `.claude/settings.json`. Once ChunkHound is installed by any method, the MCP server config will work automatically.
-
-**Protocol steps that reference ChunkHound should be skipped until the tool is installed.**
+Both tools are fully operational. All protocol steps should be followed without skipping.
 
 ## When to Trigger
 

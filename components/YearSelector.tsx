@@ -25,7 +25,7 @@ export default function YearSelector({ year }: YearSelectorProps) {
       <button
         onClick={() => handleYearChange(year - 1)}
         disabled={year <= minYear}
-        className="px-3 py-1 text-lg font-semibold text-coffee hover:text-espresso disabled:text-oat-milk disabled:cursor-not-allowed transition-colors"
+        className="px-3 py-1 text-lg font-semibold text-coffee hover:text-espresso disabled:text-oat-milk cursor-pointer disabled:cursor-not-allowed transition-colors"
         aria-label="Предишна година"
       >
         &larr;
@@ -34,7 +34,7 @@ export default function YearSelector({ year }: YearSelectorProps) {
       <button
         onClick={() => handleYearChange(year + 1)}
         disabled={year >= maxYear}
-        className="px-3 py-1 text-lg font-semibold text-coffee hover:text-espresso disabled:text-oat-milk disabled:cursor-not-allowed transition-colors"
+        className="px-3 py-1 text-lg font-semibold text-coffee hover:text-espresso disabled:text-oat-milk cursor-pointer disabled:cursor-not-allowed transition-colors"
         aria-label="Следваща година"
       >
         &rarr;

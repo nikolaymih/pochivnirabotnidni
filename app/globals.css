@@ -19,7 +19,7 @@
 
   /* Accent Colors */
   --color-caramel: #C68E17;
-  --color-cinnamon: #B5651D;
+  --color-cinnamon: #6F4E37;
   --color-honey: #EB9605;
 
   /* Semantic Colors */
@@ -29,18 +29,18 @@
   --color-info: #5D7A8A;
 
   /* Calendar Aliases */
-  --color-holiday: #B5651D;
+  --color-holiday: #6F4E37;
   --color-holiday-bg: #F5E6D8;
   --color-bridge: #EB9605;
   --color-bridge-bg: #FDF3DC;
   --color-vacation: #2E8B57;
-  --color-vacation-bg: #D4EDDA;
+  --color-vacation-bg: #BDD7DE;
   --color-weekend-bg: #F5F0E8;
   --color-weekend-text: #8B6B5D;
   --color-today-ring: #C68E17;
   --color-highlight: #D4C4A8;
-  --color-teal: #4A9B8E;
-  --color-school-bg: #E5F3F0;
+  --color-teal: #8B6CA7;
+  --color-school-bg: #EDE0F5;
 
   /* Typography */
   --font-sans: 'Nunito', var(--font-nunito), ui-sans-serif, system-ui, sans-serif;

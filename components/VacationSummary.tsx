@@ -54,7 +54,7 @@ export default function VacationSummary({ year }: VacationSummaryProps) {
 
   return (
     <div className="mt-6 p-4 bg-white rounded-lg border border-latte space-y-3">
-      <h2 className="text-lg font-semibold text-espresso mb-3">Лична Почивка</h2>
+      <h2 className="text-lg font-semibold text-espresso mb-3">Отпуска</h2>
 
       {/* Total Days (Editable) */}
       <div className="flex items-center justify-between">
