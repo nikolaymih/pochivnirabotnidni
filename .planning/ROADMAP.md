@@ -190,7 +190,7 @@ Plans:
   8. Left sidebar behaves responsively: below right sidebar on mobile
   9. Calendar dimensions reduced to max-width 650px, max-height 320px per month
   10. Calendar scales down appropriately on smaller screens
-**Plans**: 6 plans
+**Plans**: 9 plans
 
 Plans:
 - [ ] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
@@ -199,6 +199,9 @@ Plans:
 - [ ] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
 - [ ] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
 - [ ] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
+- [ ] 05.2-07-PLAN.md — Gap closure: Legend swatch fix, vacation color update, mobile tooltip
+- [ ] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
+- [ ] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
 
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
@@ -230,5 +233,5 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 6
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
 | 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
-| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 0/TBD | Not planned | - |
+| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 6/9 | Gap closure in progress | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
