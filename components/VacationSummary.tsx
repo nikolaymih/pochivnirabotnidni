@@ -1,9 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { getYear } from 'date-fns';
 import { useVacation } from '@/contexts/VacationContext';
 
-export default function VacationSummary() {
+interface VacationSummaryProps {
+  year?: number;
+}
+
+export default function VacationSummary({ year }: VacationSummaryProps) {
   const [isClient, setIsClient] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(0);
@@ -13,6 +18,7 @@ export default function VacationSummary() {
     setIsClient(true);
   }, []);
 
+  const isCurrentYear = !year || year === getYear(new Date());
   const usedDays = vacationData.vacationDates.length;
   const rolloverDays = rollover?.rolloverDays || 0;
   const effectiveTotal = vacationData.totalDays + rolloverDays;
@@ -103,13 +109,15 @@ export default function VacationSummary() {
             ) : (
               <span className="font-semibold text-espresso">{vacationData.totalDays}</span>
             )}
-            <button
-              onClick={handleEdit}
-              className="text-mocha hover:text-dark-roast text-sm"
-              aria-label="Редактирай годишна почивка"
-            >
-              ✏️
-            </button>
+            {isCurrentYear && (
+              <button
+                onClick={handleEdit}
+                className="text-coffee hover:text-dark-roast text-sm bg-cream/50 rounded px-1 py-0.5 border border-latte/50"
+                aria-label="Редактирай годишна почивка"
+              >
+                ✏️
+              </button>
+            )}
           </div>
         )}
       </div>

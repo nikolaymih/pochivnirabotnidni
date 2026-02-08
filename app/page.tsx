@@ -8,6 +8,8 @@ import { getHolidays } from '@/lib/holidays/fetch';
 import { getSchoolHolidays, getSchoolHolidayDates } from '@/lib/holidays/schoolHolidays';
 import LeftSidebar from '@/components/LeftSidebar';
 import YearSelector from '@/components/YearSelector';
+import { PAGE_TITLE, PAGE_DESCRIPTION } from '@/lib/constants';
+import StickyBottomSidebar from '@/components/StickyBottomSidebar';
 
 interface PageProps {
   searchParams: Promise<{ year?: string }>;
@@ -35,7 +37,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         {/* Mobile Layout */}
         <div className="lg:hidden">
           {/* Header: auth button only */}
-          <div className="flex justify-end p-4 pb-2">
+          <div className="flex justify-end p-4 pb-4">
             <AuthHeader />
           </div>
 
@@ -43,15 +45,17 @@ export default async function HomePage({ searchParams }: PageProps) {
           <div className="max-w-[650px] mx-auto px-4">
             {/* Right sidebar content first on mobile */}
             <Legend />
-            <VacationSummary />
+            <VacationSummary year={currentYear} />
 
             {/* Left sidebar content */}
             <div className="mt-4">
               <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
             </div>
 
-            {/* Year selector + Calendar */}
+            {/* Title + Year selector + Calendar */}
             <div className="mt-4">
+              <h1 className="text-xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
+              <p className="text-coffee text-sm mt-1 mb-4">{PAGE_DESCRIPTION}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
@@ -65,7 +69,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         {/* Desktop Layout: Three columns */}
         <div className="hidden lg:block">
           {/* Header: auth button right-aligned */}
-          <div className="flex justify-end p-4 pb-2 max-w-[1400px] mx-auto">
+          <div className="flex justify-end p-4 pb-4 max-w-[1400px] mx-auto">
             <AuthHeader />
           </div>
 
@@ -73,13 +77,15 @@ export default async function HomePage({ searchParams }: PageProps) {
           <div className="flex gap-6 px-4 mx-auto max-w-[1400px]">
             {/* Left Sidebar */}
             <div className="w-72 flex-shrink-0">
-              <div className="sticky top-4">
+              <StickyBottomSidebar>
                 <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
-              </div>
+              </StickyBottomSidebar>
             </div>
 
-            {/* Center: Year selector + Calendar */}
+            {/* Center: Title + Year selector + Calendar */}
             <div className="flex-1 min-w-0">
+              <h1 className="text-2xl font-bold text-espresso">{PAGE_TITLE(currentYear)}</h1>
+              <p className="text-coffee text-sm mt-1 mb-4">{PAGE_DESCRIPTION}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
@@ -92,7 +98,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="w-72 flex-shrink-0">
               <div className="sticky top-4">
                 <Legend />
-                <VacationSummary />
+                <VacationSummary year={currentYear} />
               </div>
             </div>
           </div>

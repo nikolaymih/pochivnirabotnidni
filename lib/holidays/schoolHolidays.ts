@@ -66,17 +66,14 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
 
     const deduplicated = Array.from(merged.values());
 
-    // Exclude Лятна ваканция — too long, too static per UAT feedback
-    const filtered = deduplicated.filter(h => !h.name.includes('Лятна ваканция'));
-
-    console.log(`[SchoolHolidays] ✓ Processed ${filtered.length} school holidays from API for ${year}`);
+    console.log(`[SchoolHolidays] ✓ Processed ${deduplicated.length} school holidays from API for ${year}`);
     console.log('[SchoolHolidays] Processed school holidays:');
-    filtered.forEach(h => {
+    deduplicated.forEach(h => {
       const gradeInfo = h.gradeLevel ? ` (${h.gradeLevel})` : '';
       console.log(`  - ${h.startDate} to ${h.endDate}: ${h.name}${gradeInfo}`);
     });
 
-    return filtered;
+    return deduplicated;
   } catch (error) {
     console.warn(`[SchoolHolidays] ✗ API failed for ${year}: ${error}`);
     console.warn(`[SchoolHolidays] → Using fallback JSON for ${year}`);
@@ -102,7 +99,10 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
 export function getSchoolHolidayDates(schoolHolidays: SchoolHoliday[]): Set<string> {
   const dates = new Set<string>();
 
-  for (const holiday of schoolHolidays) {
+  // Exclude Лятна ваканция from calendar highlighting only
+  const calendarHolidays = schoolHolidays.filter(h => !h.name.includes('Лятна ваканция'));
+
+  for (const holiday of calendarHolidays) {
     // Parse dates using parseISO (Safari-safe per TECH-07)
     const start = parseISO(holiday.startDate);
     const end = parseISO(holiday.endDate);

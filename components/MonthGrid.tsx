@@ -68,7 +68,7 @@ export default function MonthGrid({
   const schoolHolidaySet = new Set(schoolHolidayDates || []);
 
   return (
-    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[320px] overflow-hidden">
+    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[320px] overflow-visible">
       {/* Month name header */}
       <h3 className="text-lg font-semibold mb-2 text-center">
         {capitalizedMonth}

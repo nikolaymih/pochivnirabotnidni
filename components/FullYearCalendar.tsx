@@ -29,7 +29,7 @@ export default function FullYearCalendar({
   const bridgeDays = detectBridgeDays(holidays, year);
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="mx-auto py-6">
       {/* Single-column vertical scroll layout */}
       <div className="flex flex-col gap-4">
         {Array.from({ length: 12 }, (_, monthIndex) => {

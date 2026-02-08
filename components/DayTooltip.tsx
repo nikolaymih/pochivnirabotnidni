@@ -55,11 +55,11 @@ export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltip
           onPointerDown={(e) => {
             e.stopPropagation();
           }}
-          className="text-[10px] bg-cinnamon/70 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold"
+          className="text-[10px] bg-foam/80 text-espresso rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold"
           aria-label="Подробности за празника"
           type="button"
         >
-          !
+          i
         </button>
         {isMobileVisible && tooltipContent}
       </div>

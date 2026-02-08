@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { getYear } from 'date-fns';
 import { useVacation } from '@/contexts/VacationContext';
 import FullYearCalendar from './FullYearCalendar';
 import type { Holiday } from '@/lib/holidays/types';
@@ -27,6 +28,8 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
   // Calculate effective total (base + rollover) for max validation
   const rolloverDays = rollover?.rolloverDays || 0;
   const effectiveTotal = vacationData.totalDays + rolloverDays;
+
+  const isCurrentYear = year === getYear(new Date());
 
   // Drag selection state
   const [isDragging, setIsDragging] = useState(false);
@@ -111,12 +114,12 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
     <FullYearCalendar
       year={year}
       holidays={holidays}
-      vacationDates={vacationData.vacationDates}
+      vacationDates={isCurrentYear ? vacationData.vacationDates : []}
       schoolHolidayDates={schoolHolidayDates}
-      onToggleDate={toggleVacationDate}
-      onPointerDown={handlePointerDown}
-      onPointerEnter={handlePointerEnter}
-      onPointerUp={handlePointerUp}
+      onToggleDate={isCurrentYear ? toggleVacationDate : undefined}
+      onPointerDown={isCurrentYear ? handlePointerDown : undefined}
+      onPointerEnter={isCurrentYear ? handlePointerEnter : undefined}
+      onPointerUp={isCurrentYear ? handlePointerUp : undefined}
     />
   );
 }

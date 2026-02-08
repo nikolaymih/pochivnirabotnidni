@@ -65,5 +65,11 @@
     "endDate": "2026-09-14",
     "type": "School",
     "gradeLevel": "V-VI клас (спортни училища)"
+  },
+  {
+    "name": "Коледна ваканция",
+    "startDate": "2026-12-24",
+    "endDate": "2027-01-03",
+    "type": "School"
   }
 ]
