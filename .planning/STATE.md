@@ -251,9 +251,8 @@ Recent decisions affecting current work:
 - Color changed from teal (#4A9B8E) to purple (#8B6CA7) because teal/blue mixed with green vacation color (#2E8B57)
 - Holiday legend swatch changed from light bg-holiday-bg to solid bg-cinnamon with white "П" text
 - Legend swatch now matches actual calendar cell appearance (not just color reference)
-- Legend entries ordered: Официален празник > Отпуска > Предложение за почивка > Неучебни дни > Уикенд > Текущ ден
-- Complete Legend has all 6 day types: Официален празник, Неучебни дни, Предложение за почивка, Отпуска, Уикенд, Текущ ден
-- "Днес" renamed to "Текущ ден" in legend
+- Legend entries ordered: Официален празник > Отпуска > Предложение за почивка > Неучебни дни > Уикенд
+- Legend has 5 day types: Официален празник, Отпуска, Предложение за почивка, Неучебни дни, Уикенд (Текущ ден removed)
 - "Лична почивка" renamed to "Отпуска" everywhere (Legend, VacationSummary, constants)
 - School holiday visual identity: light lavender background (bg-school-bg) with purple border (border-teal)
 
@@ -266,7 +265,10 @@ Recent decisions affecting current work:
 - Bridge day numbers: text-black (was text-bridge)
 - Vacation day numbers: text-white (was text-vacation/green)
 - Cinnamon color: #6F4E37 (was #B5651D), holiday color updated to match
-- Vacation color: #BDD7DE (was #2E8B57)
+- Vacation color: --color-vacation stays #2E8B57 (green text), --color-vacation-bg changed to #BDD7DE (light teal bg, was #D4EDDA)
+- Vacation day numbers: text-black in calendar cells
+- Legend background: bg-white with border-latte and shadow-sm (matches other sidebar cards)
+- Page title: removed "неучебни" → "Празнични и неработни дни през {year} година"
 
 **From 05.2-04 (Holiday Color Fixes, School Holidays, Weekend Transfer):**
 - Desktop-only tooltip pattern: hidden lg:block CSS class prevents mobile interaction, no onClick handler

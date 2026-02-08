@@ -140,7 +140,7 @@ export default function MonthGrid({
             isToday && 'ring-2 ring-today-ring',
             isHighlighted && 'bg-highlight',
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
-            !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-white',
+            !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-teal',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'bg-bridge-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',

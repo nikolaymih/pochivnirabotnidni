@@ -32,7 +32,7 @@
   --color-holiday: #6F4E37;
   --color-holiday-bg: #F5E6D8;
   --color-bridge: #EB9605;
-  --color-bridge-bg: #FDF3DC;
+  --color-bridge-bg: #FFF7E3;
   --color-vacation: #2E8B57;
   --color-vacation-bg: #BDD7DE;
   --color-weekend-bg: #F5F0E8;
@@ -40,7 +40,7 @@
   --color-today-ring: #C68E17;
   --color-highlight: #D4C4A8;
   --color-teal: #8B6CA7;
-  --color-school-bg: #EDE0F5;
+  --color-school-bg: #CBD0B5;
 
   /* Typography */
   --font-sans: 'Nunito', var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
