@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 
 ## Current Position
 
-Phase: 5.2 of 7 (SEO Improvements & Layout Restructuring - INSERTED)
-Plan: 4 of 6 complete
+Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
+Plan: 1 of 6 complete
 Status: In progress
-Last activity: 2026-02-07 — Completed 05.2-04-PLAN.md (Holiday Color Fixes, School Holidays, Weekend Transfer)
+Last activity: 2026-02-10 — Completed 05.3-01-PLAN.md (Multi-Year Rollover Foundation)
 
-Progress: [███████░░░] 77% (23 of 30 plans complete across all phases)
+Progress: [███████░░░] 71% (24 of 34 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 23
+- Total plans completed: 24
 - Average duration: 2 min 1 sec
-- Total execution time: 0.89 hours
+- Total execution time: 0.92 hours
 
 **By Phase:**
 
@@ -35,16 +35,24 @@ Progress: [███████░░░] 77% (23 of 30 plans complete across a
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
 | 5.2 - SEO Improvements & Layout Restructuring | 3 | 6m 38s | 2m 13s |
+| 5.3 - Multi-Year Vacation History & 2-Year Carryover | 1 | 1m 53s | 1m 53s |
 
 **Recent Trend:**
-- Last 5 plans: 05.1-02 (4m 23s), 05.2-01 (1m 11s), 05.2-02 (2m 0s), 05.2-03 (51s), 05.2-04 (2m 36s)
-- Trend: Fast execution for focused UI component plans (1-4 minutes)
+- Last 5 plans: 05.2-01 (1m 11s), 05.2-02 (2m 0s), 05.2-03 (51s), 05.2-04 (2m 36s), 05.3-01 (1m 53s)
+- Trend: Fast execution for focused plans (under 3 minutes)
 
 *Updated after each plan completion*
 
 ## Accumulated Context
 
 ### Roadmap Evolution
+
+- **2026-02-09:** Phase 05.3 inserted after Phase 5.2 (INSERTED) - Multi-year vacation history and 2-year carryover per Bulgarian labor law
+  - Users need to see vacation history when navigating to previous years (calendar + Отпуска summary)
+  - Unused vacation days carry over automatically to next year
+  - Bulgarian Кодекс на труда: carried-over vacation expires after 2 years (e.g., 2024 vacation usable until 31.12.2026)
+  - Summary must show breakdown: current year allocation + carried from each prior year with expiry status
+  - Impact: Requires per-year vacation data persistence and year navigation in calendar
 
 - **2026-02-07:** Phase 5.2 inserted after Phase 5.1 (INSERTED) - SEO Improvements & Layout Restructuring
   - User identified SEO metadata improvements needed for page title and description
@@ -282,6 +290,16 @@ Recent decisions affecting current work:
 - isClickable excludes both regular and transferred holidays (non-selectable for vacation marking)
 - schoolHolidayDates prop is optional (?) to prevent TypeScript errors before FullYearCalendar wired
 
+**From 05.3-01 (Multi-Year Rollover Foundation):**
+- CarryoverBucket interface tracks individual year's carryover: year, rolloverDays, expiresAt, isExpired
+- calculateRollover() fetches up to 2 previous years (Bulgarian labor law: 2-year carryover expiration)
+- Expiry calculation: allocation year + 2 years, checked with isAfter(today, parseISO(expiresAt))
+- startOfDay() normalization prevents timezone-dependent expiry status shifts
+- RolloverResult.buckets array contains all carryover buckets sorted newest first
+- RolloverResult.totalRollover sums only non-expired buckets for accurate available days
+- Legacy fields maintained (rolloverDays = totalRollover) for backward compatibility with existing VacationSummary UI
+- Sequential fetch pattern for 2 years (clearer than Promise.all for small loop)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -303,12 +321,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-07
-Stopped at: Completed 05.2-04-PLAN.md (Holiday Color Fixes, School Holidays, Weekend Transfer)
+Last session: 2026-02-10
+Stopped at: Completed 05.3-01-PLAN.md (Multi-Year Rollover Foundation)
 Resume file: None
-Next: 05.2-05 (VacationSummary Relocation) and 05.2-06 (School Holidays Sidebar & Integration)
-
-Last session: 2026-02-07
-Stopped at: Completed 05.2-05-PLAN.md (LeftSidebar Component)
-Resume file: None
-Next: 05.2-06 - Layout restructuring with VacationSummary, LeftSidebar, and reduced calendar dimensions
+Next: 05.3-02 (VacationSummary UI breakdown showing carryover buckets) and remaining Phase 5.3 plans
