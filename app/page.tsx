@@ -33,7 +33,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
   return (
     <main className="min-h-screen">
-      <VacationProvider>
+      <VacationProvider year={currentYear}>
         {/* Mobile Layout */}
         <div className="lg:hidden">
           {/* Header: auth button only */}
