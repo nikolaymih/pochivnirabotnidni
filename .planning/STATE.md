@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-18)
 
 **Core value:** Users can see all Bulgarian holidays for the year AND track their paid vacation days in one place, with history.
-**Current focus:** Phase 5.2 - SEO Improvements & Layout Restructuring
+**Current focus:** Phase 5.3 complete — Multi-Year Vacation History & 2-Year Carryover
 
 ## Current Position
 
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
-Plan: 3 of 6 complete
-Status: In progress
-Last activity: 2026-02-10 — Completed 05.3-03-PLAN.md (Multi-Bucket Carryover Breakdown with Expiry Status)
+Plan: 3 of 3 complete
+Status: ✅ Complete
+Last activity: 2026-02-10 — Quick task: Removed broken merge option from migration modal
 
-Progress: [███████░░░] 76% (26 of 34 plans complete across all phases)
+Progress: [████████░░] 82% (29 of 35 plans complete across all phases)
 
 ## Performance Metrics
 
@@ -323,6 +323,13 @@ Recent decisions affecting current work:
 - Breakdown uses Coffee theme tokens: mocha (active), oat-milk (expired), cappuccino (header), espresso (values)
 - Compliance with Bulgarian labor law notification requirement (Кодекс на труда Art. 173 - employer must notify employees of carryover including expiry dates by Jan 31 each year)
 
+**From Quick Task 1 (Remove Merge Option from Migration Modal):**
+- Migration modal shows only 2 options: Keep Cloud (discard local) or Keep Local (discard cloud)
+- Removed broken merge logic that combined totalDays from cloud with union of vacationDates (created invalid state)
+- MigrationResult conflict type no longer includes mergedDates field
+- Users must pick one complete, consistent state instead of hybrid merge
+- Modal heading: "Конфликт в данните" (more accurate than "Обединяване на данни")
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -345,6 +352,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 05.3-03-PLAN.md (Multi-Bucket Carryover Breakdown with Expiry Status)
+Stopped at: Quick task 1 complete — Removed broken merge option from migration modal
 Resume file: None
-Next: 05.3-04 (YearSelector UI updates) and remaining Phase 5.3 plans
+Next: Phase 5.2 gap closure (plans 05.2-07 through 05.2-09) or Phase 6 (Testing & Quality Gates)
