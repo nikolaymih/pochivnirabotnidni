@@ -13,7 +13,7 @@ export type MigrationResult =
   | { status: 'no-local-data' }
   | { status: 'migrated' }
   | { status: 'no-conflict' }
-  | { status: 'conflict'; localData: VacationData; cloudData: VacationData; mergedDates: string[] }
+  | { status: 'conflict'; localData: VacationData; cloudData: VacationData }
   | { status: 'error'; message: string };
 
 /**
@@ -63,14 +63,11 @@ export async function migrateLocalStorageToSupabase(userId: string, year: number
       return { status: 'no-conflict' };
     }
 
-    // Conflict detected - compute merged dates
-    const mergedDates = [...new Set([...localData.vacationDates, ...cloudData.vacationDates])].sort();
-
+    // Conflict detected - return both datasets for user to choose
     return {
       status: 'conflict',
       localData,
       cloudData,
-      mergedDates,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown migration error';
