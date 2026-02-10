@@ -8,7 +8,7 @@ import { getHolidays } from '@/lib/holidays/fetch';
 import { getSchoolHolidays, getSchoolHolidayDates } from '@/lib/holidays/schoolHolidays';
 import LeftSidebar from '@/components/LeftSidebar';
 import YearSelector from '@/components/YearSelector';
-import { PAGE_TITLE, PAGE_DESCRIPTION, PAGE_DESCRIPTION_EXTENDED } from '@/lib/constants';
+import { PAGE_TITLE, PAGE_DESCRIPTION, PAGE_DESCRIPTION_EXTENDED, PAGE_DESCRIPTION_HISTORY } from '@/lib/constants';
 import StickyBottomSidebar from '@/components/StickyBottomSidebar';
 
 interface PageProps {
@@ -56,7 +56,8 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="mt-4">
               <h1 className="text-xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
               <p className="text-coffee text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
-              <p className="text-coffee text-sm mt-2 mb-5 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
+              <p className="text-coffee text-sm mt-2 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
+              <p className="text-coffee text-sm mt-2 mb-5 max-w-[650px]">{PAGE_DESCRIPTION_HISTORY}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
@@ -87,7 +88,8 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="w-[650px] min-w-0">
               <h1 className="text-2xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
               <p className="text-coffee text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
-              <p className="text-coffee text-sm mt-2 mb-6 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
+              <p className="text-coffee text-sm mt-2 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
+              <p className="text-coffee text-sm mt-2 mb-6 max-w-[650px]">{PAGE_DESCRIPTION_HISTORY}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
