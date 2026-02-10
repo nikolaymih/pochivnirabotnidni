@@ -349,6 +349,12 @@ None yet.
 - Supabase free tier inactivity pausing (implement health check cron) - Deferred to Phase 4
 - ✓ OpenHolidays API coupling — RESOLVED in 01-01 (24hr cache + static fallback)
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Remove broken merge option from migration modal — keep only Cloud vs Local | 2026-02-10 | fbd7799 | [1-remove-merge-option](./quick/1-remove-merge-option-from-migration-modal/) |
+
 ## Session Continuity
 
 Last session: 2026-02-10
