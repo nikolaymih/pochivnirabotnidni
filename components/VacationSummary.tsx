@@ -20,7 +20,7 @@ export default function VacationSummary({ year }: VacationSummaryProps) {
 
   const isCurrentYear = !year || year === getYear(new Date());
   const usedDays = vacationData.vacationDates.length;
-  const rolloverDays = rollover?.rolloverDays || 0;
+  const rolloverDays = rollover?.totalRollover || 0;
   const effectiveTotal = vacationData.totalDays + rolloverDays;
   const remainingDays = effectiveTotal - usedDays;
   const percentageUsed = effectiveTotal > 0
@@ -122,11 +122,28 @@ export default function VacationSummary({ year }: VacationSummaryProps) {
         )}
       </div>
 
-      {/* Rollover Days (Only for authenticated users with rollover) */}
-      {isAuthenticated && rollover && rolloverDays > 0 && (
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-mocha">🔄 Прехвърлени от {new Date().getFullYear() - 1}:</span>
-          <span className="font-semibold text-mocha">{rolloverDays}</span>
+      {/* Carryover Breakdown (Only for authenticated users with buckets) */}
+      {isAuthenticated && rollover && rollover.buckets && rollover.buckets.length > 0 && (
+        <div className="border-t border-latte pt-2 mt-2 space-y-1">
+          <span className="text-xs text-cappuccino font-semibold">Детайли на прехвърлените дни:</span>
+
+          {/* Current year allocation */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-coffee">Текуща година ({year || new Date().getFullYear()}):</span>
+            <span className="text-sm font-semibold text-espresso">{vacationData.totalDays}</span>
+          </div>
+
+          {/* Carryover buckets */}
+          {rollover.buckets.map(bucket => (
+            <div key={bucket.year} className="flex items-center justify-between">
+              <span className={`text-xs ${bucket.isExpired ? 'text-oat-milk line-through' : 'text-mocha'}`}>
+                Прехвърлени от {bucket.year} {bucket.isExpired ? '(изтекли)' : `(важи до ${bucket.expiresAt.slice(0, 4)})`}:
+              </span>
+              <span className={`text-sm font-semibold ${bucket.isExpired ? 'text-oat-milk line-through' : 'text-mocha'}`}>
+                {bucket.rolloverDays}
+              </span>
+            </div>
+          ))}
         </div>
       )}
 
