@@ -21,7 +21,12 @@ interface VacationContextType {
 
 const VacationContext = createContext<VacationContextType | null>(null);
 
-export function VacationProvider({ children }: { children: ReactNode }) {
+interface VacationProviderProps {
+  children: ReactNode;
+  year?: number; // Optional: defaults to current calendar year
+}
+
+export function VacationProvider({ children, year }: VacationProviderProps) {
   // === localStorage data (always present, for anonymous AND as fallback) ===
   const [localStorageData, setLocalStorageData] = useLocalStorage<VacationData>(
     VACATION_STORAGE_KEY,
@@ -31,6 +36,8 @@ export function VacationProvider({ children }: { children: ReactNode }) {
   // === Auth state ===
   const { user, isLoading: authLoading } = useAuth();
   const currentYear = getYear(new Date());
+  const displayYear = year ?? currentYear; // Use provided year or current
+  const isCurrentYear = displayYear === currentYear;
 
   // === Cloud state (only populated when authenticated) ===
   const [cloudData, setCloudData] = useState<VacationData | null>(null);
@@ -57,7 +64,7 @@ export function VacationProvider({ children }: { children: ReactNode }) {
       return;
     }
     setIsLoadingCloud(true);
-    fetchVacationData(user.id, currentYear)
+    fetchVacationData(user.id, displayYear)
       .then(data => {
         setCloudData(data || DEFAULT_VACATION_DATA);
       })
@@ -68,11 +75,11 @@ export function VacationProvider({ children }: { children: ReactNode }) {
       .finally(() => {
         setIsLoadingCloud(false);
       });
-  }, [user, currentYear]);
+  }, [user, displayYear]);
 
   // Run migration after cloud data loads (only once per sign-in session)
   useEffect(() => {
-    if (!user || isLoadingCloud || migrationComplete) return;
+    if (!user || isLoadingCloud || migrationComplete || !isCurrentYear) return;
     migrateLocalStorageToSupabase(user.id, currentYear)
       .then(result => {
         if (result.status === 'migrated') {
@@ -95,23 +102,23 @@ export function VacationProvider({ children }: { children: ReactNode }) {
         console.error('Migration unexpected error:', err);
         setMigrationComplete(true);
       });
-  }, [user, isLoadingCloud, migrationComplete, currentYear]);
+  }, [user, isLoadingCloud, migrationComplete, currentYear, isCurrentYear]);
 
   // Calculate rollover after cloud data loads
   useEffect(() => {
     if (!user || isLoadingCloud) return;
-    calculateRollover(user.id, currentYear)
+    calculateRollover(user.id, displayYear)
       .then(result => setRollover(result))
       .catch(err => console.error('Rollover check failed:', err));
-  }, [user, isLoadingCloud, currentYear]);
+  }, [user, isLoadingCloud, displayYear]);
 
   // Debounced sync: writes to Supabase 1.5s after last change
   const [debouncedData] = useDebounce(activeData, 1500);
   useEffect(() => {
-    if (!user || !migrationComplete) return;
-    upsertVacationData(user.id, currentYear, debouncedData)
+    if (!user || !migrationComplete || !isCurrentYear) return;
+    upsertVacationData(user.id, displayYear, debouncedData)
       .catch(err => console.error('Sync failed, using localStorage:', err));
-  }, [debouncedData, user, migrationComplete, currentYear]);
+  }, [debouncedData, user, migrationComplete, displayYear, isCurrentYear]);
 
   // Update the correct data source based on auth state
   const setVacationData = useCallback((data: VacationData) => {
