@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
-Plan: 2 of 6 complete
+Plan: 3 of 6 complete
 Status: In progress
-Last activity: 2026-02-10 — Completed 05.3-02-PLAN.md (Year-Aware Vacation Context with Read-Only Historical Mode)
+Last activity: 2026-02-10 — Completed 05.3-03-PLAN.md (Multi-Bucket Carryover Breakdown with Expiry Status)
 
-Progress: [███████░░░] 74% (25 of 34 plans complete across all phases)
+Progress: [███████░░░] 76% (26 of 34 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 25
-- Average duration: 2 min 0 sec
-- Total execution time: 0.95 hours
+- Total plans completed: 26
+- Average duration: 1 min 53 sec
+- Total execution time: 0.96 hours
 
 **By Phase:**
 
@@ -35,10 +35,10 @@ Progress: [███████░░░] 74% (25 of 34 plans complete across a
 | 5 - UX Polish & Mobile Optimization | 3 | 8m 3s | 2m 41s |
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
 | 5.2 - SEO Improvements & Layout Restructuring | 3 | 6m 38s | 2m 13s |
-| 5.3 - Multi-Year Vacation History & 2-Year Carryover | 2 | 3m 21s | 1m 41s |
+| 5.3 - Multi-Year Vacation History & 2-Year Carryover | 3 | 4m 6s | 1m 22s |
 
 **Recent Trend:**
-- Last 5 plans: 05.2-02 (2m 0s), 05.2-03 (51s), 05.2-04 (2m 36s), 05.3-01 (1m 53s), 05.3-02 (1m 28s)
+- Last 5 plans: 05.2-03 (51s), 05.2-04 (2m 36s), 05.3-01 (1m 53s), 05.3-02 (1m 28s), 05.3-03 (45s)
 - Trend: Fast execution for focused plans (under 3 minutes)
 
 *Updated after each plan completion*
@@ -312,6 +312,17 @@ Recent decisions affecting current work:
 - Year prop flow: URL param → page currentYear → VacationProvider year → VacationContext displayYear
 - Pattern established: year-aware context with read-only guard (if (!isCurrentYear) return before mutations)
 
+**From 05.3-03 (Multi-Bucket Carryover Breakdown):**
+- VacationSummary uses rollover?.totalRollover instead of rollover?.rolloverDays (correct source excluding expired buckets)
+- Multi-bucket breakdown section shows current year allocation separately from carryover buckets
+- Breakdown displayed when rollover.buckets.length > 0 (more accurate than checking rolloverDays > 0)
+- Active carryover buckets: "Прехвърлени от 2025 (важи до 2027): 5" in text-mocha
+- Expired carryover buckets: "Прехвърлени от 2024 (изтекли): 3" with line-through and text-oat-milk
+- Extract year from expiresAt with .slice(0, 4) for clean display: "важи до 2027" not "важи до 2027-12-31"
+- Border-top separator creates clear visual separation between total line and breakdown section
+- Breakdown uses Coffee theme tokens: mocha (active), oat-milk (expired), cappuccino (header), espresso (values)
+- Compliance with Bulgarian labor law notification requirement (Кодекс на труда Art. 173 - employer must notify employees of carryover including expiry dates by Jan 31 each year)
+
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
 - Hybrid local storage + auth (quick start OR cross-device sync) - Pending
@@ -334,6 +345,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Completed 05.3-02-PLAN.md (Year-Aware Vacation Context with Read-Only Historical Mode)
+Stopped at: Completed 05.3-03-PLAN.md (Multi-Bucket Carryover Breakdown with Expiry Status)
 Resume file: None
-Next: 05.3-03 (VacationSummary UI breakdown showing carryover buckets) and remaining Phase 5.3 plans
+Next: 05.3-04 (YearSelector UI updates) and remaining Phase 5.3 plans
