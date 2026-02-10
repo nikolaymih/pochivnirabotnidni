@@ -114,7 +114,7 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
     <FullYearCalendar
       year={year}
       holidays={holidays}
-      vacationDates={isCurrentYear ? vacationData.vacationDates : []}
+      vacationDates={vacationData.vacationDates}
       schoolHolidayDates={schoolHolidayDates}
       onToggleDate={isCurrentYear ? toggleVacationDate : undefined}
       onPointerDown={isCurrentYear ? handlePointerDown : undefined}
