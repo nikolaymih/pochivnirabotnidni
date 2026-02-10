@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
 Plan: 3 of 3 complete
 Status: ✅ Complete
-Last activity: 2026-02-10 — Quick task: Removed broken merge option from migration modal
+Last activity: 2026-02-10 — Quick task 2: Updated page text with new Bulgarian copy
 
 Progress: [████████░░] 82% (29 of 35 plans complete across all phases)
 
@@ -354,10 +354,11 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | Remove broken merge option from migration modal — keep only Cloud vs Local | 2026-02-10 | fbd7799 | [1-remove-merge-option](./quick/1-remove-merge-option-from-migration-modal/) |
+| 2 | Update initial page text with new Bulgarian copy | 2026-02-10 | 23869d2 | [2-update-initial-page-text-with-new-bulgar](./quick/2-update-initial-page-text-with-new-bulgar/) |
 
 ## Session Continuity
 
 Last session: 2026-02-10
-Stopped at: Quick task 1 complete — Removed broken merge option from migration modal
+Stopped at: Quick task 2 complete — Updated page text with new Bulgarian copy
 Resume file: None
 Next: Phase 5.2 gap closure (plans 05.2-07 through 05.2-09) or Phase 6 (Testing & Quality Gates)
