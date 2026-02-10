@@ -146,18 +146,19 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   }, []);
 
   return (
-    <VacationContext.Provider value={{ vacationData: activeData, setVacationData, rollover, isAuthenticated }}>
+    <>
       {migrationResult?.status === 'conflict' && (
         <MigrationReview
           localData={migrationResult.localData}
           cloudData={migrationResult.cloudData}
-          mergedDates={migrationResult.mergedDates}
           onAccept={handleMigrationAccept}
           onCancel={handleMigrationCancel}
         />
       )}
-      {children}
-    </VacationContext.Provider>
+      <VacationContext.Provider value={{ vacationData: activeData, setVacationData, rollover, isAuthenticated }}>
+        {children}
+      </VacationContext.Provider>
+    </>
   );
 }
 
