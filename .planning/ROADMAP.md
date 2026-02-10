@@ -203,6 +203,25 @@ Plans:
 - [ ] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
 - [ ] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
 
+### Phase 05.3: Multi-year vacation history and 2-year carryover per Bulgarian labor law (INSERTED)
+
+**Goal:** Users can view vacation history across years and carry over unused days per Bulgarian labor law (2-year limit)
+**Depends on:** Phase 5.2
+**Requirements:** None (new capability based on Bulgarian Кодекс на труда)
+**Success Criteria** (what must be TRUE):
+  1. User can navigate to previous years and see their vacation data (calendar + summary)
+  2. Unused vacation days carry over to the next year automatically
+  3. Carried-over days expire after 2 years per Bulgarian labor law (e.g., 2024 vacation usable until 31.12.2026)
+  4. Vacation summary (Отпуска) shows breakdown: current year + carried from each prior year
+  5. Expired carryover days are clearly indicated (no longer usable)
+  6. Calendar visually shows vacation days that were marked in previous years
+**Plans:** 3 plans
+
+Plans:
+- [ ] 05.3-01-PLAN.md — Multi-year rollover calculation with CarryoverBucket tracking and 2-year expiry
+- [ ] 05.3-02-PLAN.md — Year-aware VacationContext with read-only historical mode and calendar display
+- [ ] 05.3-03-PLAN.md — Carryover breakdown UI with per-bucket expiry status in VacationSummary
+
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
 **Depends on**: Phase 5
@@ -222,7 +241,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5.3 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -234,4 +253,5 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 6
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
 | 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
 | 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 6/9 | Gap closure in progress | - |
+| 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 0/TBD | Not started | - |
 | 6. Testing & Quality Gates | 0/TBD | Not started | - |
