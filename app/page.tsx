@@ -38,7 +38,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         <div className="lg:hidden">
           {/* Header: logo left, auth button right */}
           <div className="flex justify-between items-center p-4 mb-5">
-            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-8 w-auto" />
+            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-14 w-auto" />
             <AuthHeader />
           </div>
 
@@ -73,7 +73,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         <div className="hidden lg:block">
           {/* Header: logo left, auth button right */}
           <div className="flex justify-between items-center p-4 mb-[35px] max-w-[1400px] mx-auto">
-            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-10 w-auto" />
+            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-16 w-auto" />
             <AuthHeader />
           </div>
 
