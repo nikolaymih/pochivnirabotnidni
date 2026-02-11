@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
 Plan: 3 of 3 complete
 Status: ✅ Complete
-Last activity: 2026-02-11 — Quick task 8: Fix modal text and profile dropdown hover overflow
+Last activity: 2026-02-11 — Quick task 9: Set klogo as favicon and add logo to header
 
 Progress: [████████░░] 82% (29 of 35 plans complete across all phases)
 
@@ -361,10 +361,11 @@ None yet.
 | 6 | Update PAGE_DESCRIPTION_HISTORY with new Bulgarian copy | 2026-02-11 | 6becd85 | [6-update-page-description-history-with-new](./quick/6-update-page-description-history-with-new/) |
 | 7 | Show login prompt modal when anonymous users add vacation | 2026-02-11 | 7214ddd | [7-show-login-prompt-modal-when-anonymous-u](./quick/7-show-login-prompt-modal-when-anonymous-u/) |
 | 8 | Fix modal text and profile dropdown hover overflow | 2026-02-11 | f6910b8 | [8-fix-modal-text-and-profile-dropdown-hove](./quick/8-fix-modal-text-and-profile-dropdown-hove/) |
+| 9 | Set klogo as favicon and add logo to header | 2026-02-11 | 8653dc1 | [9-set-klogo-as-favicon-and-add-logo-to-hea](./quick/9-set-klogo-as-favicon-and-add-logo-to-hea/) |
 
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Quick task 8 complete — Fix modal text and profile dropdown hover overflow
+Stopped at: Quick task 9 complete — Set klogo as favicon and add logo to header
 Resume file: None
 Next: Phase 5.2 gap closure (plans 05.2-07 through 05.2-09) or Phase 6 (Testing & Quality Gates)
