@@ -356,10 +356,11 @@ None yet.
 | 1 | Remove broken merge option from migration modal — keep only Cloud vs Local | 2026-02-10 | fbd7799 | [1-remove-merge-option](./quick/1-remove-merge-option-from-migration-modal/) |
 | 2 | Update initial page text with new Bulgarian copy | 2026-02-10 | 23869d2 | [2-update-initial-page-text-with-new-bulgar](./quick/2-update-initial-page-text-with-new-bulgar/) |
 | 3 | Change description text color to espresso for better readability | 2026-02-11 | ebe808a | [3-make-header-text-after-page-title-black-](./quick/3-make-header-text-after-page-title-black-/) |
+| 4 | Add tooltips for all legend day types (vacation, bridge, school holiday) with mobile click-away | 2026-02-11 | 1a62dce | [4-add-tooltips-for-all-legend-day-types-an](./quick/4-add-tooltips-for-all-legend-day-types-an/) |
 
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Quick task 3 complete — Changed description text color to espresso
+Stopped at: Quick task 4 complete — Added tooltips for all legend day types with mobile click-away
 Resume file: None
 Next: Phase 5.2 gap closure (plans 05.2-07 through 05.2-09) or Phase 6 (Testing & Quality Gates)
