@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
 Plan: 3 of 3 complete
 Status: ✅ Complete
-Last activity: 2026-02-11 — Quick task 5: Show tooltip only for holidays and multi-type overlap days
+Last activity: 2026-02-11 — Quick task 6: Update PAGE_DESCRIPTION_HISTORY with new Bulgarian copy
 
 Progress: [████████░░] 82% (29 of 35 plans complete across all phases)
 
@@ -358,10 +358,11 @@ None yet.
 | 3 | Change description text color to espresso for better readability | 2026-02-11 | ebe808a | [3-make-header-text-after-page-title-black-](./quick/3-make-header-text-after-page-title-black-/) |
 | 4 | Add tooltips for all legend day types (vacation, bridge, school holiday) with mobile click-away | 2026-02-11 | 1a62dce | [4-add-tooltips-for-all-legend-day-types-an](./quick/4-add-tooltips-for-all-legend-day-types-an/) |
 | 5 | Show tooltip only for holidays and multi-type overlap days | 2026-02-11 | 35bd9f3 | [5-show-tooltip-only-for-holidays-and-multi](./quick/5-show-tooltip-only-for-holidays-and-multi/) |
+| 6 | Update PAGE_DESCRIPTION_HISTORY with new Bulgarian copy | 2026-02-11 | 6becd85 | [6-update-page-description-history-with-new](./quick/6-update-page-description-history-with-new/) |
 
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Quick task 5 complete — Show tooltip only for holidays and multi-type overlap days
+Stopped at: Quick task 6 complete — Update PAGE_DESCRIPTION_HISTORY with new Bulgarian copy
 Resume file: None
 Next: Phase 5.2 gap closure (plans 05.2-07 through 05.2-09) or Phase 6 (Testing & Quality Gates)
