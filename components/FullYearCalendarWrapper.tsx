@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getYear } from 'date-fns';
 import { useVacation } from '@/contexts/VacationContext';
 import FullYearCalendar from './FullYearCalendar';
@@ -23,7 +23,7 @@ interface FullYearCalendarWrapperProps {
 }
 
 export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayDates }: FullYearCalendarWrapperProps) {
-  const { vacationData, setVacationData, rollover } = useVacation();
+  const { vacationData, setVacationData, rollover, isAuthenticated } = useVacation();
 
   // Calculate effective total (base + rollover) for max validation
   const rolloverDays = rollover?.rolloverDays || 0;
@@ -35,6 +35,10 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
   const [isDragging, setIsDragging] = useState(false);
   const [dragMode, setDragMode] = useState<'add' | 'remove'>('add');
   const [dragStartDate, setDragStartDate] = useState<string | null>(null);
+
+  // Login prompt modal state (session-only)
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const hasShownLoginPrompt = useRef(false);
 
   // Document-level pointerup listener to catch pointer-up outside calendar
   useEffect(() => {
@@ -70,6 +74,13 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
 
   // Handle pointer down - start drag, determine mode, toggle immediately
   const handlePointerDown = (dateStr: string) => {
+    // Show login prompt once per session for anonymous users adding vacation
+    const isAdding = !vacationData.vacationDates.includes(dateStr);
+    if (!isAuthenticated && !hasShownLoginPrompt.current && isAdding) {
+      hasShownLoginPrompt.current = true;
+      setShowLoginPrompt(true);
+    }
+
     const currentDates = vacationData.vacationDates;
     const isCurrentlySelected = currentDates.includes(dateStr);
 
@@ -111,15 +122,40 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
   };
 
   return (
-    <FullYearCalendar
-      year={year}
-      holidays={holidays}
-      vacationDates={vacationData.vacationDates}
-      schoolHolidayDates={schoolHolidayDates}
-      onToggleDate={isCurrentYear ? toggleVacationDate : undefined}
-      onPointerDown={isCurrentYear ? handlePointerDown : undefined}
-      onPointerEnter={isCurrentYear ? handlePointerEnter : undefined}
-      onPointerUp={isCurrentYear ? handlePointerUp : undefined}
-    />
+    <>
+      <FullYearCalendar
+        year={year}
+        holidays={holidays}
+        vacationDates={vacationData.vacationDates}
+        schoolHolidayDates={schoolHolidayDates}
+        onToggleDate={isCurrentYear ? toggleVacationDate : undefined}
+        onPointerDown={isCurrentYear ? handlePointerDown : undefined}
+        onPointerEnter={isCurrentYear ? handlePointerEnter : undefined}
+        onPointerUp={isCurrentYear ? handlePointerUp : undefined}
+      />
+      {showLoginPrompt && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setShowLoginPrompt(false)}
+        >
+          <div
+            className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-espresso text-base mb-6">
+              За да запазите добавената отпуска, при следващи посещения, моля влезте във вашия профил.
+            </p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowLoginPrompt(false)}
+                className="bg-caramel text-white px-4 py-2 rounded hover:bg-cinnamon"
+              >
+                Разбрах
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
