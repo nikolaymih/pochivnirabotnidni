@@ -12,6 +12,8 @@ import DayTooltip from './DayTooltip';
 interface BridgeDay {
   date: string; // ISO date string (YYYY-MM-DD)
   reason?: string;
+  relatedHoliday?: string;
+  daysOff?: number;
 }
 
 interface MonthGridProps {
@@ -130,6 +132,14 @@ export default function MonthGrid({
           // Check if this day is currently highlighted
           const isHighlighted = highlightedDate === dateStr;
 
+          // Build tooltip labels for non-holiday days
+          const tooltipLabels: string[] = [];
+          if (!displayAsHoliday) {
+            if (isVacation) tooltipLabels.push('Отпуска');
+            if (isBridge) tooltipLabels.push('Предложение за почивка');
+            if (isSchoolHoliday) tooltipLabels.push('Неучебни дни');
+          }
+
           // Styling priority: Holiday > Vacation > School Holiday > Bridge > Weekend > Workday
           const dayClasses = [
             'relative', // For absolute positioning of DayTooltip
@@ -141,7 +151,7 @@ export default function MonthGrid({
             isHighlighted && 'bg-highlight',
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-teal',
+            !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'bg-bridge-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
@@ -201,8 +211,8 @@ export default function MonthGrid({
                   isSubstitute={isTransferredHoliday}
                 />
               )}
-              {isVacation && isSchoolHoliday && !displayAsHoliday && (
-                <div className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-teal" />
+              {!displayAsHoliday && tooltipLabels.length > 0 && (
+                <DayTooltip labels={tooltipLabels} />
               )}
             </div>
           );
