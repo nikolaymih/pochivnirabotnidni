@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 6 of 7 (Testing & Quality Gates)
-Plan: 2 of 5 complete
+Plan: 3 of 5 complete
 Status: In Progress
-Last activity: 2026-02-11 — Completed 06-02-PLAN.md (Jest Component Testing Configuration)
+Last activity: 2026-02-11 — Completed 06-03-PLAN.md (Playwright E2E Testing Setup)
 
-Progress: [████████░░] 85% (30 of 35 plans complete across all phases)
+Progress: [████████░░] 89% (31 of 35 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 27
-- Average duration: 1 min 51 sec
-- Total execution time: 1.02 hours
+- Total plans completed: 28
+- Average duration: 1 min 57 sec
+- Total execution time: 1.08 hours
 
 **By Phase:**
 
@@ -36,11 +36,11 @@ Progress: [████████░░] 85% (30 of 35 plans complete across a
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
 | 5.2 - SEO Improvements & Layout Restructuring | 3 | 6m 38s | 2m 13s |
 | 5.3 - Multi-Year Vacation History & 2-Year Carryover | 3 | 4m 6s | 1m 22s |
-| 6 - Testing & Quality Gates | 2 | 3m 20s | 1m 40s |
+| 6 - Testing & Quality Gates | 3 | 6m 44s | 2m 15s |
 
 **Recent Trend:**
-- Last 5 plans: 05.2-04 (2m 36s), 05.3-01 (1m 53s), 05.3-02 (1m 28s), 05.3-03 (45s), 06-02 (1m 40s)
-- Trend: Fast execution for focused plans (under 3 minutes)
+- Last 5 plans: 05.3-01 (1m 53s), 05.3-02 (1m 28s), 05.3-03 (45s), 06-02 (1m 40s), 06-03 (3m 24s)
+- Trend: Fast execution for focused plans (under 4 minutes)
 
 *Updated after each plan completion*
 
@@ -340,6 +340,17 @@ Recent decisions affecting current work:
 - Coverage collection from lib/, components/, contexts/, hooks/ with test file exclusions
 - v8 coverage provider for faster execution than babel
 - Pattern established: jsdom for component tests, node for pure function tests
+
+**From 06-03 (Playwright E2E Testing Setup):**
+- Enable both chromium and webkit projects for Chrome and Safari cross-browser testing
+- Skip Firefox in initial setup (focus on Chrome + Safari per project Safari compatibility focus)
+- 2-minute timeout for Next.js dev server startup (App Router with Turbopack can be slow on first compile)
+- baseURL pattern allows relative paths in E2E tests (e.g., await page.goto('/'))
+- CI-specific configuration: 2 retries, 1 worker, forbid .only to prevent accidental commits
+- webServer auto-start eliminates manual dev server management in test workflows
+- Test artifacts gitignored: test-results/, playwright-report/, playwright/.cache/
+- webkit tests may fail in WSL due to missing system libraries (expected, will work in CI)
+- Pattern established: playwright.config.ts → e2e/ directory → webServer auto-start
 
 **From PROJECT.md:**
 - Supabase for PostgreSQL (free tier, good DX, includes auth helpers) - Pending
