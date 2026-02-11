@@ -32,13 +32,21 @@ export function getAvatarColor(userId: string): string {
 
 export function getInitials(fullName: string | null, email: string): string {
   if (fullName) {
-    const parts = fullName.trim().split(' ');
+    const trimmed = fullName.trim();
+    // Handle empty string after trim (whitespace-only input)
+    if (!trimmed) {
+      return email[0].toUpperCase();
+    }
+
+    const parts = trimmed.split(' ').filter(part => part.length > 0);
     if (parts.length >= 2) {
       // First letter of first word + first letter of last word
       return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
     }
-    // Single word - first letter only
-    return parts[0][0].toUpperCase();
+    if (parts.length === 1 && parts[0].length > 0) {
+      // Single word - first letter only
+      return parts[0][0].toUpperCase();
+    }
   }
   // Fallback to email
   return email[0].toUpperCase();
