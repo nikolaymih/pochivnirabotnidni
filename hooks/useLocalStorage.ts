@@ -17,6 +17,7 @@ export function useLocalStorage<T>(
   // Start with initial value for SSR, will be updated after hydration
   const [storedValue, setStoredValue] = useState<T>(initialValue);
   const isInitialized = useRef(false);
+  const writeSuppressed = useRef(true);
 
   // Read from localStorage after mount (client-side only)
   useEffect(() => {
@@ -33,10 +34,15 @@ export function useLocalStorage<T>(
     }
   }, [key]);
 
-  // Update localStorage whenever state changes (skip initial mount)
+  // Update localStorage whenever state changes (skip mount render)
+  // On mount, both effects run in the same cycle: read sets isInitialized=true
+  // but storedValue is still DEFAULT (setState is async). Without writeSuppressed,
+  // the write effect would overwrite localStorage with DEFAULT_VACATION_DATA.
   useEffect(() => {
-    // Skip the first render (initial value) to avoid overwriting localStorage
-    if (!isInitialized.current) return;
+    if (writeSuppressed.current) {
+      writeSuppressed.current = false;
+      return;
+    }
 
     try {
       window.localStorage.setItem(key, JSON.stringify(storedValue));

@@ -46,7 +46,7 @@ export default function MigrationReview({
             </div>
             {localData.totalDays !== cloudData.totalDays && (
               <div className="flex justify-between items-center mt-1">
-                <span className="text-xs text-cappuccino">Квота:</span>
+                <span className="text-xs text-cappuccino">Общо дни:</span>
                 <span className="text-xs font-semibold text-cappuccino">{localData.totalDays} дни</span>
               </div>
             )}
@@ -59,7 +59,7 @@ export default function MigrationReview({
             </div>
             {localData.totalDays !== cloudData.totalDays && (
               <div className="flex justify-between items-center mt-1">
-                <span className="text-xs text-cappuccino">Квота:</span>
+                <span className="text-xs text-cappuccino">Общо дни:</span>
                 <span className="text-xs font-semibold text-cappuccino">{cloudData.totalDays} дни</span>
               </div>
             )}
