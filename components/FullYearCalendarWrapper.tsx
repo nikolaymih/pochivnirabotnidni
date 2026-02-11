@@ -143,7 +143,7 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-espresso text-base mb-6">
-              За да запазите добавената отпуска, при следващи посещения, моля влезте във вашия профил.
+              За да не загубите добавената отпуска, при следващи посещения, моля влезте във вашия профил.
             </p>
             <div className="flex justify-end">
               <button
