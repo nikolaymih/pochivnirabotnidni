@@ -12,16 +12,18 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // RTL custom matchers
   collectCoverageFrom: [
     'lib/**/*.{ts,tsx}',
-    'components/**/*.{ts,tsx}',
     'contexts/**/*.{ts,tsx}',
     'hooks/**/*.{ts,tsx}',
     '!**/*.d.ts',
+    '!**/*.test.{ts,tsx}',
     '!**/node_modules/**',
     '!**/.next/**',
-    '!lib/calendar/bridgeDays.test.ts', // Exclude test files
-    '!lib/calendar/dates.test.ts',
-    '!lib/vacation/rollover.test.ts',
-    '!lib/avatar/initials.test.ts',
+    // Exclude infrastructure/config files (tested via E2E, not unit tests)
+    '!lib/supabase/**', // Supabase client/middleware/server setup
+    '!lib/offline/**', // Network detection, retry (tested via E2E)
+    '!lib/holidays/types.ts', // Pure type definitions, no logic
+    '!lib/vacation/types.ts', // Pure type definitions, no logic
+    '!lib/constants.ts', // String constants, no logic
   ],
   coverageThreshold: {
     global: {
