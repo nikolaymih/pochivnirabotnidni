@@ -21,6 +21,10 @@ export function generateMetadata(): Metadata {
     title: `${APP_NAME} - ${PAGE_TITLE(year)}`,
     description: META_DESCRIPTION(year),
     manifest: "/manifest.json",
+    icons: {
+      icon: '/klogo.png',
+      apple: '/klogo.png',
+    },
     themeColor: "#C68E17",
     appleWebApp: {
       capable: true,

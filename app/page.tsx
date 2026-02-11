@@ -36,8 +36,9 @@ export default async function HomePage({ searchParams }: PageProps) {
       <VacationProvider year={currentYear}>
         {/* Mobile Layout */}
         <div className="lg:hidden">
-          {/* Header: auth button only */}
-          <div className="flex justify-end p-4 mb-5">
+          {/* Header: logo left, auth button right */}
+          <div className="flex justify-between items-center p-4 mb-5">
+            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-8 w-auto" />
             <AuthHeader />
           </div>
 
@@ -70,8 +71,9 @@ export default async function HomePage({ searchParams }: PageProps) {
 
         {/* Desktop Layout: Three columns */}
         <div className="hidden lg:block">
-          {/* Header: auth button right-aligned */}
-          <div className="flex justify-end p-4 mb-[35px] max-w-[1400px] mx-auto">
+          {/* Header: logo left, auth button right */}
+          <div className="flex justify-between items-center p-4 mb-[35px] max-w-[1400px] mx-auto">
+            <img src="/klogo.png" alt="Почивни Работни Дни" className="h-10 w-auto" />
             <AuthHeader />
           </div>
 
