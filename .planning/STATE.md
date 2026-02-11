@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 5.3 of 7 (Multi-Year Vacation History & 2-Year Carryover per Bulgarian Labor Law - INSERTED)
 Plan: 3 of 3 complete
 Status: ✅ Complete
-Last activity: 2026-02-11 — Quick task 3: Changed description text color to espresso
+Last activity: 2026-02-11 — Quick task 4: Added tooltips for all legend day types with mobile click-away
 
 Progress: [████████░░] 82% (29 of 35 plans complete across all phases)
 
