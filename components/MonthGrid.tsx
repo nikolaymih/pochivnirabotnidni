@@ -70,7 +70,12 @@ export default function MonthGrid({
   const schoolHolidaySet = new Set(schoolHolidayDates || []);
 
   return (
-    <div className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[400px] overflow-visible select-none">
+    <div
+      className="border border-latte rounded-lg p-3 bg-white shadow-sm max-w-[650px] max-h-[400px] overflow-visible select-none"
+      data-testid="month-grid"
+      data-month={month}
+      data-year={year}
+    >
       {/* Month name header */}
       <h3 className="text-lg font-semibold mb-2 text-center">
         {capitalizedMonth}
@@ -194,6 +199,10 @@ export default function MonthGrid({
             <div
               key={day}
               className={dayClasses}
+              data-date={dateStr}
+              data-holiday={displayAsHoliday || undefined}
+              data-vacation={isVacation || undefined}
+              data-bridge={isBridge || undefined}
               style={{
                 ...(index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : {}),
                 ...(isBridgeSchoolOverlap ? {
