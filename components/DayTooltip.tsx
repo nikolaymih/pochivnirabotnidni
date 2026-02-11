@@ -57,7 +57,7 @@ export default function DayTooltip({ holiday, isSubstitute = false, labels }: Da
     tooltipContent = (
       <div className="absolute left-1/2 -translate-x-1/2 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
         {labels.map((label, index) => (
-          <div key={index} className="font-medium text-sm">{label}</div>
+          <div key={index} className="font-medium text-sm">{labels.length > 1 ? `- ${label}` : label}</div>
         ))}
       </div>
     );

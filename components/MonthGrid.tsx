@@ -211,7 +211,7 @@ export default function MonthGrid({
                   isSubstitute={isTransferredHoliday}
                 />
               )}
-              {!displayAsHoliday && tooltipLabels.length > 0 && (
+              {!displayAsHoliday && tooltipLabels.length > 1 && (
                 <DayTooltip labels={tooltipLabels} />
               )}
             </div>
