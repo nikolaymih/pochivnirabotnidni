@@ -218,9 +218,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 05.3-01-PLAN.md — Multi-year rollover calculation with CarryoverBucket tracking and 2-year expiry
-- [ ] 05.3-02-PLAN.md — Year-aware VacationContext with read-only historical mode and calendar display
-- [ ] 05.3-03-PLAN.md — Carryover breakdown UI with per-bucket expiry status in VacationSummary
+- [x] 05.3-01-PLAN.md — Multi-year rollover calculation with CarryoverBucket tracking and 2-year expiry
+- [x] 05.3-02-PLAN.md — Year-aware VacationContext with read-only historical mode and calendar display
+- [x] 05.3-03-PLAN.md — Carryover breakdown UI with per-bucket expiry status in VacationSummary
 
 ### Phase 6: Testing & Quality Gates
 **Goal**: Application meets quality standards with 50% test coverage and cross-browser validation
@@ -233,10 +233,15 @@ Plans:
   4. Date operations tested with DST boundary dates and edge cases
   5. Performance budgets met (year view <200ms, month view <50ms render)
   6. Critical user flows covered by end-to-end tests
-**Plans**: TBD
+**Plans**: 6 plans
 
 Plans:
-- [ ] TBD during planning
+- [ ] 06-01-PLAN.md — Unit tests for pure functions (dates, rollover, avatar utilities)
+- [ ] 06-02-PLAN.md — Jest configuration updates + React Testing Library setup
+- [ ] 06-03-PLAN.md — Playwright E2E setup + Safari configuration
+- [ ] 06-04-PLAN.md — Integration tests for VacationContext and hooks
+- [ ] 06-05-PLAN.md — E2E tests for critical user flows and Safari date validation
+- [ ] 06-06-PLAN.md — Coverage verification and test quality checkpoint
 
 ## Progress
 
@@ -253,5 +258,5 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
 | 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
 | 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 6/9 | Gap closure in progress | - |
-| 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 0/TBD | Not started | - |
-| 6. Testing & Quality Gates | 0/TBD | Not started | - |
+| 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 3/3 | ✅ Complete | 2026-02-10 |
+| 6. Testing & Quality Gates | 0/6 | Planned | - |
