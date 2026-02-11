@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 ## Current Position
 
 Phase: 6 of 7 (Testing & Quality Gates)
-Plan: 3 of 5 complete
+Plan: 1 of 5 complete
 Status: In Progress
-Last activity: 2026-02-11 — Completed 06-03-PLAN.md (Playwright E2E Testing Setup)
+Last activity: 2026-02-11 — Completed 06-01-PLAN.md (Unit Test Foundation)
 
-Progress: [████████░░] 89% (31 of 35 plans complete across all phases)
+Progress: [████████░░] 83% (29 of 35 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 28
-- Average duration: 1 min 57 sec
-- Total execution time: 1.08 hours
+- Total plans completed: 29
+- Average duration: 1 min 59 sec
+- Total execution time: 1.13 hours
 
 **By Phase:**
 
@@ -36,11 +36,11 @@ Progress: [████████░░] 89% (31 of 35 plans complete across a
 | 5.1 - UX Infrastructure & Feedback Loop | 4 | 9m 56s | 2m 29s |
 | 5.2 - SEO Improvements & Layout Restructuring | 3 | 6m 38s | 2m 13s |
 | 5.3 - Multi-Year Vacation History & 2-Year Carryover | 3 | 4m 6s | 1m 22s |
-| 6 - Testing & Quality Gates | 3 | 6m 44s | 2m 15s |
+| 6 - Testing & Quality Gates | 1 | 4m 29s | 4m 29s |
 
 **Recent Trend:**
-- Last 5 plans: 05.3-01 (1m 53s), 05.3-02 (1m 28s), 05.3-03 (45s), 06-02 (1m 40s), 06-03 (3m 24s)
-- Trend: Fast execution for focused plans (under 4 minutes)
+- Last 5 plans: 05.3-02 (1m 28s), 05.3-03 (45s), 06-01 (4m 29s)
+- Trend: Test-focused plans take longer (4-5 minutes vs 1-2 minutes for features)
 
 *Updated after each plan completion*
 
@@ -331,6 +331,16 @@ Recent decisions affecting current work:
 - Users must pick one complete, consistent state instead of hybrid merge
 - Modal heading: "Конфликт в данните" (more accurate than "Обединяване на данни")
 
+**From 06-01 (Unit Test Foundation):**
+- Jest unit tests for date utilities, rollover calculations, and avatar initials (65 tests total)
+- Test DST boundaries using Bulgaria-specific dates: March 30 (spring forward), October 25 (fall back)
+- jest.useFakeTimers() with jest.setSystemTime() for date-dependent tests, cleanup with jest.useRealTimers() in afterEach
+- Mock fetchVacationData at module level instead of Supabase client for cleaner rollover tests
+- Round-trip testing pattern: verify parseDate(serializeDate(x)) === x for date serialization
+- Bug fix: getInitials handles whitespace-only names by checking empty string after trim() and filtering empty parts
+- Testing patterns: @jest/globals imports for ESM, describe/test/expect structure, edge case coverage
+- Edge case categories: empty inputs, whitespace, invalid data, Cyrillic characters, DST transitions
+
 **From 06-02 (Jest Component Testing Configuration):**
 - Jest testEnvironment changed from 'node' to 'jsdom' for React component testing
 - testMatch includes .tsx files for component test discovery
@@ -390,6 +400,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Completed 06-02-PLAN.md (Jest Component Testing Configuration)
+Stopped at: Completed 06-01-PLAN.md (Unit Test Foundation)
 Resume file: None
-Next: Continue Phase 6 with Plan 06-03 (Hook Testing) or Plan 06-04 (Context Testing)
+Next: Continue Phase 6 with Plan 06-02 (Jest Component Testing Configuration) or other Phase 6 plans
