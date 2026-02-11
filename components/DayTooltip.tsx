@@ -1,32 +1,71 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { format } from 'date-fns';
 import { bg } from 'date-fns/locale';
 import { parseDate } from '@/lib/calendar/dates';
 import type { Holiday } from '@/lib/holidays/types';
 
 interface DayTooltipProps {
-  holiday: Holiday;
+  // Mode 1: Holiday detail (existing behavior)
+  holiday?: Holiday;
   isSubstitute?: boolean;
+  // Mode 2: Generic labels (new)
+  labels?: string[];
 }
 
-export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltipProps) {
+export default function DayTooltip({ holiday, isSubstitute = false, labels }: DayTooltipProps) {
   const [isDesktopVisible, setIsDesktopVisible] = useState(false);
   const [isMobileVisible, setIsMobileVisible] = useState(false);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
-  const displayName = isSubstitute
-    ? `${holiday.name} (почивен ден)`
-    : holiday.name;
+  // Mobile click-away dismiss
+  useEffect(() => {
+    if (!isMobileVisible) return;
 
-  const tooltipContent = (
-    <div className="absolute left-1/2 -translate-x-1/2 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
-      <div className="font-bold mb-1">{displayName}</div>
-      <div className="text-xs opacity-80 mb-1">
-        {format(parseDate(holiday.date), 'd MMMM yyyy', { locale: bg })}
+    const handleClickOutside = (e: PointerEvent) => {
+      if (mobileRef.current && !mobileRef.current.contains(e.target as Node)) {
+        setIsMobileVisible(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
+  }, [isMobileVisible]);
+
+  // Determine content based on mode
+  let tooltipContent: React.ReactElement;
+  let ariaLabel: string;
+
+  if (holiday) {
+    // Mode 1: Holiday detail
+    const displayName = isSubstitute
+      ? `${holiday.name} (почивен ден)`
+      : holiday.name;
+
+    tooltipContent = (
+      <div className="absolute left-1/2 -translate-x-1/2 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
+        <div className="font-bold mb-1">{displayName}</div>
+        <div className="text-xs opacity-80 mb-1">
+          {format(parseDate(holiday.date), 'd MMMM yyyy', { locale: bg })}
+        </div>
       </div>
-    </div>
-  );
+    );
+    ariaLabel = "Подробности за празника";
+  } else if (labels && labels.length > 0) {
+    // Mode 2: Generic labels
+    tooltipContent = (
+      <div className="absolute left-1/2 -translate-x-1/2 top-5 z-10 w-48 p-3 bg-espresso text-foam text-sm rounded shadow-lg">
+        {labels.map((label, index) => (
+          <div key={index} className="font-medium text-sm">{label}</div>
+        ))}
+      </div>
+    );
+    ariaLabel = "Подробности за деня";
+  } else {
+    // Fallback: no content
+    return null;
+  }
 
   return (
     <>
@@ -36,7 +75,7 @@ export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltip
           onMouseEnter={() => setIsDesktopVisible(true)}
           onMouseLeave={() => setIsDesktopVisible(false)}
           className="text-xs bg-foam/80 text-espresso rounded-full w-4 h-4 flex items-center justify-center font-bold hover:bg-cream transition-colors"
-          aria-label="Подробности за празника"
+          aria-label={ariaLabel}
           type="button"
         >
           i
@@ -45,7 +84,7 @@ export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltip
       </div>
 
       {/* Mobile: click-toggle icon (hidden on desktop) */}
-      <div className="lg:hidden absolute top-0 right-0">
+      <div ref={mobileRef} className="lg:hidden absolute top-0 right-0">
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -56,7 +95,7 @@ export default function DayTooltip({ holiday, isSubstitute = false }: DayTooltip
             e.stopPropagation();
           }}
           className="text-[10px] bg-foam/80 text-espresso rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold"
-          aria-label="Подробности за празника"
+          aria-label={ariaLabel}
           type="button"
         >
           i
