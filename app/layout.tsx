@@ -8,6 +8,7 @@ import NetworkStatus from "@/components/NetworkStatus";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import { PAGE_TITLE, META_DESCRIPTION, APP_NAME, APP_SHORT_NAME } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -48,6 +49,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <Analytics />
+          <SpeedInsights />
         </AuthProvider>
         <Toaster
           position="bottom-center"
