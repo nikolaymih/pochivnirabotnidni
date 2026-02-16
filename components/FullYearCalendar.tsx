@@ -10,7 +10,7 @@ interface FullYearCalendarProps {
   vacationDates?: string[]; // Passed from client wrapper component
   schoolHolidayDates?: string[]; // Individual dates from school holiday ranges
   onToggleDate?: (dateStr: string) => void; // Click handler for toggling vacation dates
-  onPointerDown?: (dateStr: string) => void; // Pointer down handler for drag selection
+  onPointerDown?: (dateStr: string, pointerType: string, clientX: number, clientY: number) => void; // Pointer down handler for drag selection
   onPointerEnter?: (dateStr: string) => void; // Pointer enter handler for drag selection
   onPointerUp?: () => void; // Pointer up handler to end drag selection
 }

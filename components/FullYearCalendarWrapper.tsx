@@ -36,25 +36,55 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
   const [dragMode, setDragMode] = useState<'add' | 'remove'>('add');
   const [dragStartDate, setDragStartDate] = useState<string | null>(null);
 
+  // Touch handling state - pending date and position for movement threshold detection
+  const pendingDateRef = useRef<string | null>(null);
+  const pointerStartPosRef = useRef<{ x: number; y: number } | null>(null);
+
   // Login prompt modal state (session-only)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const hasShownLoginPrompt = useRef(false);
 
-  // Document-level pointerup listener to catch pointer-up outside calendar
+  // Document-level pointermove and pointerup listeners for touch handling
   useEffect(() => {
+    const handleDocumentPointerMove = (event: PointerEvent) => {
+      // Only check if we have a pending touch date
+      if (pendingDateRef.current && pointerStartPosRef.current) {
+        const deltaX = Math.abs(event.clientX - pointerStartPosRef.current.x);
+        const deltaY = Math.abs(event.clientY - pointerStartPosRef.current.y);
+        const totalMovement = deltaX + deltaY; // Manhattan distance
+
+        // If movement exceeds 10px threshold, user is scrolling - cancel pending date
+        if (totalMovement > 10) {
+          pendingDateRef.current = null;
+          pointerStartPosRef.current = null;
+          setIsDragging(false);
+        }
+      }
+    };
+
     const handleDocumentPointerUp = () => {
+      // If we have a pending touch date (didn't move much), commit it now
+      if (pendingDateRef.current) {
+        toggleVacationDate(pendingDateRef.current);
+        pendingDateRef.current = null;
+        pointerStartPosRef.current = null;
+      }
+
+      // Clean up drag state
       if (isDragging) {
         setIsDragging(false);
         setDragStartDate(null);
       }
     };
 
+    document.addEventListener('pointermove', handleDocumentPointerMove);
     document.addEventListener('pointerup', handleDocumentPointerUp);
 
     return () => {
+      document.removeEventListener('pointermove', handleDocumentPointerMove);
       document.removeEventListener('pointerup', handleDocumentPointerUp);
     };
-  }, [isDragging]);
+  }, [isDragging, vacationData, effectiveTotal]);
 
   // Toggle vacation date - add if not present, remove if present
   const toggleVacationDate = (dateStr: string) => {
@@ -72,8 +102,8 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
     });
   };
 
-  // Handle pointer down - start drag, determine mode, toggle immediately
-  const handlePointerDown = (dateStr: string) => {
+  // Handle pointer down - start drag, determine mode, toggle immediately (or delay for touch)
+  const handlePointerDown = (dateStr: string, pointerType: string, clientX: number, clientY: number) => {
     // Show login prompt once per session for anonymous users adding vacation
     const isAdding = !vacationData.vacationDates.includes(dateStr);
     if (!isAuthenticated && !hasShownLoginPrompt.current && isAdding) {
@@ -87,11 +117,18 @@ export default function FullYearCalendarWrapper({ year, holidays, schoolHolidayD
     // Determine drag mode based on first cell's state
     const mode = isCurrentlySelected ? 'remove' : 'add';
     setDragMode(mode);
-    setIsDragging(true);
-    setDragStartDate(dateStr);
 
-    // Toggle immediately for instant feedback
-    toggleVacationDate(dateStr);
+    if (pointerType === 'touch') {
+      // Touch: delay toggle until pointerup (prevents accidental marking during scroll)
+      pendingDateRef.current = dateStr;
+      pointerStartPosRef.current = { x: clientX, y: clientY };
+      // Don't set isDragging yet - wait for pointerup
+    } else {
+      // Mouse: immediate toggle for desktop drag selection
+      setIsDragging(true);
+      setDragStartDate(dateStr);
+      toggleVacationDate(dateStr);
+    }
   };
 
   // Handle pointer enter during drag - apply drag mode

@@ -24,7 +24,7 @@ interface MonthGridProps {
   vacationDates?: string[]; // From parent, ultimately from VacationContext via client wrapper
   schoolHolidayDates?: string[]; // Individual dates from school holiday ranges
   onToggleDate?: (dateStr: string) => void; // Click handler for toggling vacation dates
-  onPointerDown?: (dateStr: string) => void; // Pointer down handler for drag selection
+  onPointerDown?: (dateStr: string, pointerType: string, clientX: number, clientY: number) => void; // Pointer down handler for drag selection
   onPointerEnter?: (dateStr: string) => void; // Pointer enter handler for drag selection
   onPointerUp?: () => void; // Pointer up handler to end drag selection
   compact?: boolean; // Default true for 12-month view
@@ -161,11 +161,10 @@ export default function MonthGrid({
             !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
-            isClickable && 'cursor-pointer',
-            isClickable && 'touch-none' // Prevent scroll/zoom on draggable cells
+            isClickable && 'cursor-pointer'
           ].filter(Boolean).join(' ');
 
-          const handlePointerDownCell = () => {
+          const handlePointerDownCell = (event: React.PointerEvent) => {
             if (!isClickable) return;
 
             // Set highlight flash
@@ -179,7 +178,7 @@ export default function MonthGrid({
 
             // Call parent handler for drag selection
             if (onPointerDown) {
-              onPointerDown(dateStr);
+              onPointerDown(dateStr, event.pointerType, event.clientX, event.clientY);
             }
           };
 
