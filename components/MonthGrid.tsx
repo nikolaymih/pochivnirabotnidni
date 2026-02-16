@@ -157,8 +157,8 @@ export default function MonthGrid({
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'bg-bridge-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'border-2 border-vacation bg-transparent text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'border-2 border-vacation text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
             isClickable && 'cursor-pointer'
@@ -205,7 +205,7 @@ export default function MonthGrid({
               style={{
                 ...(index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : {}),
                 ...(isBridgeSchoolOverlap ? {
-                  background: 'linear-gradient(135deg, var(--color-bridge-bg) 50%, var(--color-school-bg) 50%)'
+                  background: 'linear-gradient(135deg, transparent 50%, var(--color-school-bg) 50%)'
                 } : {})
               }}
               onPointerDown={handlePointerDownCell}
