@@ -423,7 +423,7 @@ None yet.
 | 12 | Fix mobile scroll-to-mark bug and remove legend borders except holidays | 2026-02-16 | 997ffe1, afa558a | [12-fix-mobile-scroll-to-mark-bug-and-remove](./quick/12-fix-mobile-scroll-to-mark-bug-and-remove/) |
 | 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
 | 14 | Fix bridge day outline color to use vacation-bg instead of vacation text color | 2026-02-16 | 5900d9a | [14-fix-bridge-day-outline-color-to-use-vaca](./quick/14-fix-bridge-day-outline-color-to-use-vaca/) |
-| 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | TBD | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
+| 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
 
 ## Session Continuity
 
