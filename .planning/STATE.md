@@ -379,6 +379,13 @@ Recent decisions affecting current work:
 - Legend swatches: borderless color blocks except official holiday (border-cinnamon for visual distinction)
 - Pattern established: movement threshold approach for touch-sensitive UI interactions
 
+**From Quick Task 13 (Legend Swatch Sizing & Bridge Day Outline Style):**
+- All legend swatches use `shrink-0 min-w-6 min-h-6` to maintain consistent 24x24px size regardless of text wrapping
+- Bridge days use outline-only styling: `border-2 border-vacation bg-transparent` (suggestion state)
+- Visual progression established: outline (suggestion) → filled with bg-vacation-bg (confirmed vacation)
+- Bridge+school overlap uses transparent half (bridge outline) + school-bg half (school fill)
+- Pattern established: outline-only styling communicates "suggestion" vs filled styling for "selection"
+
 ### Pending Todos
 
 None yet.
@@ -407,11 +414,12 @@ None yet.
 | 10 | Fix favicon override and increase logo size | 2026-02-11 | 3c913cc | [10-fix-favicon-override-and-increase-logo-s](./quick/10-fix-favicon-override-and-increase-logo-s/) |
 | 11 | Crop klogo whitespace and fix header logo sizing | 2026-02-11 | c446073 | [11-crop-klogo-whitespace-and-fix-header-log](./quick/11-crop-klogo-whitespace-and-fix-header-log/) |
 | 12 | Fix mobile scroll-to-mark bug and remove legend borders except holidays | 2026-02-16 | 997ffe1, afa558a | [12-fix-mobile-scroll-to-mark-bug-and-remove](./quick/12-fix-mobile-scroll-to-mark-bug-and-remove/) |
+| 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
 
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Phase 6 complete — All phases done!
+Stopped at: Completed quick task 13 — Legend swatch fixes and bridge day outline styling
 Resume file: None
 Next: All roadmap phases complete. Project is feature-complete with tests.
 Next: Continue Phase 6 with Plan 06-02 (Jest Component Testing Configuration) or other Phase 6 plans
