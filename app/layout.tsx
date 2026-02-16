@@ -31,7 +31,7 @@ export function generateMetadata(): Metadata {
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",
-      title: APP_SHORT_NAME,
+      title: APP_SHORT_NAME
     },
   };
 }
