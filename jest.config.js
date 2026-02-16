@@ -33,7 +33,7 @@ const config = {
       lines: 50,
     },
   },
-  coverageProvider: 'v8', // Faster than babel
+  coverageProvider: 'v8', // Faster than babell
 };
 
 module.exports = config;
