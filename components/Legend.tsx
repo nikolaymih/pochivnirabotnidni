@@ -15,7 +15,7 @@ export default function Legend() {
         </div>
         {/* 3. Bridge Day Suggestion */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 min-w-6 min-h-6 shrink-0 border-2 border-vacation bg-transparent rounded"></div>
+          <div className="w-6 h-6 min-w-6 min-h-6 shrink-0 border-2 border-vacation-bg bg-transparent rounded"></div>
           <span className="text-sm">Предложение за почивка</span>
         </div>
         {/* 4. School Holidays */}

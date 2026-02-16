@@ -157,8 +157,8 @@ export default function MonthGrid({
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'border-2 border-vacation bg-transparent text-espresso',
-            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'border-2 border-vacation text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'border-2 border-vacation-bg bg-transparent text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'border-2 border-vacation-bg text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
             isClickable && 'cursor-pointer'
