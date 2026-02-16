@@ -424,10 +424,11 @@ None yet.
 | 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
 | 14 | Fix bridge day outline color to use vacation-bg instead of vacation text color | 2026-02-16 | 5900d9a | [14-fix-bridge-day-outline-color-to-use-vaca](./quick/14-fix-bridge-day-outline-color-to-use-vaca/) |
 | 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
+| 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | pending | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
 
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed quick task 15 — Verified STATE.md documentation for quick tasks 12-14
+Stopped at: Completed quick task 16 — SEO improvements (sitemap, robots, OG, canonical)
 Resume file: None
-Next: All roadmap phases complete. Project is feature-complete with tests.
+Next: Submit sitemap to Google Search Console, monitor indexing.

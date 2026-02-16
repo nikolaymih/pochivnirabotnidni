@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
 import { getYear } from "date-fns";
 import "./globals.css";
@@ -17,17 +17,41 @@ const nunito = Nunito({
   display: "swap",
 });
 
+const BASE_URL = 'https://kolkoshtepochivam.com';
+
+export const viewport: Viewport = {
+  themeColor: '#C68E17',
+};
+
 export function generateMetadata(): Metadata {
   const year = getYear(new Date());
+  const title = `${APP_NAME} - ${PAGE_TITLE(year)}`;
+  const description = META_DESCRIPTION(year);
   return {
-    title: `${APP_NAME} - ${PAGE_TITLE(year)}`,
-    description: META_DESCRIPTION(year),
+    title,
+    description,
     manifest: "/manifest.json",
+    metadataBase: new URL(BASE_URL),
+    alternates: {
+      canonical: '/',
+    },
     icons: {
       icon: '/klogo.png',
       apple: '/klogo.png',
     },
-    themeColor: "#C68E17",
+    openGraph: {
+      title,
+      description,
+      url: BASE_URL,
+      siteName: APP_NAME,
+      locale: 'bg_BG',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",
