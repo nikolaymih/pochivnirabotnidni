@@ -6,8 +6,13 @@ export const alt = 'Почивни Работни Дни - Календар с �
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function OGImage() {
+export default async function OGImage() {
   const year = getYear(new Date());
+
+  // Load Nunito Bold with Cyrillic support for OG image rendering
+  const nunitoFont = await fetch(
+    'https://fonts.gstatic.com/s/nunito/v26/XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTQ3j6zbXWjgevT5.woff2'
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
@@ -20,7 +25,7 @@ export default function OGImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: 'sans-serif',
+          fontFamily: 'Nunito',
         }}
       >
         {/* Top accent bar */}
@@ -130,6 +135,16 @@ export default function OGImage() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        {
+          name: 'Nunito',
+          data: nunitoFont,
+          style: 'normal',
+          weight: 700,
+        },
+      ],
+    }
   );
 }
