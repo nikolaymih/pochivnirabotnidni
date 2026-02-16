@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { getYear } from 'date-fns';
 
-export const runtime = 'edge';
 export const alt = 'Почивни Работни Дни - Календар с български празници';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -9,10 +10,8 @@ export const contentType = 'image/png';
 export default async function OGImage() {
   const year = getYear(new Date());
 
-  // Load Nunito Bold with Cyrillic support for OG image rendering
-  const nunitoFont = await fetch(
-    'https://fonts.gstatic.com/s/nunito/v26/XRXI3I6Li01BKofiOc5wtlZ2di8HDIkhdTQ3j6zbXWjgevT5.woff2'
-  ).then((res) => res.arrayBuffer());
+  const fontPath = join(process.cwd(), 'app/fonts/nunito-bold.ttf');
+  const nunitoFont = await readFile(fontPath);
 
   return new ImageResponse(
     (
@@ -26,9 +25,9 @@ export default async function OGImage() {
           alignItems: 'center',
           justifyContent: 'center',
           fontFamily: 'Nunito',
+          position: 'relative',
         }}
       >
-        {/* Top accent bar */}
         <div
           style={{
             position: 'absolute',
@@ -37,101 +36,85 @@ export default async function OGImage() {
             right: 0,
             height: 8,
             background: '#C68E17',
+            display: 'flex',
           }}
         />
-
-        {/* Main content */}
+        <div
+          style={{
+            fontSize: 72,
+            fontWeight: 700,
+            color: '#3E2723',
+            textAlign: 'center',
+            lineHeight: 1.2,
+          }}
+        >
+          Почивни Работни Дни
+        </div>
+        <div
+          style={{
+            fontSize: 36,
+            color: '#6F4E37',
+            textAlign: 'center',
+            marginTop: 24,
+          }}
+        >
+          {`Празници и отпуски ${year}`}
+        </div>
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 24,
+            gap: 16,
+            marginTop: 40,
           }}
         >
           <div
             style={{
-              fontSize: 72,
-              fontWeight: 700,
-              color: '#3E2723',
-              textAlign: 'center',
-              lineHeight: 1.2,
+              display: 'flex',
+              alignItems: 'center',
+              background: '#6F4E37',
+              color: 'white',
+              padding: '8px 20px',
+              borderRadius: 12,
+              fontSize: 20,
             }}
           >
-            Почивни Работни Дни
+            Празници
           </div>
-
-          <div
-            style={{
-              fontSize: 36,
-              color: '#6F4E37',
-              textAlign: 'center',
-            }}
-          >
-            Празнични и неработни дни през {year} година
-          </div>
-
           <div
             style={{
               display: 'flex',
-              gap: 16,
-              marginTop: 16,
+              alignItems: 'center',
+              background: '#BDD7DE',
+              color: '#3E2723',
+              padding: '8px 20px',
+              borderRadius: 12,
+              fontSize: 20,
             }}
           >
-            {/* Color legend chips */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: '#6F4E37',
-                color: 'white',
-                padding: '8px 20px',
-                borderRadius: 12,
-                fontSize: 20,
-              }}
-            >
-              Празници
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: '#BDD7DE',
-                color: '#3E2723',
-                padding: '8px 20px',
-                borderRadius: 12,
-                fontSize: 20,
-              }}
-            >
-              Отпуска
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: '#EB9605',
-                color: 'white',
-                padding: '8px 20px',
-                borderRadius: 12,
-                fontSize: 20,
-              }}
-            >
-              Мостове
-            </div>
+            Отпуска
           </div>
-
           <div
             style={{
-              fontSize: 22,
-              color: '#8D6E63',
-              marginTop: 8,
+              display: 'flex',
+              alignItems: 'center',
+              background: '#EB9605',
+              color: 'white',
+              padding: '8px 20px',
+              borderRadius: 12,
+              fontSize: 20,
             }}
           >
-            kolkoshtepochivam.com
+            Мостове
           </div>
+        </div>
+        <div
+          style={{
+            fontSize: 22,
+            color: '#8D6E63',
+            marginTop: 24,
+          }}
+        >
+          kolkoshtepochivam.com
         </div>
       </div>
     ),

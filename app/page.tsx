@@ -9,7 +9,7 @@ import { getHolidays } from '@/lib/holidays/fetch';
 import { getSchoolHolidays, getSchoolHolidayDates } from '@/lib/holidays/schoolHolidays';
 import LeftSidebar from '@/components/LeftSidebar';
 import YearSelector from '@/components/YearSelector';
-import { PAGE_TITLE, META_DESCRIPTION, APP_NAME, PAGE_DESCRIPTION, PAGE_DESCRIPTION_EXTENDED, PAGE_DESCRIPTION_HISTORY } from '@/lib/constants';
+import { PAGE_TITLE, META_TITLE, META_DESCRIPTION, PAGE_DESCRIPTION, PAGE_DESCRIPTION_EXTENDED, PAGE_DESCRIPTION_HISTORY } from '@/lib/constants';
 import StickyBottomSidebar from '@/components/StickyBottomSidebar';
 
 const BASE_URL = 'https://kolkoshtepochivam.com';
@@ -24,7 +24,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const defaultYear = getYear(new Date());
   const isDefaultYear = year === defaultYear;
 
-  const title = `${APP_NAME} - ${PAGE_TITLE(year)}`;
+  const title = META_TITLE(year);
   const description = META_DESCRIPTION(year);
   const canonicalUrl = isDefaultYear ? BASE_URL : `${BASE_URL}/?year=${year}`;
 

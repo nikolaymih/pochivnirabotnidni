@@ -6,7 +6,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import NetworkStatus from "@/components/NetworkStatus";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
-import { PAGE_TITLE, META_DESCRIPTION, APP_NAME, APP_SHORT_NAME } from "@/lib/constants";
+import { META_TITLE, META_DESCRIPTION, APP_NAME, APP_SHORT_NAME } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 
 export function generateMetadata(): Metadata {
   const year = getYear(new Date());
-  const title = `${APP_NAME} - ${PAGE_TITLE(year)}`;
+  const title = META_TITLE(year);
   const description = META_DESCRIPTION(year);
   return {
     title,
