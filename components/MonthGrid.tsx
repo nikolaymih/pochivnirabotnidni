@@ -24,7 +24,7 @@ interface MonthGridProps {
   vacationDates?: string[]; // From parent, ultimately from VacationContext via client wrapper
   schoolHolidayDates?: string[]; // Individual dates from school holiday ranges
   onToggleDate?: (dateStr: string) => void; // Click handler for toggling vacation dates
-  onPointerDown?: (dateStr: string) => void; // Pointer down handler for drag selection
+  onPointerDown?: (dateStr: string, pointerType: string, clientX: number, clientY: number) => void; // Pointer down handler for drag selection
   onPointerEnter?: (dateStr: string) => void; // Pointer enter handler for drag selection
   onPointerUp?: () => void; // Pointer up handler to end drag selection
   compact?: boolean; // Default true for 12-month view
@@ -157,15 +157,14 @@ export default function MonthGrid({
             !isHighlighted && displayAsHoliday && 'bg-cinnamon text-white font-semibold',
             !isHighlighted && !displayAsHoliday && isVacation && 'bg-vacation-bg text-black',
             !isHighlighted && !displayAsHoliday && !isVacation && isSchoolHoliday && !isBridgeSchoolOverlap && 'bg-school-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'bg-bridge-bg text-black',
-            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && isBridge && !isBridgeSchoolOverlap && 'border-2 border-vacation-bg bg-transparent text-espresso',
+            !isHighlighted && !displayAsHoliday && !isVacation && isBridgeSchoolOverlap && 'border-2 border-vacation-bg text-espresso',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && isWeekend && 'bg-weekend-bg text-weekend-text',
             !isHighlighted && !displayAsHoliday && !isVacation && !isSchoolHoliday && !isBridge && !isWeekend && 'hover:bg-cream',
-            isClickable && 'cursor-pointer',
-            isClickable && 'touch-none' // Prevent scroll/zoom on draggable cells
+            isClickable && 'cursor-pointer'
           ].filter(Boolean).join(' ');
 
-          const handlePointerDownCell = () => {
+          const handlePointerDownCell = (event: React.PointerEvent) => {
             if (!isClickable) return;
 
             // Set highlight flash
@@ -179,7 +178,7 @@ export default function MonthGrid({
 
             // Call parent handler for drag selection
             if (onPointerDown) {
-              onPointerDown(dateStr);
+              onPointerDown(dateStr, event.pointerType, event.clientX, event.clientY);
             }
           };
 
@@ -206,7 +205,7 @@ export default function MonthGrid({
               style={{
                 ...(index === 0 ? { gridColumnStart: firstDayOfWeek + 1 } : {}),
                 ...(isBridgeSchoolOverlap ? {
-                  background: 'linear-gradient(135deg, var(--color-bridge-bg) 50%, var(--color-school-bg) 50%)'
+                  background: 'linear-gradient(135deg, transparent 50%, var(--color-school-bg) 50%)'
                 } : {})
               }}
               onPointerDown={handlePointerDownCell}

@@ -369,6 +369,30 @@ Recent decisions affecting current work:
 - Full year view in v1 (core differentiator) - ✓ IMPLEMENTED in 03-03 (12-month view with bridge days)
 - 50% test coverage threshold (meaningful tests only) - ✓ CONFIGURED in 06-02 (Jest coverage threshold enforcement)
 
+**From Quick Task 12 (Mobile Scroll Fix & Legend Cleanup):**
+- PointerEvent.pointerType detection distinguishes touch (mobile) from mouse (desktop) interactions
+- Touch interactions use delayed commit with 10px movement threshold to detect scroll vs tap intent
+- If touch moves >10px (Manhattan distance) = scroll intent, cancel pending vacation toggle
+- If touch doesn't move much = tap intent, commit toggle on pointerup
+- Mouse interactions preserve existing immediate toggle + drag selection behavior
+- Removed touch-none CSS class to allow page scrolling on mobile (movement threshold replaces it)
+- Legend swatches: borderless color blocks except official holiday (border-cinnamon for visual distinction)
+- Pattern established: movement threshold approach for touch-sensitive UI interactions
+
+**From Quick Task 13 (Legend Swatch Sizing & Bridge Day Outline Style):**
+- All legend swatches use `shrink-0 min-w-6 min-h-6` to maintain consistent 24x24px size regardless of text wrapping
+- Bridge days use outline-only styling: `border-2 border-vacation bg-transparent` (suggestion state)
+- Visual progression established: outline (suggestion) → filled with bg-vacation-bg (confirmed vacation)
+- Bridge+school overlap uses transparent half (bridge outline) + school-bg half (school fill)
+- Pattern established: outline-only styling communicates "suggestion" vs filled styling for "selection"
+
+**From Quick Task 14 (Bridge Day Outline Color Fix):**
+- Bridge day outline color changed from border-vacation (#2E8B57 green text) to border-vacation-bg (#BDD7DE light teal)
+- Outline now matches the filled vacation day background color for visual consistency
+- Updated in both Legend.tsx bridge swatch and MonthGrid.tsx bridge day cells (standalone + bridge-school overlap)
+- Visual progression: outline color previews what filled state will look like (light teal outline → light teal fill)
+- Pattern reinforced: suggestion styling should hint at selection styling
+
 ### Pending Todos
 
 None yet.
@@ -396,11 +420,14 @@ None yet.
 | 9 | Set klogo as favicon and add logo to header | 2026-02-11 | 8653dc1 | [9-set-klogo-as-favicon-and-add-logo-to-hea](./quick/9-set-klogo-as-favicon-and-add-logo-to-hea/) |
 | 10 | Fix favicon override and increase logo size | 2026-02-11 | 3c913cc | [10-fix-favicon-override-and-increase-logo-s](./quick/10-fix-favicon-override-and-increase-logo-s/) |
 | 11 | Crop klogo whitespace and fix header logo sizing | 2026-02-11 | c446073 | [11-crop-klogo-whitespace-and-fix-header-log](./quick/11-crop-klogo-whitespace-and-fix-header-log/) |
+| 12 | Fix mobile scroll-to-mark bug and remove legend borders except holidays | 2026-02-16 | 997ffe1, afa558a | [12-fix-mobile-scroll-to-mark-bug-and-remove](./quick/12-fix-mobile-scroll-to-mark-bug-and-remove/) |
+| 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
+| 14 | Fix bridge day outline color to use vacation-bg instead of vacation text color | 2026-02-16 | 5900d9a | [14-fix-bridge-day-outline-color-to-use-vaca](./quick/14-fix-bridge-day-outline-color-to-use-vaca/) |
+| 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
 
 ## Session Continuity
 
-Last session: 2026-02-11
-Stopped at: Phase 6 complete — All phases done!
+Last session: 2026-02-16
+Stopped at: Completed quick task 15 — Verified STATE.md documentation for quick tasks 12-14
 Resume file: None
 Next: All roadmap phases complete. Project is feature-complete with tests.
-Next: Continue Phase 6 with Plan 06-02 (Jest Component Testing Configuration) or other Phase 6 plans
