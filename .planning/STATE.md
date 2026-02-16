@@ -369,6 +369,16 @@ Recent decisions affecting current work:
 - Full year view in v1 (core differentiator) - ✓ IMPLEMENTED in 03-03 (12-month view with bridge days)
 - 50% test coverage threshold (meaningful tests only) - ✓ CONFIGURED in 06-02 (Jest coverage threshold enforcement)
 
+**From Quick Task 12 (Mobile Scroll Fix & Legend Cleanup):**
+- PointerEvent.pointerType detection distinguishes touch (mobile) from mouse (desktop) interactions
+- Touch interactions use delayed commit with 10px movement threshold to detect scroll vs tap intent
+- If touch moves >10px (Manhattan distance) = scroll intent, cancel pending vacation toggle
+- If touch doesn't move much = tap intent, commit toggle on pointerup
+- Mouse interactions preserve existing immediate toggle + drag selection behavior
+- Removed touch-none CSS class to allow page scrolling on mobile (movement threshold replaces it)
+- Legend swatches: borderless color blocks except official holiday (border-cinnamon for visual distinction)
+- Pattern established: movement threshold approach for touch-sensitive UI interactions
+
 ### Pending Todos
 
 None yet.
@@ -396,10 +406,11 @@ None yet.
 | 9 | Set klogo as favicon and add logo to header | 2026-02-11 | 8653dc1 | [9-set-klogo-as-favicon-and-add-logo-to-hea](./quick/9-set-klogo-as-favicon-and-add-logo-to-hea/) |
 | 10 | Fix favicon override and increase logo size | 2026-02-11 | 3c913cc | [10-fix-favicon-override-and-increase-logo-s](./quick/10-fix-favicon-override-and-increase-logo-s/) |
 | 11 | Crop klogo whitespace and fix header logo sizing | 2026-02-11 | c446073 | [11-crop-klogo-whitespace-and-fix-header-log](./quick/11-crop-klogo-whitespace-and-fix-header-log/) |
+| 12 | Fix mobile scroll-to-mark bug and remove legend borders except holidays | 2026-02-16 | 997ffe1, afa558a | [12-fix-mobile-scroll-to-mark-bug-and-remove](./quick/12-fix-mobile-scroll-to-mark-bug-and-remove/) |
 
 ## Session Continuity
 
-Last session: 2026-02-11
+Last session: 2026-02-16
 Stopped at: Phase 6 complete — All phases done!
 Resume file: None
 Next: All roadmap phases complete. Project is feature-complete with tests.
