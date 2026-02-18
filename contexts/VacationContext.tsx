@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useAuth } from '@/contexts/AuthContext';
 import { VacationData } from '@/lib/vacation/types';
@@ -8,7 +8,7 @@ import { VACATION_STORAGE_KEY, DEFAULT_VACATION_DATA } from '@/lib/vacation/stor
 import { fetchVacationData, upsertVacationData } from '@/lib/vacation/sync';
 import { migrateLocalStorageToSupabase, MigrationResult } from '@/lib/vacation/migration';
 import { calculateRollover, RolloverResult } from '@/lib/vacation/rollover';
-import { useDebounce } from 'use-debounce';
+import { useDebouncedCallback } from 'use-debounce';
 import { getYear } from 'date-fns';
 import MigrationReview from '@/components/MigrationReview';
 
@@ -52,29 +52,42 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   // === Rollover state ===
   const [rollover, setRollover] = useState<RolloverResult | null>(null);
 
-  // Track whether user has explicitly set vacation data in this session
-  const hasExplicitChange = useRef(false);
-
   // === Derived state ===
   const isAuthenticated = !!user;
   const activeData = isAuthenticated && cloudData ? cloudData : localStorageData;
 
+  // DEBUG: Log every render's derived state
+  console.log('[VacCtx RENDER]', {
+    isAuthenticated,
+    authLoading,
+    cloudDates: cloudData?.vacationDates?.length ?? 'null',
+    localDates: localStorageData?.vacationDates?.length ?? 'null',
+    activeDates: activeData?.vacationDates?.length ?? 'null',
+    activeSource: isAuthenticated && cloudData ? 'CLOUD' : 'LOCAL',
+    isLoadingCloud,
+    migrationComplete,
+  });
+
   // Load cloud data when user signs in, clear when signs out
   useEffect(() => {
     if (!user) {
+      console.log('[VacCtx CLOUD] user=null, clearing cloud state');
       setCloudData(null);
       setIsLoadingCloud(false);
       setMigrationComplete(false);
       setRollover(null); // Clear rollover on sign out
       return;
     }
+    console.log('[VacCtx CLOUD] fetching for user', user.id, 'year', displayYear);
     setIsLoadingCloud(true);
     fetchVacationData(user.id, displayYear)
       .then(data => {
+        console.log('[VacCtx CLOUD] fetched:', data ? `${data.vacationDates.length} dates, totalDays=${data.totalDays}` : 'NULL');
+        console.log('[VacCtx CLOUD] dates:', data?.vacationDates);
         setCloudData(data);
       })
       .catch(err => {
-        console.error('Failed to fetch cloud data:', err);
+        console.error('[VacCtx CLOUD] fetch FAILED:', err);
         setCloudData(null); // Fall back to localStorage
       })
       .finally(() => {
@@ -84,12 +97,17 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
 
   // Run migration after cloud data loads (only once per sign-in session)
   useEffect(() => {
-    if (!user || isLoadingCloud || migrationComplete || !isCurrentYear) return;
+    if (!user || isLoadingCloud || migrationComplete || !isCurrentYear) {
+      console.log('[VacCtx MIGRATION] guard blocked:', { user: !!user, isLoadingCloud, migrationComplete, isCurrentYear });
+      return;
+    }
     // Skip migration if already done for this user (persists across session restores)
     if (typeof window !== 'undefined' && window.localStorage.getItem(getMigrationDoneKey(user.id)) === 'true') {
+      console.log('[VacCtx MIGRATION] skipped (done flag set), setting migrationComplete=true');
       setMigrationComplete(true);
       return;
     }
+    console.log('[VacCtx MIGRATION] running migration...');
     migrateLocalStorageToSupabase(user.id, currentYear)
       .then(result => {
         if (result.status === 'migrated') {
@@ -128,23 +146,44 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
       .catch(err => console.error('Rollover check failed:', err));
   }, [user, isLoadingCloud, displayYear]);
 
-  // Debounced sync: writes to Supabase 1.5s after last change
-  const [debouncedData] = useDebounce(activeData, 1500);
+  // Debounced sync: saves to Supabase with leading edge (immediate first save)
+  // and trailing edge (final state after burst). Fixes quick-refresh data loss.
+  const debouncedSave = useDebouncedCallback(
+    (data: VacationData) => {
+      if (!user || !isCurrentYear) return;
+      console.log('[VacCtx SYNC] SAVING to Supabase:', data.vacationDates);
+      upsertVacationData(user.id, displayYear, data)
+        .then(ok => console.log('[VacCtx SYNC] upsert result:', ok))
+        .catch(err => console.error('[VacCtx SYNC] FAILED:', err));
+    },
+    1500,
+    { leading: true, trailing: true, maxWait: 3000 }
+  );
+
+  // Flush pending save on page unload (covers refresh, tab close, navigation)
   useEffect(() => {
-    if (!user || !migrationComplete || !isCurrentYear || !hasExplicitChange.current) return;
-    upsertVacationData(user.id, displayYear, debouncedData)
-      .catch(err => console.error('Sync failed, using localStorage:', err));
-  }, [debouncedData, user, migrationComplete, displayYear, isCurrentYear]);
+    if (typeof window === 'undefined') return;
+    const handleBeforeUnload = () => {
+      debouncedSave.flush();
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [debouncedSave]);
 
   // Update the correct data source based on auth state
   const setVacationData = useCallback((data: VacationData) => {
-    hasExplicitChange.current = true;
+    console.log('[VacCtx SET] setVacationData called:', {
+      isAuthenticated,
+      dates: data.vacationDates,
+      totalDays: data.totalDays,
+    });
     if (isAuthenticated) {
       setCloudData(data);
+      debouncedSave(data); // Leading edge saves immediately, trailing saves final state
     }
     // Always update localStorage too (fallback and for anonymous users)
     setLocalStorageData(data);
-  }, [isAuthenticated, setLocalStorageData]);
+  }, [isAuthenticated, setLocalStorageData, debouncedSave]);
 
   // Handle user accepting a migration resolution
   const handleMigrationAccept = useCallback((data: VacationData) => {
