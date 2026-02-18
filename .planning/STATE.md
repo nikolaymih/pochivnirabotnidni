@@ -386,6 +386,13 @@ Recent decisions affecting current work:
 - Bridge+school overlap uses transparent half (bridge outline) + school-bg half (school fill)
 - Pattern established: outline-only styling communicates "suggestion" vs filled styling for "selection"
 
+**From Quick Task 17 (Fix Vacation Data Loss & Migration Modal):**
+- setCloudData(data) not setCloudData(data || DEFAULT_VACATION_DATA) — null must propagate so activeData falls back to localStorage when no Supabase row exists
+- Migration-done flag stored in localStorage as `pochivni-migration-done-{userId}` — persists across page refreshes, session restores don't re-trigger migration
+- Flag set in both .then and .catch migration paths to prevent infinite retry on failure
+- Do NOT clear migration-done flag on sign-out — persists until user clears localStorage (prevents modal on sign back in)
+- Pattern: per-user localStorage key scoping (`-${userId}` suffix) for multi-account correctness
+
 **From Quick Task 14 (Bridge Day Outline Color Fix):**
 - Bridge day outline color changed from border-vacation (#2E8B57 green text) to border-vacation-bg (#BDD7DE light teal)
 - Outline now matches the filled vacation day background color for visual consistency
@@ -424,11 +431,12 @@ None yet.
 | 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
 | 14 | Fix bridge day outline color to use vacation-bg instead of vacation text color | 2026-02-16 | 5900d9a | [14-fix-bridge-day-outline-color-to-use-vaca](./quick/14-fix-bridge-day-outline-color-to-use-vaca/) |
 | 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
-| 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | pending | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
+| 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | 02d797d, 110b268 | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
+| 17 | Fix vacation days not saving to DB and migration modal on session restore | 2026-02-18 | 38db71f | [17-fix-vacation-days-not-saving-to-db-and-s](./quick/17-fix-vacation-days-not-saving-to-db-and-s/) |
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: Completed quick task 16 — SEO improvements (sitemap, robots, OG, canonical)
+Last session: 2026-02-18
+Stopped at: Completed quick task 17 — Fix vacation data loss and migration modal on session restore
 Resume file: None
-Next: Submit sitemap to Google Search Console, monitor indexing.
+Next: Monitor that authenticated users' vacation data persists correctly after the fix.
