@@ -30,7 +30,7 @@ export async function fetchVacationData(userId: string, year: number): Promise<V
       if (error.code === 'PGRST116') {
         return null;
       }
-      console.error('Failed to fetch vacation data:', error);
+      console.error('[SYNC fetch] ERROR:', error.code, error.message);
       return null;
     }
 
@@ -76,7 +76,7 @@ export async function upsertVacationData(userId: string, year: number, data: Vac
       );
 
     if (error) {
-      console.error('Failed to upsert vacation data:', error);
+      console.error('[SYNC upsert] FAILED:', error.code, error.message, error.details);
       return false;
     }
 

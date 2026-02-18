@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 6 of 6 (Testing & Quality Gates)
 Plan: 6 of 6 complete
 Status: ✅ Complete
-Last activity: 2026-02-11 — Completed 06-06-PLAN.md (Coverage Verification Checkpoint)
+Last activity: 2026-02-18 — Completed quick task 19: Fix vacation data overwrite on quick refresh
 
 Progress: [██████████] 100% (35 of 35 plans complete across all phases)
 
@@ -386,12 +386,52 @@ Recent decisions affecting current work:
 - Bridge+school overlap uses transparent half (bridge outline) + school-bg half (school fill)
 - Pattern established: outline-only styling communicates "suggestion" vs filled styling for "selection"
 
+**From Quick Task 17 (Fix Vacation Data Loss & Migration Modal):**
+- setCloudData(data) not setCloudData(data || DEFAULT_VACATION_DATA) — null must propagate so activeData falls back to localStorage when no Supabase row exists
+- Migration-done flag stored in localStorage as `pochivni-migration-done-{userId}` — persists across page refreshes, session restores don't re-trigger migration
+- Flag set in both .then and .catch migration paths to prevent infinite retry on failure
+- Do NOT clear migration-done flag on sign-out — persists until user clears localStorage (prevents modal on sign back in)
+- Pattern: per-user localStorage key scoping (`-${userId}` suffix) for multi-account correctness
+
 **From Quick Task 14 (Bridge Day Outline Color Fix):**
 - Bridge day outline color changed from border-vacation (#2E8B57 green text) to border-vacation-bg (#BDD7DE light teal)
 - Outline now matches the filled vacation day background color for visual consistency
 - Updated in both Legend.tsx bridge swatch and MonthGrid.tsx bridge day cells (standalone + bridge-school overlap)
 - Visual progression: outline color previews what filled state will look like (light teal outline → light teal fill)
 - Pattern reinforced: suggestion styling should hint at selection styling
+
+**From Quick Task 17 (Vacation Data Loss & Migration Modal Fix):**
+- Root cause of data loss: `setCloudData(data || DEFAULT_VACATION_DATA)` masked null with empty default, causing `activeData` to use DEFAULT_VACATION_DATA instead of localStorage fallback. Debounced sync then overwrote Supabase migration data with empty default.
+- Fix: `setCloudData(data)` — null propagates so activeData correctly falls back to localStorageData when no Supabase row exists
+- Root cause of stray modal: `migrationComplete` is in-memory React state that resets on every page refresh, causing migration (and conflict modal) to re-run on session restore
+- Fix: per-user localStorage flag `pochivni-migration-done-{userId}` gates migration to first sign-in only; persists across refreshes; clears naturally if user clears localStorage
+- Flag set in BOTH .then and .catch paths to prevent infinite retry on migration error
+- Flag NOT cleared on sign-out — user should not see modal again unless they explicitly clear localStorage
+- Pattern: never mask null cloud data with defaults; let derived activeData handle fallback via ternary
+- Pattern: scope localStorage keys to userId for per-user operation tracking (multi-account safe)
+
+**From Quick Task 18 (Fix Vacation Data Flash-Then-Disappear):**
+- Root cause: debounced sync effect fires on page load when `migrationComplete` becomes true, but `debouncedData` is still stale (DEFAULT_VACATION_DATA from SSR), overwriting Supabase with empty defaults
+- Fix: `hasExplicitChange = useRef(false)` ref declared in VacationProvider; set to `true` as first line in `setVacationData`; checked as `!hasExplicitChange.current` guard in the debounced sync effect
+- Use `useRef` not `useState` — ref is NOT a reactive dependency, so it is not added to the effect's dependency array (avoids infinite loops)
+- `handleMigrationAccept` intentionally left unguarded — it calls `upsertVacationData` directly, not through the debounced sync path
+- Pattern: useRef(false) explicit-change guard for debounced effects that should only fire after user action, not on page load
+
+**From Quick Task 19 (Fix Vacation Data Overwrite on Quick Refresh):**
+- Root cause: `useDebounce(activeData, 1500)` value debounce held changes for 1.5s. Quick refresh before debounce fires = Supabase has stale data = cloudData wins over localStorageData on reload
+- Fix: replaced `useDebounce` (value) with `useDebouncedCallback` (function) with `{ leading: true, trailing: true, maxWait: 3000 }`
+- `leading: true` — first change saves immediately to Supabase (no delay)
+- `trailing: true` — final state of burst also saves (handles drag selection end)
+- `beforeunload` event handler calls `debouncedSave.flush()` to save any pending data before page unload
+- Removed `hasExplicitChange` ref — no longer needed since saves are triggered from `setVacationData` (user action) not from reactive value changes
+- Save call moved from useEffect (watching debounced value) to direct call in `setVacationData` callback
+- Pattern: useDebouncedCallback with leading+trailing for immediate-then-batched persistence
+
+**From Quick Task 20 (Fix Migration Modal Not Showing on Login):**
+- Root cause: `pochivni-migration-done-{userId}` flag from Task 17 was never cleared on sign-out, permanently blocking migration checks
+- Fix: use `prevUserIdRef` to detect sign-out transitions (user was non-null, now null) and clear the flag
+- Cold page load safety: `prevUserIdRef.current` is null on fresh mount, so flag is NOT cleared on refresh (only on actual sign-out)
+- Pattern: useRef to track previous value for detecting state transitions in effects
 
 ### Pending Todos
 
@@ -424,11 +464,15 @@ None yet.
 | 13 | Fix school holidays swatch sizing and bridge day outline style | 2026-02-16 | a9edf8a, a954799 | [13-fix-school-holidays-swatch-sizing-and-up](./quick/13-fix-school-holidays-swatch-sizing-and-up/) |
 | 14 | Fix bridge day outline color to use vacation-bg instead of vacation text color | 2026-02-16 | 5900d9a | [14-fix-bridge-day-outline-color-to-use-vaca](./quick/14-fix-bridge-day-outline-color-to-use-vaca/) |
 | 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
-| 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | pending | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
+| 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | 02d797d, 110b268 | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
+| 17 | Fix vacation days not saving to DB and migration modal on session restore | 2026-02-18 | 38db71f | [17-fix-vacation-days-not-saving-to-db-and-s](./quick/17-fix-vacation-days-not-saving-to-db-and-s/) |
+| 18 | Fix vacation data flash-then-disappear on page refresh for authenticated users | 2026-02-18 | 0241b7a | [18-fix-vacation-data-flash-then-disappear-o](./quick/18-fix-vacation-data-flash-then-disappear-o/) |
+| 19 | Fix vacation data overwrite on quick refresh — leading+trailing debounce | 2026-02-18 | ad844c4 | [19-fix-vacation-data-overwrite-on-quick-ref](./quick/19-fix-vacation-data-overwrite-on-quick-ref/) |
+| 20 | Fix migration modal not showing on login when localStorage and Supabase differ | 2026-02-18 | 679de45 | [20-fix-migration-modal-not-showing-on-login](./quick/20-fix-migration-modal-not-showing-on-login/) |
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: Completed quick task 16 — SEO improvements (sitemap, robots, OG, canonical)
+Last session: 2026-02-18
+Stopped at: Completed quick task 20 — Fix migration modal not showing on login
 Resume file: None
-Next: Submit sitemap to Google Search Console, monitor indexing.
+Next: Verify migration conflict modal appears when signing in with different local vs cloud data.

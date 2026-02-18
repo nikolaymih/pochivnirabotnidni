@@ -6,7 +6,6 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
   // Layer 1: Try OpenHolidays API
   try {
     const apiUrl = `https://openholidaysapi.org/SchoolHolidays?countryIsoCode=BG&validFrom=${year}-01-01&validTo=${year}-12-31`;
-    console.log(`[SchoolHolidays] Fetching from API for ${year}:`, apiUrl);
 
     const response = await fetchWithRetry(
       apiUrl,
@@ -18,8 +17,6 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
     }
 
     const data = await response.json();
-
-    console.log(`[SchoolHolidays] Raw API response for ${year}:`, JSON.stringify(data, null, 2));
 
     // Use startDate and endDate directly (already in YYYY-MM-DD format)
     // Don't use toISOString() as it converts to UTC and can shift dates due to timezone
@@ -66,25 +63,16 @@ export async function getSchoolHolidays(year: number): Promise<SchoolHoliday[]> 
 
     const deduplicated = Array.from(merged.values());
 
-    console.log(`[SchoolHolidays] ✓ Processed ${deduplicated.length} school holidays from API for ${year}`);
-    console.log('[SchoolHolidays] Processed school holidays:');
-    deduplicated.forEach(h => {
-      const gradeInfo = h.gradeLevel ? ` (${h.gradeLevel})` : '';
-      console.log(`  - ${h.startDate} to ${h.endDate}: ${h.name}${gradeInfo}`);
-    });
-
     return deduplicated;
   } catch (error) {
-    console.warn(`[SchoolHolidays] ✗ API failed for ${year}: ${error}`);
-    console.warn(`[SchoolHolidays] → Using fallback JSON for ${year}`);
+    console.warn(`[SchoolHolidays] API failed for ${year}: ${error}`);
 
     // Layer 2: Static fallback
     try {
       const fallback = await import(`@/data/school-holidays-${year}-fallback.json`);
-      console.log(`[SchoolHolidays] ✓ Loaded ${fallback.default.length} school holidays from fallback JSON for ${year}`);
       return fallback.default;
     } catch (fallbackError) {
-      console.error(`[SchoolHolidays] ✗ Fallback JSON also failed for ${year}:`, fallbackError);
+      console.error(`[SchoolHolidays] Fallback JSON also failed for ${year}:`, fallbackError);
       return [];
     }
   }
