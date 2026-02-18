@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useAuth } from '@/contexts/AuthContext';
 import { VacationData } from '@/lib/vacation/types';
@@ -52,6 +52,9 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   // === Rollover state ===
   const [rollover, setRollover] = useState<RolloverResult | null>(null);
 
+  // Track previous user ID so we can clear migration flag on sign-out
+  const prevUserIdRef = useRef<string | null>(null);
+
   // === Derived state ===
   const isAuthenticated = !!user;
   const activeData = isAuthenticated && cloudData ? cloudData : localStorageData;
@@ -72,12 +75,19 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   useEffect(() => {
     if (!user) {
       console.log('[VacCtx CLOUD] user=null, clearing cloud state');
+      // Clear migration-done flag so next sign-in triggers migration comparison
+      if (prevUserIdRef.current && typeof window !== 'undefined') {
+        window.localStorage.removeItem(getMigrationDoneKey(prevUserIdRef.current));
+        console.log('[VacCtx CLOUD] cleared migration-done flag for', prevUserIdRef.current);
+      }
+      prevUserIdRef.current = null;
       setCloudData(null);
       setIsLoadingCloud(false);
       setMigrationComplete(false);
       setRollover(null); // Clear rollover on sign out
       return;
     }
+    prevUserIdRef.current = user.id;
     console.log('[VacCtx CLOUD] fetching for user', user.id, 'year', displayYear);
     setIsLoadingCloud(true);
     fetchVacationData(user.id, displayYear)
