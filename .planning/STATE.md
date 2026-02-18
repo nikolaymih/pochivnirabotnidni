@@ -400,6 +400,16 @@ Recent decisions affecting current work:
 - Visual progression: outline color previews what filled state will look like (light teal outline → light teal fill)
 - Pattern reinforced: suggestion styling should hint at selection styling
 
+**From Quick Task 17 (Vacation Data Loss & Migration Modal Fix):**
+- Root cause of data loss: `setCloudData(data || DEFAULT_VACATION_DATA)` masked null with empty default, causing `activeData` to use DEFAULT_VACATION_DATA instead of localStorage fallback. Debounced sync then overwrote Supabase migration data with empty default.
+- Fix: `setCloudData(data)` — null propagates so activeData correctly falls back to localStorageData when no Supabase row exists
+- Root cause of stray modal: `migrationComplete` is in-memory React state that resets on every page refresh, causing migration (and conflict modal) to re-run on session restore
+- Fix: per-user localStorage flag `pochivni-migration-done-{userId}` gates migration to first sign-in only; persists across refreshes; clears naturally if user clears localStorage
+- Flag set in BOTH .then and .catch paths to prevent infinite retry on migration error
+- Flag NOT cleared on sign-out — user should not see modal again unless they explicitly clear localStorage
+- Pattern: never mask null cloud data with defaults; let derived activeData handle fallback via ternary
+- Pattern: scope localStorage keys to userId for per-user operation tracking (multi-account safe)
+
 ### Pending Todos
 
 None yet.
