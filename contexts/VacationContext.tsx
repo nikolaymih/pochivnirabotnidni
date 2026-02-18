@@ -12,6 +12,8 @@ import { useDebounce } from 'use-debounce';
 import { getYear } from 'date-fns';
 import MigrationReview from '@/components/MigrationReview';
 
+const getMigrationDoneKey = (userId: string) => `pochivni-migration-done-${userId}`;
+
 interface VacationContextType {
   vacationData: VacationData;
   setVacationData: (data: VacationData) => void;
@@ -66,7 +68,7 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
     setIsLoadingCloud(true);
     fetchVacationData(user.id, displayYear)
       .then(data => {
-        setCloudData(data || DEFAULT_VACATION_DATA);
+        setCloudData(data);
       })
       .catch(err => {
         console.error('Failed to fetch cloud data:', err);
@@ -80,12 +82,17 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   // Run migration after cloud data loads (only once per sign-in session)
   useEffect(() => {
     if (!user || isLoadingCloud || migrationComplete || !isCurrentYear) return;
+    // Skip migration if already done for this user (persists across session restores)
+    if (typeof window !== 'undefined' && window.localStorage.getItem(getMigrationDoneKey(user.id)) === 'true') {
+      setMigrationComplete(true);
+      return;
+    }
     migrateLocalStorageToSupabase(user.id, currentYear)
       .then(result => {
         if (result.status === 'migrated') {
           // Data was auto-migrated, refresh cloud data
           fetchVacationData(user.id, currentYear)
-            .then(d => setCloudData(d || DEFAULT_VACATION_DATA))
+            .then(d => setCloudData(d))
             .catch(err => console.error('Failed to refresh after migration:', err));
         } else if (result.status === 'conflict') {
           // Show conflict review modal
@@ -96,11 +103,17 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
         }
         // 'no-local-data' and 'no-conflict' need no action
         setMigrationComplete(true);
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(getMigrationDoneKey(user.id), 'true');
+        }
       })
       .catch(err => {
         // Catch-all: migration failed, mark complete and continue
         console.error('Migration unexpected error:', err);
         setMigrationComplete(true);
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(getMigrationDoneKey(user.id), 'true');
+        }
       });
   }, [user, isLoadingCloud, migrationComplete, currentYear, isCurrentYear]);
 
