@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 6 of 6 (Testing & Quality Gates)
 Plan: 6 of 6 complete
 Status: ✅ Complete
-Last activity: 2026-02-11 — Completed 06-06-PLAN.md (Coverage Verification Checkpoint)
+Last activity: 2026-02-18 — Completed quick task 19: Fix vacation data overwrite on quick refresh
 
 Progress: [██████████] 100% (35 of 35 plans complete across all phases)
 
@@ -417,6 +417,16 @@ Recent decisions affecting current work:
 - `handleMigrationAccept` intentionally left unguarded — it calls `upsertVacationData` directly, not through the debounced sync path
 - Pattern: useRef(false) explicit-change guard for debounced effects that should only fire after user action, not on page load
 
+**From Quick Task 19 (Fix Vacation Data Overwrite on Quick Refresh):**
+- Root cause: `useDebounce(activeData, 1500)` value debounce held changes for 1.5s. Quick refresh before debounce fires = Supabase has stale data = cloudData wins over localStorageData on reload
+- Fix: replaced `useDebounce` (value) with `useDebouncedCallback` (function) with `{ leading: true, trailing: true, maxWait: 3000 }`
+- `leading: true` — first change saves immediately to Supabase (no delay)
+- `trailing: true` — final state of burst also saves (handles drag selection end)
+- `beforeunload` event handler calls `debouncedSave.flush()` to save any pending data before page unload
+- Removed `hasExplicitChange` ref — no longer needed since saves are triggered from `setVacationData` (user action) not from reactive value changes
+- Save call moved from useEffect (watching debounced value) to direct call in `setVacationData` callback
+- Pattern: useDebouncedCallback with leading+trailing for immediate-then-batched persistence
+
 ### Pending Todos
 
 None yet.
@@ -451,10 +461,11 @@ None yet.
 | 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | 02d797d, 110b268 | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
 | 17 | Fix vacation days not saving to DB and migration modal on session restore | 2026-02-18 | 38db71f | [17-fix-vacation-days-not-saving-to-db-and-s](./quick/17-fix-vacation-days-not-saving-to-db-and-s/) |
 | 18 | Fix vacation data flash-then-disappear on page refresh for authenticated users | 2026-02-18 | 0241b7a | [18-fix-vacation-data-flash-then-disappear-o](./quick/18-fix-vacation-data-flash-then-disappear-o/) |
+| 19 | Fix vacation data overwrite on quick refresh — leading+trailing debounce | 2026-02-18 | ad844c4 | [19-fix-vacation-data-overwrite-on-quick-ref](./quick/19-fix-vacation-data-overwrite-on-quick-ref/) |
 
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed quick task 18 — Fix vacation data flash-then-disappear on page refresh
+Stopped at: Completed quick task 19 — Fix vacation data overwrite on quick refresh
 Resume file: None
-Next: Monitor that authenticated users' vacation data persists correctly across page refreshes.
+Next: Verify vacation data persists on immediate refresh after marking days.
