@@ -410,6 +410,13 @@ Recent decisions affecting current work:
 - Pattern: never mask null cloud data with defaults; let derived activeData handle fallback via ternary
 - Pattern: scope localStorage keys to userId for per-user operation tracking (multi-account safe)
 
+**From Quick Task 18 (Fix Vacation Data Flash-Then-Disappear):**
+- Root cause: debounced sync effect fires on page load when `migrationComplete` becomes true, but `debouncedData` is still stale (DEFAULT_VACATION_DATA from SSR), overwriting Supabase with empty defaults
+- Fix: `hasExplicitChange = useRef(false)` ref declared in VacationProvider; set to `true` as first line in `setVacationData`; checked as `!hasExplicitChange.current` guard in the debounced sync effect
+- Use `useRef` not `useState` — ref is NOT a reactive dependency, so it is not added to the effect's dependency array (avoids infinite loops)
+- `handleMigrationAccept` intentionally left unguarded — it calls `upsertVacationData` directly, not through the debounced sync path
+- Pattern: useRef(false) explicit-change guard for debounced effects that should only fire after user action, not on page load
+
 ### Pending Todos
 
 None yet.
@@ -443,10 +450,11 @@ None yet.
 | 15 | Document quick task 12-14 decisions and UI patterns in STATE.md | 2026-02-16 | 6baa079 | [15-document-quick-task-12-14-decisions-and-](./quick/15-document-quick-task-12-14-decisions-and-/) |
 | 16 | SEO: sitemap, robots.txt, Open Graph image, canonical URLs | 2026-02-16 | 02d797d, 110b268 | [16-seo-sitemap-robots-opengraph-canonical](./quick/16-seo-sitemap-robots-opengraph-canonical/) |
 | 17 | Fix vacation days not saving to DB and migration modal on session restore | 2026-02-18 | 38db71f | [17-fix-vacation-days-not-saving-to-db-and-s](./quick/17-fix-vacation-days-not-saving-to-db-and-s/) |
+| 18 | Fix vacation data flash-then-disappear on page refresh for authenticated users | 2026-02-18 | 0241b7a | [18-fix-vacation-data-flash-then-disappear-o](./quick/18-fix-vacation-data-flash-then-disappear-o/) |
 
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed quick task 17 — Fix vacation data loss and migration modal on session restore
+Stopped at: Completed quick task 18 — Fix vacation data flash-then-disappear on page refresh
 Resume file: None
-Next: Monitor that authenticated users' vacation data persists correctly after the fix.
+Next: Monitor that authenticated users' vacation data persists correctly across page refreshes.
