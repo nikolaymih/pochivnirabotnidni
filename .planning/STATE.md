@@ -427,6 +427,12 @@ Recent decisions affecting current work:
 - Save call moved from useEffect (watching debounced value) to direct call in `setVacationData` callback
 - Pattern: useDebouncedCallback with leading+trailing for immediate-then-batched persistence
 
+**From Quick Task 20 (Fix Migration Modal Not Showing on Login):**
+- Root cause: `pochivni-migration-done-{userId}` flag from Task 17 was never cleared on sign-out, permanently blocking migration checks
+- Fix: use `prevUserIdRef` to detect sign-out transitions (user was non-null, now null) and clear the flag
+- Cold page load safety: `prevUserIdRef.current` is null on fresh mount, so flag is NOT cleared on refresh (only on actual sign-out)
+- Pattern: useRef to track previous value for detecting state transitions in effects
+
 ### Pending Todos
 
 None yet.
@@ -462,10 +468,11 @@ None yet.
 | 17 | Fix vacation days not saving to DB and migration modal on session restore | 2026-02-18 | 38db71f | [17-fix-vacation-days-not-saving-to-db-and-s](./quick/17-fix-vacation-days-not-saving-to-db-and-s/) |
 | 18 | Fix vacation data flash-then-disappear on page refresh for authenticated users | 2026-02-18 | 0241b7a | [18-fix-vacation-data-flash-then-disappear-o](./quick/18-fix-vacation-data-flash-then-disappear-o/) |
 | 19 | Fix vacation data overwrite on quick refresh — leading+trailing debounce | 2026-02-18 | ad844c4 | [19-fix-vacation-data-overwrite-on-quick-ref](./quick/19-fix-vacation-data-overwrite-on-quick-ref/) |
+| 20 | Fix migration modal not showing on login when localStorage and Supabase differ | 2026-02-18 | 679de45 | [20-fix-migration-modal-not-showing-on-login](./quick/20-fix-migration-modal-not-showing-on-login/) |
 
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed quick task 19 — Fix vacation data overwrite on quick refresh
+Stopped at: Completed quick task 20 — Fix migration modal not showing on login
 Resume file: None
-Next: Verify vacation data persists on immediate refresh after marking days.
+Next: Verify migration conflict modal appears when signing in with different local vs cloud data.
