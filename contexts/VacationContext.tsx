@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useAuth } from '@/contexts/AuthContext';
 import { VacationData } from '@/lib/vacation/types';
@@ -51,6 +51,9 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
 
   // === Rollover state ===
   const [rollover, setRollover] = useState<RolloverResult | null>(null);
+
+  // Track whether user has explicitly set vacation data in this session
+  const hasExplicitChange = useRef(false);
 
   // === Derived state ===
   const isAuthenticated = !!user;
@@ -128,13 +131,14 @@ export function VacationProvider({ children, year }: VacationProviderProps) {
   // Debounced sync: writes to Supabase 1.5s after last change
   const [debouncedData] = useDebounce(activeData, 1500);
   useEffect(() => {
-    if (!user || !migrationComplete || !isCurrentYear) return;
+    if (!user || !migrationComplete || !isCurrentYear || !hasExplicitChange.current) return;
     upsertVacationData(user.id, displayYear, debouncedData)
       .catch(err => console.error('Sync failed, using localStorage:', err));
   }, [debouncedData, user, migrationComplete, displayYear, isCurrentYear]);
 
   // Update the correct data source based on auth state
   const setVacationData = useCallback((data: VacationData) => {
+    hasExplicitChange.current = true;
     if (isAuthenticated) {
       setCloudData(data);
     }
