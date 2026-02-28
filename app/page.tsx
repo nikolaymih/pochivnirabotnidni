@@ -71,6 +71,9 @@ export default async function HomePage({ searchParams }: PageProps) {
 
           {/* Content: constrained to calendar width */}
           <div className="max-w-[650px] mx-auto px-4">
+            {/* Page title first on mobile */}
+            <h1 className="text-xl font-bold text-espresso max-w-[650px] mb-4">{PAGE_TITLE(currentYear)}</h1>
+
             {/* Right sidebar content first on mobile */}
             <Legend />
             <VacationSummary year={currentYear} />
@@ -80,9 +83,8 @@ export default async function HomePage({ searchParams }: PageProps) {
               <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
             </div>
 
-            {/* Title + Year selector + Calendar */}
+            {/* Description + Year selector + Calendar */}
             <div className="mt-4">
-              <h1 className="text-xl font-bold text-espresso max-w-[650px]">{PAGE_TITLE(currentYear)}</h1>
               <p className="text-espresso text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
               <p className="text-espresso text-sm mt-2 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
               <p className="text-espresso text-sm mt-2 mb-5 max-w-[650px]">{PAGE_DESCRIPTION_HISTORY}</p>
