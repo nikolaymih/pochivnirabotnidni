@@ -73,6 +73,9 @@ export default async function HomePage({ searchParams }: PageProps) {
           <div className="max-w-[650px] mx-auto px-4">
             {/* Page title first on mobile */}
             <h1 className="text-xl font-bold text-espresso max-w-[650px] mb-4">{PAGE_TITLE(currentYear)}</h1>
+            <p className="text-espresso text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
+            <p className="text-espresso text-sm mt-2 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
+            <p className="text-espresso text-sm mt-2 mb-4 max-w-[650px]">{PAGE_DESCRIPTION_HISTORY}</p>
 
             {/* Right sidebar content first on mobile */}
             <Legend />
@@ -83,11 +86,8 @@ export default async function HomePage({ searchParams }: PageProps) {
               <LeftSidebar holidays={holidays} schoolHolidays={schoolHolidays} year={currentYear} />
             </div>
 
-            {/* Description + Year selector + Calendar */}
+            {/* Year selector + Calendar */}
             <div className="mt-4">
-              <p className="text-espresso text-sm mt-1 max-w-[650px]">{PAGE_DESCRIPTION}</p>
-              <p className="text-espresso text-sm mt-2 max-w-[650px]">{PAGE_DESCRIPTION_EXTENDED}</p>
-              <p className="text-espresso text-sm mt-2 mb-5 max-w-[650px]">{PAGE_DESCRIPTION_HISTORY}</p>
               <YearSelector year={currentYear} />
               <FullYearCalendarWrapper
                 year={currentYear}
