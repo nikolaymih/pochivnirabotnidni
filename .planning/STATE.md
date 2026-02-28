@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 6 of 6 (Testing & Quality Gates)
 Plan: 6 of 6 complete
 Status: ✅ Complete
-Last activity: 2026-02-18 — Completed quick task 19: Fix vacation data overwrite on quick refresh
+Last activity: 2026-02-28 — Completed quick task 21: Move page title header to top on mobile layout
 
 Progress: [██████████] 100% (35 of 35 plans complete across all phases)
 
