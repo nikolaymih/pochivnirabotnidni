@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-18)
 Phase: 6 of 6 (Testing & Quality Gates)
 Plan: 6 of 6 complete
 Status: ✅ Complete
-Last activity: 2026-02-28 — Completed quick task 21: Move page title header to top on mobile layout
+Last activity: 2026-03-01 — Completed quick task 22: Move description paragraphs to top on mobile layout
 
 Progress: [██████████] 100% (35 of 35 plans complete across all phases)
 
@@ -470,10 +470,11 @@ None yet.
 | 19 | Fix vacation data overwrite on quick refresh — leading+trailing debounce | 2026-02-18 | ad844c4 | [19-fix-vacation-data-overwrite-on-quick-ref](./quick/19-fix-vacation-data-overwrite-on-quick-ref/) |
 | 20 | Fix migration modal not showing on login when localStorage and Supabase differ | 2026-02-18 | 679de45 | [20-fix-migration-modal-not-showing-on-login](./quick/20-fix-migration-modal-not-showing-on-login/) |
 | 21 | Move page title h1 to top of mobile layout for better visibility | 2026-02-28 | 7f99676 | [21-move-page-title-header-to-top-on-mobile-](./quick/21-move-page-title-header-to-top-on-mobile-/) |
+| 22 | Move description paragraphs to top on mobile (after h1, before Legend) | 2026-03-01 | 4780618 | [22-move-description-paragraphs-to-top-on-mo](./quick/22-move-description-paragraphs-to-top-on-mo/) |
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed quick task 21 — Move page title h1 to top of mobile layout
+Last session: 2026-03-01
+Stopped at: Completed quick task 22 — Move description paragraphs to top on mobile layout
 Resume file: None
 Next: Continue with next quick task or phase work.
