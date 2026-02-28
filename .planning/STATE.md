@@ -469,10 +469,11 @@ None yet.
 | 18 | Fix vacation data flash-then-disappear on page refresh for authenticated users | 2026-02-18 | 0241b7a | [18-fix-vacation-data-flash-then-disappear-o](./quick/18-fix-vacation-data-flash-then-disappear-o/) |
 | 19 | Fix vacation data overwrite on quick refresh — leading+trailing debounce | 2026-02-18 | ad844c4 | [19-fix-vacation-data-overwrite-on-quick-ref](./quick/19-fix-vacation-data-overwrite-on-quick-ref/) |
 | 20 | Fix migration modal not showing on login when localStorage and Supabase differ | 2026-02-18 | 679de45 | [20-fix-migration-modal-not-showing-on-login](./quick/20-fix-migration-modal-not-showing-on-login/) |
+| 21 | Move page title h1 to top of mobile layout for better visibility | 2026-02-28 | 7f99676 | [21-move-page-title-header-to-top-on-mobile-](./quick/21-move-page-title-header-to-top-on-mobile-/) |
 
 ## Session Continuity
 
-Last session: 2026-02-18
-Stopped at: Completed quick task 20 — Fix migration modal not showing on login
+Last session: 2026-02-28
+Stopped at: Completed quick task 21 — Move page title h1 to top of mobile layout
 Resume file: None
-Next: Verify migration conflict modal appears when signing in with different local vs cloud data.
+Next: Continue with next quick task or phase work.
