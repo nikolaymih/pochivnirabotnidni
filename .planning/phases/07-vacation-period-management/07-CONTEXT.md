@@ -20,15 +20,16 @@ Display vacation periods (groups of consecutive vacation days) in VacationSummar
 - Empty state: nothing shown — section is invisible until user adds vacation days
 
 ### Delete interaction
-- No confirmation dialog — instant delete on click (user can re-add days)
+- Confirmation dialog before deleting a period (user must confirm)
 - X button: Claude's discretion on exact style, consistent with Coffee theme
 - Calendar updates instantly when period is deleted (reactive via VacationContext)
 
 ### Edge cases & grouping
-- Strictly consecutive calendar days form a period — any gap breaks into separate periods
+- Consecutive vacation days form a period — only a working day gap breaks into separate periods
+- Non-working days (weekends, holidays) between vacation days do NOT break the period (Mon-Tue off + Thu-Fri off with Wed as holiday = 1 period)
 - Single vacation days show as 1-day periods with their own X button
 - Holidays inside a vacation range don't break the period (Mon-Fri with holiday Wed stays as 1 period, only vacation days counted in total)
-- Periods ordered chronologically (earliest first)
+- Periods ordered most recent first (reverse chronological)
 
 ### Historical year display
 - Same layout as current year but without the X delete button

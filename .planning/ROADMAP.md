@@ -255,6 +255,9 @@ Plans:
   5. Previous years show periods in read-only mode (display only, no delete)
   6. Every new period appears on its own line
   7. Period list updates immediately when vacation days are added or removed
+  8. Non-working days (weekends, holidays) between vacation days do NOT split periods
+  9. Periods displayed most recent first (reverse chronological)
+  10. Confirmation dialog shown before deleting a period
 **Plans**: 0 plans
 
 Plans:
