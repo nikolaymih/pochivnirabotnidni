@@ -98,9 +98,11 @@ describe('groupVacationPeriods', () => {
   });
 
   test('filters to requested year only', () => {
-    const dates = ['2025-12-30', '2025-12-31', '2026-01-02', '2026-01-05'];
+    // 2026-01-02 is Friday, 2026-01-05 is Monday (weekend bridges them)
+    // 2026-01-07 is Wednesday (working day gap from Monday)
+    const dates = ['2025-12-30', '2025-12-31', '2026-01-02', '2026-01-05', '2026-01-07'];
     const result = groupVacationPeriods(dates, [], 2026);
-    // Only 2026 dates should be included
+    // Only 2026 dates should be included; Jan 2+5 bridge over weekend = 1 period, Jan 7 = separate
     expect(result).toHaveLength(2);
     const allDays = result.flatMap((p) => p.days);
     expect(allDays.every((d) => d.startsWith('2026'))).toBe(true);
