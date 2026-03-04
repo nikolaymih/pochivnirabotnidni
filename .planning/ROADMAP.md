@@ -261,8 +261,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — TDD: Period grouping algorithm with unit tests
-- [ ] 07-02-PLAN.md — Period list UI in VacationSummary with bulk delete and inline confirmation
+- [x] 07-01-PLAN.md — TDD: Period grouping algorithm with unit tests
+- [x] 07-02-PLAN.md — Period list UI in VacationSummary with bulk delete and inline confirmation
 
 ## Progress
 
@@ -281,4 +281,4 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5
 | 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 9/9 | ✅ Complete | 2026-03-04 |
 | 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 3/3 | ✅ Complete | 2026-02-10 |
 | 6. Testing & Quality Gates | 6/6 | ✅ Complete | 2026-02-11 |
-| 7. Vacation Period Management & Bulk Delete | 0/2 | Ready to execute | - |
+| 7. Vacation Period Management & Bulk Delete | 2/2 | ✅ Complete | 2026-03-04 |
