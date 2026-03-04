@@ -48,6 +48,12 @@ Progress: [██████████] 100% (38 of 38 plans complete across 
 
 ### Roadmap Evolution
 
+- **2026-03-04:** Phase 7 added — Vacation Period Management & Bulk Delete
+  - Group consecutive vacation days into "periods" displayed under % използвани in VacationSummary
+  - Each period: first day – last day (total days) with X delete button
+  - Delete removes entire period at once (current year only)
+  - Historical years: display periods read-only (no X button)
+
 - **2026-02-09:** Phase 05.3 inserted after Phase 5.2 (INSERTED) - Multi-year vacation history and 2-year carryover per Bulgarian labor law
   - Users need to see vacation history when navigating to previous years (calendar + Отпуска summary)
   - Unused vacation days carry over automatically to next year

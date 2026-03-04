@@ -243,10 +243,27 @@ Plans:
 - [x] 06-05-PLAN.md — E2E tests for critical user flows and Safari date validation
 - [x] 06-06-PLAN.md — Coverage verification and test quality checkpoint
 
+### Phase 7: Vacation Period Management & Bulk Delete
+**Goal**: Users can see their vacation periods (consecutive day groups) listed in VacationSummary and delete entire periods at once for the current year
+**Depends on**: Phase 6
+**Requirements**: VAC-05 (remove vacation days)
+**Success Criteria** (what must be TRUE):
+  1. Consecutive vacation days are automatically grouped into periods
+  2. Each period displays under "% използвани" showing: first day – last day (total days)
+  3. Each period has an X button to delete the entire period at once
+  4. Delete is ONLY available for the current year (X button hidden for historical years)
+  5. Previous years show periods in read-only mode (display only, no delete)
+  6. Every new period appears on its own line
+  7. Period list updates immediately when vacation days are added or removed
+**Plans**: 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 7 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5.3 -> 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5.3 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -260,3 +277,4 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5
 | 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 9/9 | ✅ Complete | 2026-03-04 |
 | 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 3/3 | ✅ Complete | 2026-02-10 |
 | 6. Testing & Quality Gates | 6/6 | ✅ Complete | 2026-02-11 |
+| 7. Vacation Period Management & Bulk Delete | 0/0 | Not planned yet | - |
