@@ -193,15 +193,15 @@ Plans:
 **Plans**: 9 plans
 
 Plans:
-- [ ] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
-- [ ] 05.2-02-PLAN.md — School holidays data layer (types, fetch, fallback)
-- [ ] 05.2-03-PLAN.md — Teal color tokens and Legend update (6 entries)
-- [ ] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
-- [ ] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
-- [ ] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
-- [ ] 05.2-07-PLAN.md — Gap closure: Legend swatch fix, vacation color update, mobile tooltip
-- [ ] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
-- [ ] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
+- [x] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
+- [x] 05.2-02-PLAN.md — School holidays data layer (types, fetch, fallback)
+- [x] 05.2-03-PLAN.md — Teal color tokens and Legend update (6 entries)
+- [x] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
+- [x] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
+- [x] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
+- [x] 05.2-07-PLAN.md — Gap closure: Legend swatch fix, vacation color update, mobile tooltip
+- [x] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
+- [x] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
 
 ### Phase 05.3: Multi-year vacation history and 2-year carryover per Bulgarian labor law (INSERTED)
 
@@ -257,6 +257,6 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
 | 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
-| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 6/9 | Gap closure in progress | - |
+| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 9/9 | ✅ Complete | 2026-03-04 |
 | 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 3/3 | ✅ Complete | 2026-02-10 |
 | 6. Testing & Quality Gates | 6/6 | ✅ Complete | 2026-02-11 |
