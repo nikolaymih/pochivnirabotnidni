@@ -199,14 +199,14 @@ export default function VacationSummary({ year, holidayDates }: VacationSummaryP
       {/* Vacation Periods */}
       {periods.length > 0 && (
         <div className="border-t border-latte pt-2 mt-2">
-          <span className="text-xs text-cappuccino font-semibold">
-            Използвани периоди:
+          <span className="font-semibold mb-1 block">
+            Периоди
           </span>
           <div className="mt-1 space-y-1">
             {periods.map(period => (
               <div key={period.startDate}>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-coffee">
+                  <span className="text-sm text-coffee">
                     {formatPeriod(period)}
                   </span>
                   {isCurrentYear && (
