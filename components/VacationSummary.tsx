@@ -1,14 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { getYear } from 'date-fns';
+import { useState, useEffect, useMemo } from 'react';
+import { getYear, parseISO, format } from 'date-fns';
+import { groupVacationPeriods } from '@/lib/vacation/periods';
+import type { VacationPeriod } from '@/lib/vacation/types';
 import { useVacation } from '@/contexts/VacationContext';
 
 interface VacationSummaryProps {
   year?: number;
+  holidayDates?: string[];
 }
 
-export default function VacationSummary({ year }: VacationSummaryProps) {
+export default function VacationSummary({ year, holidayDates }: VacationSummaryProps) {
   const [isClient, setIsClient] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(0);
@@ -26,6 +29,33 @@ export default function VacationSummary({ year }: VacationSummaryProps) {
   const percentageUsed = effectiveTotal > 0
     ? Math.round((usedDays / effectiveTotal) * 100)
     : 0;
+
+  const [pendingDelete, setPendingDelete] = useState<VacationPeriod | null>(null);
+
+  const displayYear = year || getYear(new Date());
+
+  const periods = useMemo(
+    () => groupVacationPeriods(vacationData.vacationDates, holidayDates || [], displayYear),
+    [vacationData.vacationDates, holidayDates, displayYear]
+  );
+
+  const formatPeriod = (period: VacationPeriod): string => {
+    const start = format(parseISO(period.startDate), 'dd.MM');
+    const end = format(parseISO(period.endDate), 'dd.MM');
+    if (period.dayCount === 1) {
+      return `${start} (1 ден)`;
+    }
+    return `${start} – ${end} (${period.dayCount} дни)`;
+  };
+
+  const handleDeletePeriod = (period: VacationPeriod) => {
+    const datesToRemove = new Set(period.days);
+    setVacationData({
+      ...vacationData,
+      vacationDates: vacationData.vacationDates.filter(d => !datesToRemove.has(d))
+    });
+    setPendingDelete(null);
+  };
 
   const handleEdit = () => {
     setEditValue(vacationData.totalDays);
@@ -165,6 +195,59 @@ export default function VacationSummary({ year }: VacationSummaryProps) {
       <div className="pt-2 border-t border-latte">
         <span className="text-sm text-cappuccino">{percentageUsed}% използвани</span>
       </div>
+
+      {/* Vacation Periods */}
+      {periods.length > 0 && (
+        <div className="border-t border-latte pt-2 mt-2">
+          <span className="text-xs text-cappuccino font-semibold">
+            Използвани периоди:
+          </span>
+          <div className="mt-1 space-y-1">
+            {periods.map(period => (
+              <div key={period.startDate}>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-coffee">
+                    {formatPeriod(period)}
+                  </span>
+                  {isCurrentYear && (
+                    <button
+                      onClick={() => setPendingDelete(
+                        pendingDelete?.startDate === period.startDate ? null : period
+                      )}
+                      className="text-cappuccino hover:text-error text-sm px-1 leading-none"
+                      aria-label={`Изтрий период ${formatPeriod(period)}`}
+                    >
+                      &times;
+                    </button>
+                  )}
+                </div>
+                {/* Inline confirmation */}
+                {pendingDelete?.startDate === period.startDate && (
+                  <div className="mt-1 p-2 bg-foam rounded border border-latte text-xs">
+                    <p className="text-coffee mb-2">
+                      Изтриване на {formatPeriod(period)}?
+                    </p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleDeletePeriod(period)}
+                        className="px-2 py-1 bg-error text-white rounded text-xs hover:bg-error/90"
+                      >
+                        Изтрий
+                      </button>
+                      <button
+                        onClick={() => setPendingDelete(null)}
+                        className="px-2 py-1 bg-cappuccino text-white rounded text-xs hover:bg-coffee"
+                      >
+                        Отказ
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

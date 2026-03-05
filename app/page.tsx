@@ -54,6 +54,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   ]);
 
   const holidays = [...prevYearHolidays, ...currentYearHolidays, ...nextYearHolidays];
+  const holidayDates = holidays.map(h => h.date);
 
   const schoolHolidayDatesSet = getSchoolHolidayDates(schoolHolidays);
   const schoolHolidayDates = Array.from(schoolHolidayDatesSet);
@@ -73,7 +74,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           <div className="max-w-[650px] mx-auto px-4">
             {/* Right sidebar content first on mobile */}
             <Legend />
-            <VacationSummary year={currentYear} />
+            <VacationSummary year={currentYear} holidayDates={holidayDates} />
 
             {/* Left sidebar content */}
             <div className="mt-4">
@@ -131,7 +132,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="w-72 flex-shrink-0">
               <div className="sticky top-4">
                 <Legend />
-                <VacationSummary year={currentYear} />
+                <VacationSummary year={currentYear} holidayDates={holidayDates} />
               </div>
             </div>
           </div>

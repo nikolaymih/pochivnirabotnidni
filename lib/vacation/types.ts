@@ -34,3 +34,23 @@ export interface CarryoverBucket {
   /** Computed: today > expiresAt */
   isExpired: boolean;
 }
+
+/**
+ * A vacation period groups consecutive vacation days into a single block.
+ *
+ * Non-working days (weekends, holidays) between vacation days do NOT split periods.
+ * Only working day gaps break periods into separate groups.
+ */
+export interface VacationPeriod {
+  /** First vacation day in the period (YYYY-MM-DD) */
+  startDate: string;
+
+  /** Last vacation day in the period (YYYY-MM-DD) */
+  endDate: string;
+
+  /** All vacation days in the period, sorted chronologically (YYYY-MM-DD[]) */
+  days: string[];
+
+  /** Number of vacation days in the period */
+  dayCount: number;
+}

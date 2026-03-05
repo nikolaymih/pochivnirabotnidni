@@ -193,15 +193,15 @@ Plans:
 **Plans**: 9 plans
 
 Plans:
-- [ ] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
-- [ ] 05.2-02-PLAN.md — School holidays data layer (types, fetch, fallback)
-- [ ] 05.2-03-PLAN.md — Teal color tokens and Legend update (6 entries)
-- [ ] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
-- [ ] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
-- [ ] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
-- [ ] 05.2-07-PLAN.md — Gap closure: Legend swatch fix, vacation color update, mobile tooltip
-- [ ] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
-- [ ] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
+- [x] 05.2-01-PLAN.md — Text constants file and dynamic SEO metadata
+- [x] 05.2-02-PLAN.md — School holidays data layer (types, fetch, fallback)
+- [x] 05.2-03-PLAN.md — Teal color tokens and Legend update (6 entries)
+- [x] 05.2-04-PLAN.md — MonthGrid enhancements (colors, priority, school holidays, weekend transfer, tooltips, dimensions)
+- [x] 05.2-05-PLAN.md — Left sidebar component (official holidays + school vacations)
+- [x] 05.2-06-PLAN.md — Layout restructuring (three-column desktop, year selector, page.tsx rewrite)
+- [x] 05.2-07-PLAN.md — Gap closure: Legend swatch fix, vacation color update, mobile tooltip
+- [x] 05.2-08-PLAN.md — Gap closure: School holiday filtering, weekend holidays, split-cell overlap
+- [x] 05.2-09-PLAN.md — Gap closure: Remove visible title, center layout, mobile width wrapper
 
 ### Phase 05.3: Multi-year vacation history and 2-year carryover per Bulgarian labor law (INSERTED)
 
@@ -243,10 +243,31 @@ Plans:
 - [x] 06-05-PLAN.md — E2E tests for critical user flows and Safari date validation
 - [x] 06-06-PLAN.md — Coverage verification and test quality checkpoint
 
+### Phase 7: Vacation Period Management & Bulk Delete
+**Goal**: Users can see their vacation periods (consecutive day groups) listed in VacationSummary and delete entire periods at once for the current year
+**Depends on**: Phase 6
+**Requirements**: VAC-05 (remove vacation days)
+**Success Criteria** (what must be TRUE):
+  1. Consecutive vacation days are automatically grouped into periods
+  2. Each period displays under "% използвани" showing: first day – last day (total days)
+  3. Each period has an X button to delete the entire period at once
+  4. Delete is ONLY available for the current year (X button hidden for historical years)
+  5. Previous years show periods in read-only mode (display only, no delete)
+  6. Every new period appears on its own line
+  7. Period list updates immediately when vacation days are added or removed
+  8. Non-working days (weekends, holidays) between vacation days do NOT split periods
+  9. Periods displayed most recent first (reverse chronological)
+  10. Confirmation dialog shown before deleting a period
+**Plans**: 2 plans
+
+Plans:
+- [x] 07-01-PLAN.md — TDD: Period grouping algorithm with unit tests
+- [x] 07-02-PLAN.md — Period list UI in VacationSummary with bulk delete and inline confirmation
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5.3 -> 6
+Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5.3 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -257,6 +278,7 @@ Phases execute in numeric order: 1 -> 1.1 -> 2 -> 3 -> 4 -> 5 -> 5.1 -> 5.2 -> 5
 | 4. Authentication & Cross-Device Sync | 0/4 | Planned | - |
 | 5. UX Polish & Mobile Optimization | 3/3 | ✅ Complete | 2026-02-06 |
 | 5.1. UX Infrastructure & Feedback Loop (INSERTED) | 4/4 | ✅ Complete | 2026-02-06 |
-| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 6/9 | Gap closure in progress | - |
+| 5.2. SEO Improvements & Layout Restructuring (INSERTED) | 9/9 | ✅ Complete | 2026-03-04 |
 | 5.3. Multi-year vacation history & 2-year carryover (INSERTED) | 3/3 | ✅ Complete | 2026-02-10 |
 | 6. Testing & Quality Gates | 6/6 | ✅ Complete | 2026-02-11 |
+| 7. Vacation Period Management & Bulk Delete | 2/2 | ✅ Complete | 2026-03-04 |
